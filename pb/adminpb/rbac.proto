@@ -1,0 +1,390 @@
+syntax = "proto3";
+
+package daop.pb.adminpb;
+option go_package = "pb/adminpb;adminpb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+// 权限数据结构
+message Privilege {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "权限数据结构"
+      description: "权限数据结构"
+      required: ["parent_id","show_name_cn","router_uri"]
+    }
+  };
+  uint32 privilege_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限ID"}];
+  uint32 parent_id = 2 [(validate.rules).uint32.gte = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "父级权限ID"}];
+  string show_name_cn = 3 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "中文名"}];
+  string show_name_en =4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "英文名"}];
+  uint32 privilege_type = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限类型：1-页面；2-按钮；3-内容块；4-接口",default:"4"}];
+  uint32 level = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "菜单类权限的层级",default:"1"}];
+  string router_uri = 9 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "目标页面对应的路由地址"}];
+  string icon = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页面或元素的图标"}];
+  uint32 target = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "连接目标类型：1-当前窗口；2-新窗口/标签；3-弹出窗口(暂未使用)",default:"1"}];
+  uint32 is_show = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否显示：1-是;2-否",default:"1"}];
+  uint32 on_top = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "菜单级权限是否显示在顶部导航条：1-是;2-否",default:"2"}];
+  uint32 ranking = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "菜单级权限在同级菜单排列位置"}];
+  uint32 is_public = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否可公开访问的权限：1-是;2-否",default:"2"}];
+  uint32 need_login = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要登录后才能访问：1-需要;2-不需要",default:"1"}];
+  uint32 need_authorise = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要授权后才能访问：1-需要;2-不需要",default:"1"}];
+  uint32 init_state = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态：1-系统初始菜单；2-非系统初始菜单；3-系统管理员专有菜单",default:"2"}];
+  string remarks = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+  uint32 create_time = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态：0-删除；1-有效",default:"1"}];
+}
+
+// 添加/编辑权限请求
+message HandlePrivilegeReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action", "privilege"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型：1-添加；2-更新"}];
+  Privilege privilege = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限信息"}];
+}
+
+// 取单个权限返回数据结构
+message GetPrivilegeResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  Privilege data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限信息"}];
+}
+
+// 取权限列表返回数据结构
+message GetPrivilegeListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated Privilege data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限信息"}];
+}
+
+// 通过uri取单个权限请求
+message GetPrivilegeByUriReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["uri"]
+    }
+  };
+  string uri = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "接口Uri"}];
+}
+
+// 通过角色ID取单个权限请求
+message GetPrivilegesOfRoleReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_id"]
+    }
+  };
+  uint32 role_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  uint32 is_system_admin = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否系统管理员角色",default:"2"}];
+}
+
+// 角色数据结构
+message Role {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_name_cn","role_group_id","group_name_cn"]
+    }
+  };
+  uint32 role_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  string role_name_cn = 2 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "中文名"}];
+  string role_name_en = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "英文名"}];
+  uint32 role_group_id = 4 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组ID"}];
+  string group_name_cn = 5 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组中文名"}];
+  string group_name_en = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组英文名"}];
+  uint32 role_grade = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限等级，等级越大，权限越小（暂未启用，待定）"}];
+  uint32 ranking = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "排列位置"}];
+  uint32 init_state = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态：1-系统初始化角色;2-非系统初始化角色",default:"2"}];
+  string remarks = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+  uint32 is_system = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否为系统管理员：1-是;2-否",default:"2"}];
+  uint32 create_time = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态：0-删除；1-有效",default:"1"}];
+}
+
+// 角色分组数据结构
+message RoleGroup {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["group_name_cn"]
+    }
+  };
+  uint32 group_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组ID"}];
+  string group_name_cn = 2 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组中文名"}];
+  string group_name_en = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组英文名"}];
+  uint32 ranking = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "排列位置"}];
+  uint32 init_state = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态：1-系统初始化角色;2-非系统初始化角色",default:"2"}];
+  string remarks = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+  uint32 create_time = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态：0-删除；1-有效",default:"1"}];
+}
+
+// 角色和权限关系数据结构
+message RolePrivilege {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_id","privilege_id"]
+    }
+  };
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "关系ID"}];
+  uint32 role_id = 2 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  uint32 privilege_id = 3 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限ID"}];
+  uint32 init_state = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态：1-系统初始化角色;2-非系统初始化角色",default:"2"}];
+  uint32 status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态：0-删除；1-有效",default:"0"}];
+}
+
+// 角色分组及其下角色数据结构
+message RoleAndGroup {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["group","role_id","role_name_cn"]
+    }
+  };
+  RoleGroup group = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组信息"}];
+  uint32 role_id = 1 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  string role_name_cn = 2 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "中文名"}];
+  string role_name_en = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "英文名"}];
+  uint32 role_grade = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限等级，等级越大，权限越小（暂未启用，待定）"}];
+  uint32 ranking = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "排列位置"}];
+  uint32 init_state = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态：1-系统初始化角色;2-非系统初始化角色",default:"2"}];
+  uint32 is_system = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否为系统管理员：1-是;2-否",default:"2"}];
+}
+
+// 角色和权限关系数据结构(附带权限名称等信息)
+message RoleAndPrivilege{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["ref","privilege_name_cn","parent_id"]
+    }
+  };
+  RolePrivilege ref = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色和权限关系信息"}];
+  string privilege_name_cn = 2 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限中文名"}];
+  string privilege_name_en =3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限英文名"}];
+  string router_uri =4 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "路由地址"}];
+  uint32 parent_id = 5 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "父级权限ID"}];
+  uint32 privilege_type = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限类型：1-页面；2-按钮；3-内容块；4-接口"}];
+  uint32 level = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "菜单类权限的层级"}];
+  string icon = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页面或元素的图标"}];
+  uint32 is_public = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否可公开访问的权限：1-是;2-否",default:"2"}];
+  uint32 need_login = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要登录后才能访问：1-需要;2-不需要",default:"1"}];
+  uint32 need_authorise = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要授权后才能访问：1-需要;2-不需要",default:"1"}];
+}
+
+// 添加/编辑角色请求
+message HandleRoleReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action","role"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[1,2]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型：1-添加；2-更新"}];
+  Role role = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色信息"}];
+}
+
+// 通过ID取单个角色请求
+message GetRoleByIdReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_id"]
+    }
+  };
+  uint32 role_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+}
+
+// 取单个角色返回数据结构
+message GetRoleResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  Role data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色信息"}];
+}
+
+// 取角色列表返回数据结构
+message GetRoleListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated Role data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色信息"}];
+}
+
+
+// 添加/编辑分组请求
+message HandleRoleGroupReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action","group"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型：1-添加；2-更新"}];
+  RoleGroup group = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组信息"}];
+}
+
+// 取角色分组列表返回数据结构
+message GetRoleGroupListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated RoleGroup data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色分组信息"}];
+}
+
+
+// 保存角色权限请求
+message AuthorisePrivilegesToRoleReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_id","privilege_id"]
+    }
+  };
+  uint32 role_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  repeated uint32 privilege_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限ID列表"}];
+}
+
+message RoleGroupPrivilege {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["rg","rp"]
+    }
+  };
+  repeated RoleAndGroup rg = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色和分组信息"}];
+  repeated RoleAndPrivilege rp = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色权限信息"}];
+}
+// 取所有角色的权限的返回结构
+message GetPrivilegesOfAllRolesResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  RoleGroupPrivilege data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色、角色分组及权限信息"}];
+}
+
+// 通过角色ID取单个权限请求
+message GetPrivilegesOfRoleResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated RoleAndPrivilege data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色权限信息"}];
+}
+
+// 账号相关数据结构
+message Account {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["account_name","role_id","role_name_cn"]
+    }
+  };
+  uint32 account_id = 1  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}];
+  string account_name = 2 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "登录用户名"}];
+  string password = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {default:"66668888",description: "登录密码"}];
+  uint32 role_id = 4 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  string role_name_cn = 5 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "中文名"}];
+  string role_name_en = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "英文名"}];
+  uint32 group_id = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分组ID"}];
+  string group_name = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分组名称"}];
+  string real_name = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实姓名"}];
+  string avatar = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "头像链接"}];
+  string mobile = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号码"}];
+  string email = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string remarks = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "简介"}];
+  string bind_ip = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "绑定登录IP"}];
+  string bind_mac = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "绑定登录MAC地址"}];
+  uint32 operator_id = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改人ID"}];
+  string operator_name = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实姓名"}];
+  uint32 last_login_time = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  string last_login_ip = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  string last_login_mac = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 init_state = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态：1-系统初始用户;2-非系统初始用户",default:"2"}];
+  uint32 is_system_admin = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否为系统管理员：1-是;2-否",default:"2"}];
+  uint32 create_time = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 27 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态：0-删除;1-有效;2-锁定",default:"1"}];
+}
+
+// 添加/编辑账号请求
+message HandleAccountReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action","account"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型：1-添加；2-更新"}];
+  Account account = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号信息"}];
+}
+
+// 取单个账号返回的数据结构
+message GetAccountResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  Account data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号信息"}];
+}
+
+// 取账号列表返回的数据结构
+message GetAccountListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated Account data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号信息"}];
+}
+
+// 通过账号ID取账号信息返回的数据结构
+message GetAccountByIdReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["account_id"]
+    }
+  };
+  uint32 account_id = 1  [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}];
+}
+
+// 通过账号名取账号信息返回的数据结构
+message GetAccountByNameReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["account_name"]
+    }
+  };
+  string account_name = 1 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "登录用户名"}];
+}
+
+// 通过手机号取账号信息返回的数据结构
+message GetAccountByMobileReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["mobile"]
+    }
+  };
+  string mobile = 1 [(validate.rules).string.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号码"}];
+}
+
+// 通过Email取账号信息返回的数据结构
+message GetAccountByEmailReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["email"]
+    }
+  };
+  string email = 1 [(validate.rules).string.email = true, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+}
+
+// 通过角色ID取账号信息返回的数据结构
+message GetAccountsByRoleReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_id"]
+    }
+  };
+  uint32 role_id = 1 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+}
+
+// 检查某个角色是否有访问某个权限的请求
+message CheckAccessReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["role_id","privilege_id"]
+    }
+  };
+  uint32 role_id = 1 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "角色ID"}];
+  uint32 privilege_id = 2 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权限ID"}];
+}
+

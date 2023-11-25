@@ -1,0 +1,15 @@
+version: v1
+name: buf.build/daop/pb
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/envoyproxy/protoc-gen-validate
+  - buf.build/grpc-ecosystem/grpc-gateway
+breaking:
+  use:
+    - FILE
+#build:
+#  excludes:
+#    - pb
+lint:
+  use:
+    - DEFAULT

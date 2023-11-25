@@ -1,0 +1,305 @@
+syntax = "proto3";
+
+package daop.pb.darsppb;
+option go_package = "pb/darsppb;darsppb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/httpbody.proto";
+import "google/api/visibility.proto";
+import "google/protobuf/struct.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+// DarspService DAR服务网点服务
+service DarspService {
+	// PartnerApply 申请服务网点
+  rpc PartnerApply(PartnerAddIn) returns (PartnerAddOut) {
+    option (google.api.http) = {
+      post: "/darsp/partner/apply" 
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请服务网点"};
+  }
+  
+  // PlatformApply 申请发行平台
+  rpc PlatformApply(PlatformAddIn) returns (PlatformAddOut) {
+    option (google.api.http) = {
+      post: "/darsp/platform/apply" 
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请发行平台"};
+  }
+  
+  // PublisherApply 申请发行商
+  rpc PublisherApply(PublisherAddIn) returns (PublisherAddOut) {
+    option (google.api.http) = {
+      post: "/darsp/publisher/apply" 
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请发行商"};
+  }
+
+  // AssetRegistrationApply 数字资产登记申请
+  rpc AssetRegistrationApply(AssetRegistrationAddIn) returns (AssetRegistrationAddOut) {
+    option (google.api.http) = {
+      post: "/darsp/asset/registration/apply"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "数字资产登记添加"};
+  }
+
+  // AssetReportGroupAdd 数字资产数据上报组创建
+  rpc AssetReportGroupAdd(AssetReportGroupAddIn) returns (AssetReportGroupAddOut) {
+    option (google.api.http) = {
+      post: "/darsp/asset/report/group/add"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "数字资产数据上报组创建"};
+  }
+  
+  // AssetReportAdd 数字资产数据上报
+  rpc AssetReportAdd(AssetReportAddIn) returns (AssetReportAddOut) {
+    option (google.api.http) = {
+      post: "/darsp/asset/report/add"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "数字资产数据上报"};
+  }
+  // AssetReportTransfer 数字资产数据交易上报
+  rpc AssetReportTransfer(AssetReportTransferIn) returns (AssetReportTransferOut) {
+    option (google.api.http) = {
+      post: "/darsp/asset/report/transfer"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "数字资产数据上报"};
+  }
+}
+
+// --------------------
+
+message PartnerAddIn {
+  string chain_name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链名称"}]; // 链名称
+  string chain_url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链地址"}]; // 链地址
+  string company_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业名称"}]; // 企业名称
+  string license_number = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "营业执照号"}]; // 营业执照号
+  string province_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "省份名称"}]; // 省份名称
+  string city_name = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "市名称"}]; // 市名称
+  string district_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "地区名称"}]; // 地区名称
+  string business_address = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "经营地址(除省市区外的地址)"}]; // 经营地址(除省市区外的地址)
+  string legal_name = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人姓名"}]; // 法人姓名
+  string legal_id = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证"}]; // 法人身份证
+  string contact_name = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人姓名"}]; // 联系人姓名
+  string contact_email = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人邮箱"}]; // 联系人邮箱
+  string contact_mobile = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人手机"}]; // 联系人手机
+  string apply_form_file = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "网点申请表"}]; // 网点申请表
+  string constitution_file = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "公司章程"}]; // 网点申请表
+  string license_number_file = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "营业执照(网址)"}]; // 营业执照(网址)
+  string account_opening_permit_file = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开户许可证"}]; // 网点申请表
+  string legal_id_front_file = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证正面图片(网址)"}]; // 法人身份证正面图片(网址)
+  string legal_id_back_file = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证反面图片(网址)"}]; // 法人身份证反面图片(网址)
+  string icp_file = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "增值电信业务经营许可证书"}]; // 网点申请表
+  string ccrc_file = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "信息系统安全等级备案"}]; // 网点申请表
+  string software_copyright_file = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "软件著作权登记证书"}]; // 网点申请表
+  string qualification_file = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "公司相关业务执业证书"}]; // 网点申请表
+  string high_tech_file = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "高新企业技术证书"}]; // 网点申请表
+  repeated string case_files = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "案例文件"}]; // 网点申请表
+  repeated string extra_files = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "补充材料"}]; // 补充材料
+  uint32 partner_id = 28 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "服务网点ID"}]; // 服务网点ID
+  string app_no = 29 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "appID"}]; // appID
+  repeated string audit_extra_files = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核补充材料(网址)"}]; // 审核补充材料(网址)
+  string alias_name = 50 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称"}]; // 企业简称
+}
+
+message PartnerAddOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 partner_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "服务网点ID"}]; // 服务网点ID
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}
+
+message PlatformAddIn {
+  uint32 publish_platform_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行平台ID"}]; // 发行平台ID
+  uint32 partner_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "网点服务商ID"}]; // 网点服务商ID
+  string chain_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链名称"}]; // 链名称
+  string chain_url = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链地址"}]; // 链地址
+  string alias_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称发行平台名称"}]; // 企业简称发行平台名称
+  string icp_edi_cert = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ICP/EDI证书号"}]; // ICP/EDI证书
+  string company_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业名称"}]; // 企业名称
+  string license_number = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "营业执照号"}]; // 营业执照号
+  string business_address = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "经营地址(除省市区外的地址)"}]; // 经营地址(除省市区外的地址)
+  string legal_name = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人姓名"}]; // 法人姓名
+  string legal_id = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证"}]; // 法人身份证
+  string contact_name = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人姓名"}]; // 联系人姓名
+  string contact_email = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人邮箱"}]; // 联系人邮箱
+  string contact_mobile = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人手机"}]; // 联系人手机
+  string license_number_file = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "营业执照(网址)"}]; // 营业执照(网址)
+  string icp_edi_cert_file = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ICP/EDI证书"}]; // ICP/EDI证书
+  string legal_id_front_file = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证正面图片(网址)"}]; // 法人身份证正面图片(网址)
+  repeated string extra_files = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "补充材料"}]; // 补充材料JSON数组
+  string app_no = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "appID"}]; // app ID
+  string logo_url = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "平台logo url"}]; // 平台logo url
+  uint32 sort_id = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "排序字段"}]; // 排序字段
+  repeated string audit_extra_files = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核补充材料(网址)"}]; // 审核补充材料(网址)
+}
+
+message PlatformAddOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 publish_platform_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "服务网点ID"}]; // 服务网点ID
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data信息
+}
+
+message PublisherAddIn {
+  uint32 publisher_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行商ID"}]; // 发行商ID
+  uint32 partner_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "网点服务商ID"}]; // 网点服务商ID
+  uint32 platform_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行平台ID"}]; // 发行平台ID
+  string chain_name = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链名称"}]; // 链名称
+  string chain_url = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链地址"}]; // 链地址
+  string company_name = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业名称"}]; // 企业名称
+  string license_number = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "营业执照号"}]; // 营业执照号
+  string license_number_file = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "营业执照(网址)"}]; // 营业执照(网址)
+  string province_name = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "省份名称"}]; // 省份名称
+  string city_name = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "市名称"}]; // 市名称
+  string district_name = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "地区名称"}]; // 地区名称
+  string business_address = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "经营地址(除省市区外的地址)"}]; // 经营地址(除省市区外的地址)
+  string legal_name = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人姓名"}]; // 法人姓名
+  string legal_id = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证"}]; // 法人身份证
+  string legal_id_front_file = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证正面图片(网址)"}]; // 法人身份证正面图片(网址)
+  string legal_id_back_file = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "法人身份证反面图片(网址)"}]; // 法人身份证反面图片(网址)
+  string contact_name = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人姓名"}]; // 联系人姓名
+  string contact_mobile = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人手机"}]; // 联系人手机
+  string contact_tel = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人电话"}]; // 联系人电话
+  string contact_email = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人邮箱"}]; // 联系人邮箱
+  repeated string extra_files = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "补充材料"}]; // 补充材料
+  repeated string audit_extra_files = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核补充材料(网址)"}]; // 审核补充材料(网址)
+}
+
+message PublisherAddOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 publisher_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行商ID"}]; // 发行商ID
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}
+
+// ----------
+
+message AssetRegistrationAddIn {
+  uint32 partner_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "网点服务商id"}]; // 网点服务商id
+  uint32 platform_id = 2 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行平台id"}]; // 发行平台id
+  uint32 publisher_id = 3 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行商id"}]; // 发行商id
+  uint32 copyright_type = 4 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权类型, 0:原创声明;1:授权证明"}]; // 版权类型, 0:原创声明;1:授权证明
+  string chain_name = 5 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1,max_len:64},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链名称1-64字"}]; // 链名称1-64 字
+  string contract_addr = 6 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约地址"}]; // 合约地址
+  uint32 asset_type = 7 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产类型,1数字文创，2数字出版，3数字纪念品，4文博衍生，5数字权益，6数字营销"}]; // 数字资产类型,1数字文创，2数字出版，3数字纪念品，4文博衍生，5数字权益，6数字营销
+  string asset_name = 8 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1,max_len:128},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资产名称1-128字"}]; // 资产名称1-128字
+  string creative_name = 10 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作者"}]; // 作者
+  uint32 creative_time = 11 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作时间"}]; // 创作时间
+  uint32 first_published_at = 12 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "首次发行时间"}]; // 首次发行时间
+  uint32 issue_price_min = 13 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最小发行价格"}]; // 最小发行价格 分
+  uint32 issue_price_max = 14 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最大发行价格"}]; // 最大发行价格 分
+  uint32 issue_num = 15 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行数量"}]; // 发行数量
+  string cover_img = 16 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产封面图(网址)"}]; // 数字资产封面图(网址)
+  string authorized_file = 17 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权证明文件(网址)"}]; // 授权证明文件(网址)
+  string author_file = 18 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "原创证明文件(网址)"}]; // 原创证明文件(网址)
+  string asset_detail_file = 19 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产信息资料(网址)"}]; // 数字资产信息资料(网址)
+  string rights_desc = 20 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权益说明"}]; // 权益说明
+  string asset_desc = 21 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产介绍"}]; // 数字资产介绍
+  repeated string extra_files = 30[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "登记补充材料(网址)"}]; // 补充材料(网址)
+
+}
+
+message AssetRegistrationAddOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}]; // id
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}
+
+// ----------
+
+message AssetReportGroupAddIn{
+  uint32 registration_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产登记id"}]; // 数字资产登记id
+  uint32 asset_icon_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行的数字资产信息是否全部一致0不一致1一致"}]; // 发行的数字资产信息是否全部一致0不一致1一致
+  string asset_icon = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行的数字资产信息一致的时候提交数字资产icon(网址)"}]; //发行的数字资产信息一致的时候提交数字资产icon(网址)
+}
+
+message AssetReportGroupAddOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 asset_rgid = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "组id"}]; // 组id
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}
+
+// ----------
+
+message AssetReportAddIn{
+  uint32 registration_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资登记id"}]; // 数字资登记id
+
+  uint32 asset_rgid = 2 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产组id"}]; // 数字资产组id
+  repeated AssetReportAddData list = 4  [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上报数字资产"}]; //数字资产icon(网址)
+}
+
+message AssetReportAddData{
+  string user_phone = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户手机号"}]; //用户手机号
+  string user_name = 2 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户名称"}]; //用户名称
+  string user_id_card = 3 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户身份证号"}]; //用户身份证号
+  string user_addr = 4 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户地址"}]; //用户地址
+  string asset_no = 5 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产编号"}]; //数字资产编号
+  string asset_icon = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发行的数字资产信息不一致的时候提交数字资产icon(网址)"}]; //发行的数字资产信息不一致的时候提交数字资产icon(网址)
+  uint32 asset_type = 7 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产类型,1-图片;2-视频;3-3D数字资产"}]; //数字资产类型,1-图片;2-视频;3-3D数字资产
+  uint32 issue_price = 9 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资产价格 分"}]; // 资产价格 分
+  uint32 mint_time = 10 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造时间, UNIX时间戳, 单位:秒"}]; //铸造时间, UNIX时间戳, 单位:秒
+  string bcb_uri = 11 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "区块链浏览器(BCB)的链接，查看链上资产"}]; // 区块链浏览器(BCB)的链接，查看链上资产
+  string chain_uri = 12 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产URI(网址)"}]; // 数字资产URI(网址)
+  string token_id = 13 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产TokenID"}]; // 数字资产TokenID
+  repeated AssetReportChainData chain_list = 14 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链类型,0:铸造;1:交易(一手)交易"}]; // 上链类型,0:铸造;1:交易(一手)交易
+}
+message AssetReportTransferIn{
+  uint32 registration_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资登记id"}]; // 数字资登记id
+  repeated AssetReportTransferData list = 4  [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上报数字资产"}]; //数字资产icon(网址)
+}
+
+message AssetReportTransferData{
+  string to_user_phone = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易用户手机号"}]; //交易用户手机号
+  string to_user_name = 2 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易用户名称"}]; //交易用户名称
+  string to_user_id_card = 3 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易用户身份证号"}]; //交易用户身份证号
+  string to_user_addr = 4 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易用户地址"}]; //交易用户地址
+  uint32 issue_price = 9 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易资产价格 分"}]; // 交易资产价格 分
+  uint32 transfer_time = 10 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易时间, UNIX时间戳, 单位:秒"}]; //铸造时间, UNIX时间戳, 单位:秒
+  string token_id = 13 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字资产TokenID"}]; // 数字资产TokenID
+}
+message AssetReportTransferOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}]; // id
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}
+message AssetReportChainData{
+  uint32 chain_type = 8 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链类型,0:铸造;1:交易(一手)交易;2其他"}]; // 上链类型,0:铸造;1:交易(一手)交易；2其他
+  string chain_tx_id = 9 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链交易ID"}]; // 上链交易ID
+  uint32 chain_block_number = 10 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链生成的交易所在区块号"}]; // 上链生成的交易所在区块号
+  uint32 chain_time = 11 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链时间, UNIX时间戳, 单位:秒"}]; // 上链时间, UNIX时间戳, 单位:秒
+}
+
+message AssetReportAddOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}]; // id
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}

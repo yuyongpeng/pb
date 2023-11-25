@@ -1,0 +1,377 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/basepb/base.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BaseService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/base/send/email": {
+      "post": {
+        "summary": "发送邮箱验证码",
+        "operationId": "BaseService_SendEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SendCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EmailSendReq"
+            }
+          }
+        ],
+        "tags": [
+          "BaseService"
+        ]
+      }
+    },
+    "/base/send/normalemail": {
+      "post": {
+        "summary": "发送邮件",
+        "operationId": "BaseService_SendNormalEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SendCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendNormalEmailReq"
+            }
+          }
+        ],
+        "tags": [
+          "BaseService"
+        ]
+      }
+    },
+    "/base/send/sms": {
+      "post": {
+        "summary": "发送短信验证码",
+        "operationId": "BaseService_SendSms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SendCodeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SmsSendReq"
+            }
+          }
+        ],
+        "tags": [
+          "BaseService"
+        ]
+      }
+    },
+    "/base/valid/email": {
+      "post": {
+        "summary": "验证邮箱验证码",
+        "operationId": "BaseService_ValidEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EmailValidReq"
+            }
+          }
+        ],
+        "tags": [
+          "BaseService"
+        ]
+      }
+    },
+    "/base/valid/sms": {
+      "post": {
+        "summary": "验证短信验证码",
+        "operationId": "BaseService_ValidSms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SmsValidReq"
+            }
+          }
+        ],
+        "tags": [
+          "BaseService"
+        ]
+      }
+    },
+    "/upload/file": {
+      "post": {
+        "summary": "文件上传",
+        "operationId": "BaseService_UploadFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadFileReq"
+            }
+          }
+        ],
+        "tags": [
+          "BaseService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BaseResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "EmailSendReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "邮箱",
+          "title": "邮箱"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码",
+          "title": "验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "短信签名,0:DAOP,1:哈稀",
+          "title": "短信签名,0:DAOP,1:哈稀"
+        }
+      }
+    },
+    "EmailValidReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "邮箱",
+          "title": "邮箱"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码",
+          "title": "验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数验证码",
+          "title": "四位验证码"
+        }
+      }
+    },
+    "NullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "SendCodeResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/SendCodeResp.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "SendCodeResp.Data": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数验证码",
+          "title": "四位数验证码"
+        }
+      }
+    },
+    "SendNormalEmailReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "邮箱",
+          "title": "邮箱"
+        },
+        "subject": {
+          "type": "string",
+          "description": "主题",
+          "title": "主题"
+        },
+        "text": {
+          "type": "string",
+          "description": "内容",
+          "title": "内容"
+        }
+      }
+    },
+    "SmsSendReq": {
+      "type": "object",
+      "properties": {
+        "mobile": {
+          "type": "string",
+          "description": "手机号码",
+          "title": "手机号码"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名",
+          "title": "验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "短信签名,0:DAOP,1:哈稀",
+          "title": "短信签名,0:DAOP,1:哈稀"
+        }
+      }
+    },
+    "SmsValidReq": {
+      "type": "object",
+      "properties": {
+        "mobile": {
+          "type": "string",
+          "description": "手机号码",
+          "title": "手机号码"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名",
+          "title": "验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数验证码",
+          "title": "四位数验证码"
+        }
+      }
+    },
+    "UploadFileReq": {
+      "type": "object",
+      "properties": {
+        "fileType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "文件类型, 1图片",
+          "title": "1图片"
+        },
+        "file": {
+          "type": "string",
+          "format": "byte",
+          "description": "文件数据",
+          "title": "文件数据"
+        }
+      }
+    }
+  }
+}

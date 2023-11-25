@@ -1,0 +1,868 @@
+syntax = "proto3";
+
+package daop.pb.rbacpb;
+option go_package = "pb/rbacpb;rbacpb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/visibility.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+// RBAC服务接口定义
+service RBACService {
+  // ------------------------------ for-api API相关接口
+
+  // 添加/编辑API分组
+  rpc HandleApiGroup(HandleApiGroupReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/api/handleApiGroup"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "添加/编辑API分组"};
+  }
+
+  // 删除API分组
+  rpc DeleteApiGroup(UpStatusReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/api/deleteApiGroup" 
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "删除API分组"};
+  }
+
+  // 获取API分组列表
+  rpc GetApiGroupList(GetApiGroupListReq) returns (GetApiGroupListResp) {
+    option (google.api.http) = {
+      get: "/rbac/api/getApiGroupList"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取所有API分组"};
+  }
+
+  // 添加/编辑API
+  rpc HandleApi(HandleApiReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/api/handleApi"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "添加/编辑API"};
+  }
+
+  // 删除API
+  rpc DeleteApi(UpStatusReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/api/deleteApi"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "删除API"};
+  }
+
+  // 获取API列表
+  rpc GetApiList(GetApiListReq) returns (GetApiListResp) {
+    option (google.api.http) = {
+      get: "/rbac/api/getApiList"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取API列表"};
+  }
+
+  // 通过Uri获取API
+  rpc GetApiByUri(GetApiByUriReq) returns (GetApiResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "通过Uri获取API"};
+  }
+
+  // ------------------------------ for-app APP相关接口
+
+  // 添加/编辑应用分组
+  rpc HandleAppGroup(HandleAppGroupReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/handleAppGroup"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "添加/编辑应用分组"};
+  }
+
+  // 删除应用分组
+  rpc DeleteAppGroup(UpStatusReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/deleteAppGroup"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "删除应用分组"};
+  }
+
+  // 获取应用分组列表
+  rpc GetAppGroupList(GetAppGroupListReq) returns (GetAppGroupListResp) {
+    option (google.api.http) = {
+      get: "/rbac/app/getAppGroupList"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取应用分组列表"};
+  }
+
+  // 添加/编辑应用
+  rpc HandleApp(HandleAppReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/handleApp"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "添加/编辑应用"};
+  }
+
+  // 删除应用
+  rpc DeleteApp(UpStatusReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/deleteApp"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "删除应用"};
+  }
+
+  // 申请应用上线
+  rpc ApplyOnline(ApplyOnlineReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/applyOnline"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请应用上线"};
+  }
+
+  // 审核应用上线申请
+  rpc AuditApp(AuditReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/auditApp"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "审核应用上线申请"};
+  }
+
+  // 锁定/解锁应用
+  rpc LockUnlockApp(UpStatusReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/lockUnlockApp"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "锁定/解锁应用"};
+  }
+
+  // 绑定应用管理者账号
+  rpc BindAdministratorAccount(BindAdministratorAccountReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/bindAdministratorAccount"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "绑定应用管理者账号"};
+  }
+
+  // 绑定应用使用的藏品合约
+  rpc BindCollectionContract(BindContractReq) returns (BaseResp){
+    option (google.api.http) = {
+      post: "/rbac/app/bindCollectionContract"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "绑定应用使用的藏品合约"};
+  }
+
+  // 获取应用列表
+  rpc GetAppList(GetAppListReq) returns (GetAppListResp) {
+    option (google.api.http) = {get: "/rbac/app/getAppList"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取应用列表"};
+  }
+
+  // 通过AppNo获取应用信息
+  rpc GetAppByAppNo(GetAppByAppNoReq) returns (GetAppResp) {
+    // option (google.api.http) = {
+    //   get: "/rbac/app/getAppByAppNo"
+    // };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "通过AppNo获取应用信息"};
+  }
+
+  // 获取应用密钥
+  rpc GetAppKeyByAppNo(GetAppKeyByAppNoReq) returns (GetAppResp) {
+    option (google.api.http) = {
+      get: "/rbac/app/getAppKeyByAppNo"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取应用密钥"};
+  }
+
+  // ------------------------------ for-relation API和应用及应用分组的关系相关接口
+
+  // 取出可授权给应用分组的Api列表(包括Api分组信息和应用分组是否已经获得授权的状态)
+  rpc GetApplicableApiOfAppGroup(GetApplicableApiOfAppGroupReq) returns (GetApplicableApiListResp) {
+    option (google.api.http) = {
+      get: "/rbac/app/getApplicableApiOfAppGroup"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "取出可授权给应用分组的Api列表(包括Api分组信息和应用分组是否已经获得授权的状态)"};
+  }
+
+  // 授权Api访问权限给应用分组
+  rpc AuthoriseApiToAppGroup(AuthoriseApiToAppGroupReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/rbac/app/authoriseApiToAppGroup"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "授权Api访问权限给应用分组"};
+  }
+
+  // 取出应用可申请开通的Api列表(包括应用是否已经获得某个API授权的状态)
+  rpc GetApplicableApiOfApp(GetApplicableApiOfAppReq) returns (GetApplicableApiListResp) {
+    option (google.api.http) = {
+      get: "/rbac/app/getApplicableApiOfApp"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "取出应用可申请开通的Api列表(包括应用是否已经获得某个API授权的状态)"};
+  }
+
+  // 检查应用对API对访问权限
+  rpc CheckApiAccessOfApp(CheckApiAccessOfAppReq) returns (BaseResp) {
+    // option (google.api.http) = {get: "/rbac/api/checkApiAccessByAppNo"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "检查应用对API对访问权限"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+
+  // 授权Api访问权限给应用
+  rpc AuthoriseApiToApp(AuthoriseApiToAppReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/rbac/app/authoriseApiToApp"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "授权Api访问权限给应用"};
+  }
+
+  // 获取应用申请的Api访问授权列表
+  rpc GetApiAccessApplicationList(GetApiAccessApplicationListReq) returns (GetApiAccessApplicationListResp) {
+    option (google.api.http) = {
+      get: "/rbac/app/getApiAccessApplicationList"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取应用申请的Api访问授权列表"};
+  }
+
+  // 审核应用Api授权申请
+  rpc AuditApiAccessApplication(AuditApiAccessApplicationReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/rbac/app/auditApiAccessApplication"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "审核应用Api授权申请"};
+  }
+
+  // GetAccessToken 获取Access Token
+  rpc GetAccessToken(GetAccessTokenReq) returns (GetAccessTokenResp) {
+    option (google.api.http) = {
+      // get: "/rbac/base/getAccessToken"
+      get: "/api/getAccessToken"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取Access Token"};
+  }
+
+  // 网关鉴权
+  rpc GatewayMiddileware(GatewayMiddilewareReq) returns (GatewayMiddilewareResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "网关鉴权"};
+  }
+
+  // 用户授权操作
+  rpc UserAuthorizeApp(UserAuthorizeAppReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/rbac/user/authorizeApp"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户授权操作"};
+  }
+
+  // 用户授权操作
+  rpc AppAuthorizedToken(AppAuthorizedTokenReq) returns (AppAuthorizedTokenResp) {
+    option (google.api.http) = {
+      post: "/rbac/app/authorizedToken"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户授权操作"};
+  }
+
+  // 获取用户授权信息列表
+  rpc GetUserAuthorizations(GetUserAuthorizationsReq) returns (GetUserAuthorizationsResp) {
+    option (google.api.http) = {
+      get: "/rbac/user/authorizations"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取用户授权信息列表"};
+  }
+}
+
+message GatewayMiddilewareReq {
+  string path = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "http请求path"}];
+  string app_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  string access_token = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用access token"}];
+  string user_token = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户登录token"}];
+  string version = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "网关版本"}];
+}
+
+message GatewayMiddilewareResp {
+  int32 code = 1;
+  string msg = 2;
+  message Data {
+    bool is_public = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}]; // 应用编号
+    bool need_authorise = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要access token"}]; // 是否需要access token
+    bool need_user_authorise = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要用户授权"}]; // 是否需要用户授权
+    bool need_login = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要用户登录"}]; // 是否需要用户登录
+    uint32 account_id = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}]; // 账户ID
+    uint32 user_id = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}]; // 用户ID
+  }
+  Data data = 3;
+}
+
+// 空参数请求
+message EmptyReq {
+  google.protobuf.Empty r = 1;
+}
+
+// 返回的基础结构类型
+message BaseResp {
+  int32 code = 1;
+  string msg = 2;
+  google.protobuf.Value data = 3;
+}
+
+// 更新数据状态请求
+message UpStatusReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["id", "status"]
+    }
+  };
+  uint32 id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "记录ID"}];
+  uint32 status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除;1-有效..."}];
+}
+
+// 审核请求
+message AuditReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["id", "audit_status"]
+    }
+  };
+  uint32 id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "记录ID"}];
+  uint32 audit_status = 2 [(validate.rules).uint32 = {in:[1,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 1-通过;4-不通过;"}];
+  string reject_reason = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "拒绝通过原因"}];
+}
+
+// 绑定应用管理者账号
+message BindAdministratorAccountReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["app_no"]
+    }
+  };
+  string app_no = 1 [(validate.rules).string = {ignore_empty: false}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  string mobile = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "管理者手机号码"}];
+  string email = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "管理者email"}];
+}
+
+// 绑定应用使用的藏品合约
+message BindContractReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["app_id", "contract_address"]
+    }
+  };
+  uint32 app_id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用ID"}];
+  string contract_address = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用使用的藏品合约地址"}];
+}
+
+// 获取 access token请求参数
+message GetAccessTokenReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["nonce", "sign"]
+    }
+  };
+  string nonce = 1 [(validate.rules).string = {ignore_empty: false}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "随机数"}];
+  string sign =2 [(validate.rules).string = {ignore_empty: false}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "签名"}];
+  string alg = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "签名算法:md5,sha256",default:"sha256"}];
+}
+
+// 获取 access token响应数据
+message AccessTokenData {
+  string token = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "生成的token"}];
+  uint32 expires_in =2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "token过期时间"}];
+}
+
+message GetAccessTokenResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  AccessTokenData data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// ------------------------------ API
+
+// API分组数据结构
+message ApiGroup {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "API分组数据结构"
+      description: "API分组数据结构"
+      required: ["group_name","parent_id","parent_name"]
+    }
+  };
+  uint32 group_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组ID(自增ID)"}];
+  string group_name = 2 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分组名称"}];
+  uint32 parent_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "父级分组ID"}];
+  string parent_name = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "父级分组名称"}];
+  string remarks = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+  uint32 create_time = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 8 [(validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-有效",default:"1"}];
+}
+
+// 添加/编辑API分组请求
+message HandleApiGroupReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action", "group"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型: 1-添加; 2-更新"}];
+  ApiGroup group = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组信息"}];
+}
+
+// 取API分组列表请求
+message GetApiGroupListReq {
+  uint32 page = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页码",default:"1"}];
+  uint32 limit = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页记录数",default:"20"}];
+}
+
+// 取API分组列表返回数据结构
+message GetApiGroupListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated ApiGroup data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组信息"}];
+}
+
+// API数据结构
+message Api {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "API数据结构"
+      description: "API数据结构"
+      required: ["api_group_id","show_name_cn","router_uri","is_public","need_login","need_authorise"]
+    }
+  };
+  uint32 api_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID(自增ID)"}];
+  uint32 api_group_id = 2 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组ID"}];
+  string api_group_name = 16 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组名称"}];
+  string show_name_cn = 3 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "中文名"}];
+  string show_name_en =4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "英文名"}];
+  string router_uri = 5 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "路由地址"}];
+  string icon = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页面或元素的图标"}];
+  uint32 ranking = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页面显示列表时排列位置"}];
+  uint32 is_public = 8 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否可公开访问的权限: 2-不是; 1-是",default:"2"}];
+  uint32 need_login = 9 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要登录后才能访问: 2-不需要; 1-需要"}];
+  uint32 need_authorise = 10 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要授权后才能访问: 2-不需要; 1-需要"}];
+  uint32 init_state = 11 [(validate.rules).uint32 = {in:[1,2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态: 1-系统初始接口; 2-非系统初始接口",default:"1"}];
+  string remarks = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+  uint32 create_time = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 15 [(validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-有效",default:"1"}];
+  // uint32 need_user_authorise = 20 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要应用授权后才能访问(user authorized token), 2-不需要;1-需要"}];
+}
+
+// 添加/编辑API请求
+message HandleApiReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action", "api"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型: 1-添加; 2-更新"}];
+  Api api = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API信息"}];
+}
+
+// 取API列表请求
+message GetApiListReq {
+  uint32 api_group_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组ID"}];
+  string router_uri = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "路由地址"}];
+  uint32 is_public = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否可公开访问的权限: 2-不是; 1-是",default:"2"}];
+  uint32 need_login = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要登录后才能访问: 2-不需要; 1-需要"}];
+  uint32 need_authorise = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要授权后才能访问: 2-不需要; 1-需要"}];
+  uint32 init_state = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态: 1-非系统初始菜单; 2-系统初始菜单",default:"1"}];
+  uint32 create_time = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-有效",default:"1"}];
+  uint32 page = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页码",default:"1"}];
+  uint32 limit = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页记录数",default:"20"}];
+}
+
+// 取API返回数据结构
+message GetApiResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  Api data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API信息"}];
+}
+
+// 取API列表返回数据结构
+message GetApiListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated Api data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API信息"}];
+}
+
+// 通过Uri取API信息请求
+message GetApiByUriReq {
+  string uri = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "路由地址"}];
+}
+
+// 检查应用对API对访问权限请求
+message CheckApiAccessOfAppReq{
+  // string uri = 2 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "路由地址"}];
+  // string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+
+  uint32 app_group_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID"}];
+  uint32 app_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用ID"}];
+  uint32 api_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ApiID"}];
+}
+
+// ------------------------------ app
+
+// 应用分组数据结构
+message AppGroup {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "应用分组数据结构"
+      description: "应用分组数据结构"
+      required: ["group_name"]
+    }
+  };
+  uint32 group_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID(自增ID)"}];
+  string group_name = 2 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组名称"}];
+  uint32 is_self_support = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否自营: 0-否; 1-是",default:"0"}];
+  uint32 create_time = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 5 [(validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-有效",default:"1"}];
+}
+
+// 添加/编辑应用分组请求
+message HandleAppGroupReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action", "group"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型: 1-添加; 2-更新"}];
+  AppGroup group = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组信息"}];
+}
+
+// 取应用分组列表请求
+message GetAppGroupListReq {
+  uint32 page = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页码",default:"1"}];
+  uint32 limit = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页记录数",default:"20"}];
+}
+
+// 取应用分组列表返回数据结构
+message GetAppGroupListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated AppGroup data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组信息"}];
+}
+
+// App应用数据结构
+message App {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "App应用数据结构"
+      description: "App应用数据结构"
+      required: ["app_group_id","app_group_name","app_name"]
+    }
+  };
+
+  uint32 app_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用ID(自增ID)"}];
+  uint32 app_group_id = 2 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID"}];
+  string app_group_name = 36 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组名称"}];
+  string app_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  string app_name = 4 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用名称"}];
+  string app_logo = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用LOGO图片链接"}];
+  uint32 app_type = 7 [(validate.rules).uint32 = {in:[0,1,2,3,4,5]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "app 类型: 1-web; 2-app; 3-H5; 4-小程序; 5-dapp",default:"1"}];
+  string app_url = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用的网站地址"}];
+  string gateway_url = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用的网关地址"}];
+  string oauth2_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户授权回调地址"}];
+  uint32 encrypt_type = 10 [(validate.rules).uint32 = {in:[0,1,2,3]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "接口加密方式: 1-JWT; 2-RSA; 3-ECDSA(椭圆曲线)",default:"1"}];
+  string jwt_secret_key = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "获取JWT签名的私钥"}];
+  string rsa_public_key = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "接口加密RSA公钥"}];
+  string aes_cipher = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据AES加密密钥"}];
+  uint32 client_type = 14 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "终端类型: 1-服务器;2-一体机; 3-屏; 4-手机; ",default:"1"}];
+  string version = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "当前版本号"}];
+  string access_ip = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "允许 APP 来访的 ip 地址白名单，分号分隔，最多允许 5 个"}];
+  string remarks = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用说明"}];
+  uint32 creator_account_id = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建该应用的账号ID"}];
+  uint32 administrator_account_id = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用管理员账号ID(用于对该应用下所有用户发布或持有的资产进行管理)"}];
+  string contract_address = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链上存储藏品的合约地址"}];
+  uint32 apply_time = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上线申请审核时间"}];
+  string application_material = 27 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上线申请材料（材料字段待定）"}];
+  uint32 audit_status = 28 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核状态: 1-通过; 2-待提交审核(开发中); 3-审核中; 4-不通过",default:"2"}];
+  uint32 is_online = 22 [(validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上线状态: 0-待上线; 1-已上线",default:"0"}];
+  uint32 audit_time = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核时间"}];
+  uint32 operator_account_id = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用审核操作员用户ID"}];
+  string reject_reason = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核不通过原因"}];
+  uint32 init_state = 32 [(validate.rules).uint32 = {in:[0,1,2,3]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态: 1-开发者自建应用; 2-系统初始应用; 3-管理后台创建应用",default:"1"}];
+  uint32 create_time = 33 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 34 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 35 [(validate.rules).uint32 = {in:[0,1,2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "有效状态: 0-删除; 1-有效; 2-锁定; ",default:"1"}];
+}
+
+// 添加/编辑应用请求
+message HandleAppReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["action", "app"]
+    }
+  };
+  uint32 action = 1 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型: 1-添加; 2-更新"}];
+  App app = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用信息"}];
+}
+
+// 取应用列表请求
+message GetAppListReq {
+  uint32 app_group_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID"}];
+  uint32 app_type = 7 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "app 类型: 1-web; 2-app; 3-H5; 4-小程序; 5-dapp",default:"1"}];
+  uint32 client_type = 14 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "终端类型: 1-服务器;2-一体机; 3-屏; 4-手机; ",default:"1"}];
+  uint32 creator_account_id = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建该应用的账号ID"}];
+  uint32 administrator_account_id = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用管理员账号ID(用于对该应用下所有用户发布或持有的资产进行管理)"}];
+  uint32 apply_time = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上线申请审核时间"}];
+  uint32 audit_status = 28 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核状态: 1-通过; 2-待提交审核(开发中); 3-审核中; 4-不通过",default:"2"}];
+  uint32 audit_time = 29 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核时间"}];
+  uint32 operator_account_id = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用审核操作员用户ID"}];
+  uint32 init_state = 32 [(validate.rules).uint32 = {in:[0,1,2,3]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态: 1-开发者自建应用; 2-系统初始应用; 3-管理后台创建应用",default:"1"}];
+  uint32 create_time = 33 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 34 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 35 [(validate.rules).uint32 = {in:[0,1,2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "有效状态: 0-删除; 1-有效; 2-锁定; ",default:"1"}];
+  uint32 page = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页码",default:"1"}];
+  uint32 limit = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页记录数",default:"20"}];
+}
+
+// 取应用密钥请求
+message GetAppKeyByAppNoReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["app_no", "mobile", "code", "code_type"]
+    }
+  };
+  string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  string mobile = 2 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号码"}];
+  uint32 code = 3 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "短信验证码"}];
+  uint32 code_type = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码"}];
+}
+
+// 通过应用编号取应用信息请求
+message GetAppByAppNoReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["app_no"]
+    }
+  };
+  string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+}
+
+// 应用上线申请请求
+message ApplyOnlineReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["app_id"]
+    }
+  };
+  uint32 app_id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用ID"}];
+  string application_material = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上线申请材料"}];
+}
+
+// 取应用返回数据结构
+message GetAppResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  App data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用信息"}];
+}
+
+// 取应用列表返回数据结构
+message GetAppListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated App data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用信息"}];
+}
+
+// ------------------------------ relation
+
+// 应用分组和API关系数据结构
+message AppGroupApi {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "应用分组和API关系数据结构"
+      description: "应用分组和API关系数据结构"
+      required: ["app_group_id","api_id"]
+    }
+  };
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "自增ID"}];
+  uint32 app_group_id = 2 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组ID"}];
+  uint32 api_id = 3 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID"}];
+  uint32 create_time = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 6 [(validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-有效; ",default:"1"}];
+}
+
+// 应用和API关系数据结构
+message AppApi {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "应用和API关系数据结构"
+      description: "应用和API关系数据结构"
+      required: ["app_no","api_id"]
+    }
+  };
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "自增ID"}];
+  string app_no = 2 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  uint32 api_id = 3 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID"}];
+  uint32 create_time = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 6 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-已开启; 2-已关闭; 3-待审核; 4-未通过",default:"3"}];
+}
+
+// Api分组及其下属的Api(包括Api分组信息或应用分组是否已经获得授权的状态)
+message ApplicableApi {
+  uint32 group_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组ID(自增ID)"}];
+  string group_name = 2 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API分组名称"}];
+  uint32 group_parent_id = 3 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "父级API分组ID"}];
+  string group_parent_name = 4 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "父级分组名称"}];
+  uint32 api_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID(自增ID)"}];
+  string show_name_cn = 6 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API中文名"}];
+  string show_name_en =7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API英文名"}];
+  string router_uri = 8 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API路由地址"}];
+  string icon = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API页面或元素的图标"}];
+  uint32 ranking = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API页面显示列表时排列位置"}];
+  uint32 is_public = 11 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否可公开访问的权限: 2-不是; 1-是",default:"2"}];
+  uint32 need_login = 12 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要登录后才能访问: 2-不需要; 1-需要",default:"1"}];
+  uint32 need_authorise = 13 [(validate.rules).uint32 = {in:[2,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否需要授权后才能访问: 2-不需要; 1-需要",default:"1"}];
+  uint32 init_state = 14 [(validate.rules).uint32 = {in:[1,2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "初始状态: 1-系统初始菜单; 2-非系统初始菜单; ",default:"2"}];
+  uint32 status = 15 [(validate.rules).uint32 = {in:[0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-已开启; 2-已关闭; 3-待审核; 4-未通过",default:"3"}];
+}
+
+// 取出可授权给应用分组或应用的Api列表返回数据结构
+message GetApplicableApiListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated ApplicableApi data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组可授权API信息"}];
+}
+
+// 取出可授权给应用分组的Api列表请求
+message GetApplicableApiOfAppGroupReq {
+  uint32 group_id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID"}];
+}
+
+// 授权Api访问权限给应用分组请求
+message AuthoriseApiToAppGroupReq {
+  uint32 group_id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID"}];
+  repeated uint32 apis= 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID列表"}];
+}
+
+// // 保存应用分组接口授权请求(tobedeleted)
+// message SaveApiOfAppGroupReq {
+//   uint32 group_id = 1 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组ID"}];
+//   repeated uint32 apis= 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID列表"}];
+// }
+
+// 取出可授权给应用的Api列表请求
+message GetApplicableApiOfAppReq {
+  string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用ID"}];
+}
+
+// 授权Api访问权限给应用请求
+message AuthoriseApiToAppReq {
+  string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  repeated uint32 apis= 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID列表"}];
+}
+
+// // 保存应用接口授权请求(tobedeleted)
+// message SaveApiOfAppReq {
+//   string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+//   repeated uint32 apis= 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID列表"}];
+// }
+
+// 保存应用接口授权请求
+message AuditApiAccessApplicationReq {
+  string app_no = 1 [(validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  uint32 api_id = 2 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API ID"}];
+  uint32 audit_status = 3 [(validate.rules).uint32 = {in:[1,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核状态: 1-通过; 4-不通过",default:"1"}];
+  string reject_reason = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核不通过原因"}];
+}
+
+// 获取应用申请的Api访问授权列表请求
+message GetApiAccessApplicationListReq {
+  string app_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  uint32 create_time = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+  uint32 status = 10 [(validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态: 0-删除; 1-有效",default:"1"}];
+  uint32 page = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页码",default:"1"}];
+  uint32 limit = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页记录数",default:"20"}];
+}
+
+// 获取应用申请的Api访问授权的返回数据结构
+message GetApiAccessApplicationListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  repeated AppApi data = 3  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用分组可授权API信息"}];
+}
+
+message UserAuthorizeAppReq {
+  uint32 user_id = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt:0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人用户ID"}]; // 授权人用户ID
+  uint32 authorization_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权ID"}]; // 授权ID, 撤销授权时必填
+  uint32 type = 6 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权操作"}]; // 授权操作类型, 0=授权;1=禁用/启用授权
+  uint32 authorization_status = 7 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {in:[0,1]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权类型值, 0=禁用;1=启用, type=1时适用"}]; // 授权类型值, 0=禁用;1=启用, type=1时适用
+}
+
+message UserAuthorizeAppResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  message Data {
+    string code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "获取授权token的code"}]; // 获取授权token的code
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据"}];
+}
+
+message AppAuthorizedTokenReq {
+  string code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "获取授权token的code"}]; // 获取授权token的code
+}
+
+message AppAuthorizedTokenResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  message Data {
+    string token = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权token"}]; // 授权token
+    // uint32 expires_in = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "过期时间, 单位:秒"}]; // 过期时间, 单位:秒
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据"}];
+}
+
+message GetUserAuthorizationsReq {
+  uint32 user_id = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt:0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人用户ID"}]; // 授权人用户ID
+  uint32 page_current = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "当前页码"}]; // 当前页码
+  uint32 page_size = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页显示数,默认值:10"}]; // 每页显示数.默认值:10
+}
+
+message UserAuthorization {
+  uint32 authorization_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权ID"}]; // 授权ID
+  uint32 account_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人账户ID"}]; // 授权人账户ID
+  uint32 user_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人用户ID"}]; // 授权人用户ID
+  string token = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权token"}]; // 授权token
+  uint32 expired_at = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权token过期时间"}]; // 授权token过期时间
+  uint32 authorization_status = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权状态, 0-禁用;1-启用"}]; // 授权状态, 0-禁用;1-启用
+  uint32 status = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据有效状态, 0-删除;1-有效"}]; // 数据有效状态, 0-删除;1-有效
+  uint32 modified_at = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人用户ID"}]; // 授权人用户ID
+  uint32 created_at = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人用户ID"}]; // 授权人用户ID
+  // uint32 secret_key = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "JWT私钥"}]; // JWT私钥
+}
+
+message GetUserAuthorizationsResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码: 0-成功; 其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  message Data {
+    repeated UserAuthorization list = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据列表"}];
+    uint32 total = 2  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据总数"}]; // 数据总数
+    uint32 page_size = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页显示数"}]; // 每页显示数
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数据"}];
+}

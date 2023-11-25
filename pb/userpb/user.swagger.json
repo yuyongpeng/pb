@@ -1,0 +1,4228 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/userpb/user.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/user/admin/accountlist": {
+      "get": {
+        "summary": "(manager)admin获取用户账号列表",
+        "operationId": "UserService_UserAccountAdminList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAccountAdminListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "mobile",
+            "description": "手机号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "邮箱",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "certifyAuditStatus",
+            "description": "实名认证审核状态：空全部 0-待认证；1-审核通过；2-审核未通过；3-审核中",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "creatorAuditStatus",
+            "description": "创作人审核状态：空全部 0-未申请；1-审核通过；2-审核未通过；3-审核中",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "merchantStatus",
+            "description": "商户签约状态：空全部 0-待签约；1-已签约；2-签约失败",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "accountType",
+            "description": "账号类型：空全部 1-个人;2-企业;3-个体工商户",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "appNo",
+            "description": "应用编号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "createTimeStart",
+            "description": "注册时间 秒时间戳(1664603400)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTimeEnd",
+            "description": "注册时间 秒时间戳(1664603400)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "账号状态：空全部 1-有效；2-禁用",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "页数 默认1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "条数 默认20",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "developerAuditStatusList",
+            "description": "开发者认证状态集合, 0-待认证；1-已认证；2-认证未通过；3-认证中, 格式:0,1,2\n\n开发者认证状态集合, 0-待认证；1-已认证；2-认证未通过；3-认证中, 格式:0,1,2",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/capital/list": {
+      "get": {
+        "summary": "admin用户资金明细",
+        "operationId": "UserService_UserCapitalAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserCapitalAllListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "mobile",
+            "description": "手机号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "邮箱",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tradeNo",
+            "description": "交易流水号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionType",
+            "description": "交易类型：0 全部;1-充值；2-消费",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "订单状态:0所用状态1交易成功2交易中3交易失败",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "description": "页数 默认1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "条数 默认20",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "transactionMode",
+            "description": "交易类型：0 全部;1-线上；2-线下",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/change/price": {
+      "post": {
+        "summary": "修改账号价格",
+        "operationId": "UserService_UserAccountChangePrice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAccountChangePriceReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/developer/audit": {
+      "post": {
+        "summary": "admin审核开发者",
+        "operationId": "UserService_UserAdminDeveloperAudit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminDeveloperAuditReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/invoice/getconsumptivedetail": {
+      "post": {
+        "summary": "admin查看当月消费明细",
+        "operationId": "UserService_UserAdminGetConsumptiveDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminGetConsumptiveDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminGetConsumptiveDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/invoice/getinfo": {
+      "post": {
+        "summary": "admin查看发票内容信息",
+        "operationId": "UserService_UserAdminInvoiceGetInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceGetInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceGetInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/invoice/getmonthsinfo": {
+      "post": {
+        "summary": "admin查看发票包含的月份信息",
+        "operationId": "UserService_UserAdminInvoiceGetMonthsInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceGetMonthsInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceGetMonthsInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/invoice/invoicelist": {
+      "post": {
+        "summary": "admin查询申请开发票的列表",
+        "operationId": "UserService_UserAdminInvoiceList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceListReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/invoice/presentbyaccount": {
+      "post": {
+        "summary": "admin指定账户增加能量值",
+        "operationId": "UserService_UserAdminPresentByAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminPresentByAccountResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminPresentByAccountReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/invoice/setinvoiceinfo": {
+      "post": {
+        "summary": "admin更新发票相关信息",
+        "operationId": "UserService_UserAdminInvoiceSetInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceSetInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserAdminInvoiceSetInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/list": {
+      "get": {
+        "summary": "admin获取用户列表",
+        "operationId": "UserService_UserAdminList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserAdminListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "mobile",
+            "description": "手机号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "description": "邮箱",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "address",
+            "description": "用户address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "appNo",
+            "description": "应用编号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "createTimeStart",
+            "description": "注册时间 秒时间戳(1664603400)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "createTimeEnd",
+            "description": "注册时间 秒时间戳(1664603400)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "用户状态：空全部 1-有效；2-禁用",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "description": "页数 默认1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "条数 默认20",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/admin/set/pwd": {
+      "post": {
+        "summary": "admin重置密码",
+        "operationId": "UserService_AdminSetPwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminSetPwdReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/auth/login": {
+      "post": {
+        "summary": "用户授权登陆",
+        "operationId": "UserService_AuthLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthLoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/bind": {
+      "post": {
+        "summary": "用户绑定账号",
+        "operationId": "UserService_Bind",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BindReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/capital": {
+      "get": {
+        "summary": "用户资金",
+        "operationId": "UserService_UserCapital",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserCapitalResp"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/capital/list": {
+      "get": {
+        "summary": "用户资金明细",
+        "operationId": "UserService_UserCapitalList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserCapitalListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "(搜索)(可选项)账号ID\n\n账号ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "tradeNo",
+            "description": "交易流水号\n\n交易流水号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transactionType",
+            "description": "交易类型, 0-全部;1-充值;2-消费\n\n交易类型, 0-全部;1-充值;2-消费",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "订单状态,0所用状态;1交易成功;2交易中;3交易失败\n\n订单状态,0所用状态;1交易成功;2交易中;3交易失败",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "description": "页数,默认1\n\n页数,默认1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "条数,默认20\n\n条数,默认20",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "transactionMode",
+            "description": "交易类型, 0-全部;1-线上;2-线下",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/change/accountcredential": {
+      "post": {
+        "summary": "修改账号uuid",
+        "operationId": "UserService_ChangeAccountCredential",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeCredential"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/change/accountmerchantstatus": {
+      "post": {
+        "summary": "修改账号商户签约状态",
+        "operationId": "UserService_ChangeAccountMerchantStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangeStatusReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/change/pwd": {
+      "post": {
+        "summary": "修改密码",
+        "operationId": "UserService_ChangePwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangePwdReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/changePwd": {
+      "post": {
+        "summary": "(新)修改密码",
+        "operationId": "UserService_ChangePwdNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChangePwdNewReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/creator/apply": {
+      "post": {
+        "summary": "申请创作者",
+        "operationId": "UserService_CreatorApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreatorApplyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatorApplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/creator/audit": {
+      "post": {
+        "summary": "创作者审核",
+        "operationId": "UserService_CreatorAudit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatorAuditReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/creator/list": {
+      "post": {
+        "summary": "创作者列表",
+        "operationId": "UserService_CreatorList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreatorListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatorListReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/developer/apply": {
+      "post": {
+        "summary": "申请开发者认证",
+        "operationId": "UserService_UserDeveloperApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/forget/pwd": {
+      "post": {
+        "summary": "忘记密码",
+        "operationId": "UserService_ForgetPwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForgetPwdReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/index/statistics": {
+      "get": {
+        "summary": "用户首页数据统计",
+        "operationId": "UserService_UserIndexStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserIndexStatisticsResp"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/invoice/apply": {
+      "post": {
+        "summary": "申请开票",
+        "operationId": "UserService_UserInvoiceApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceApplyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceApplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/invoice/consumptivedetail": {
+      "post": {
+        "summary": "查看当月消费明细",
+        "operationId": "UserService_UserInvoiceConsumptiveDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceConsumptiveDetailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceConsumptiveDetailReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/invoice/getinfobyid": {
+      "post": {
+        "summary": "申请开票",
+        "operationId": "UserService_UserInvoiceGetInfoById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceGetInfoByIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceGetInfoByIdReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/invoice/inclusivemonth": {
+      "post": {
+        "summary": "获取已开发票包含月份",
+        "operationId": "UserService_UserInvoicedInclusiveMonth",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInvoicedInclusiveMonthResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInvoicedInclusiveMonthReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/invoice/invoicedlist": {
+      "post": {
+        "summary": "获取已开发票的列表",
+        "operationId": "UserService_UserInvoicedList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInvoicedListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInvoicedListReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/invoice/list": {
+      "post": {
+        "summary": "获取可开发票的月份和额度列表",
+        "operationId": "UserService_UserInvoiceList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInvoiceListReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "summary": "用户登录",
+        "operationId": "UserService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/my/cancelaccount": {
+      "post": {
+        "summary": "注销我的账号",
+        "operationId": "UserService_CancelMyAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/my/info": {
+      "get": {
+        "summary": "我的用户信息",
+        "operationId": "UserService_UserMyInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserInfoResp"
+            }
+          }
+        },
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/real/name": {
+      "post": {
+        "summary": "用户实名",
+        "operationId": "UserService_RealName",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RealNameResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RealNameReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/realName": {
+      "post": {
+        "summary": "(新)用户实名",
+        "operationId": "UserService_RealNameNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RealNameNewResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RealNameNewReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/register": {
+      "post": {
+        "summary": "用户注册",
+        "operationId": "UserService_Register",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RegisterReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/send/setpwdcode": {
+      "post": {
+        "summary": "发送重置密码验证码",
+        "operationId": "UserService_SendSetPwdCode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SendSetPwdCodeReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/service/baselist": {
+      "get": {
+        "summary": "获取用户列表",
+        "operationId": "UserService_UserServiceBaseList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserServiceBaseListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userIds",
+            "description": "用户id",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "isAll",
+            "description": "false 分页 true 全部",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "page",
+            "description": "页数 默认1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "limit",
+            "description": "条数 默认20",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/set/pwd": {
+      "post": {
+        "summary": "重置密码",
+        "operationId": "UserService_SetPwd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetPwdReq"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AdminSetPwdReq": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "password": {
+          "type": "string",
+          "description": "新密码6-12位"
+        }
+      },
+      "required": [
+        "accountId",
+        "password"
+      ]
+    },
+    "AuthLoginReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号:手机号或者邮箱"
+        },
+        "sign": {
+          "type": "string",
+          "description": "将appid、nonce和secretKey(在开发者管理后台创建应用后得到)按顺序拼接成一个字符串后，再用md5算法生成的签名hash"
+        },
+        "nonce": {
+          "type": "string",
+          "description": "签名用到的随机字符串"
+        }
+      },
+      "required": [
+        "account",
+        "sign",
+        "nonce"
+      ]
+    },
+    "BindReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号:手机号或者邮箱"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数字(1000-9999)验证吗"
+        }
+      },
+      "required": [
+        "account",
+        "code"
+      ]
+    },
+    "ChangeCredential": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "credential": {
+          "type": "string",
+          "description": "账号:手机号或者邮箱"
+        }
+      },
+      "required": [
+        "accountId",
+        "credential"
+      ]
+    },
+    "ChangePwdNewReq": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账户ID",
+          "title": "账户ID"
+        },
+        "oldPassword": {
+          "type": "string",
+          "description": "旧密码6-16位",
+          "title": "旧密码6-16位"
+        },
+        "password": {
+          "type": "string",
+          "description": "新密码6-16位",
+          "title": "新密码6-16位"
+        }
+      },
+      "required": [
+        "accountId",
+        "oldPassword",
+        "password"
+      ]
+    },
+    "ChangePwdReq": {
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string",
+          "description": "旧密码6-12位"
+        },
+        "password": {
+          "type": "string",
+          "description": "新密码6-12位"
+        }
+      },
+      "required": [
+        "oldPassword",
+        "password"
+      ]
+    },
+    "ChangeStatusReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "user/account id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0-删除;1-有效;2-锁定"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ]
+    },
+    "CreatorApplyReq": {
+      "type": "object",
+      "properties": {
+        "applyMaterial": {
+          "type": "string",
+          "description": "创作者申请材料(json 字符串)"
+        }
+      }
+    },
+    "CreatorApplyResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/CreatorApplyResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "CreatorApplyResp.Data": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人申请状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"
+        }
+      }
+    },
+    "CreatorAuditReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "user/account id"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-审核通过;2-审核未通过"
+        },
+        "rejectReason": {
+          "type": "string",
+          "description": "创作人审核不通过原因"
+        }
+      },
+      "required": [
+        "id",
+        "status"
+      ]
+    },
+    "CreatorListReq": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户类型：1-个人;2-企业;3-个体工商户"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人审核状态：1-审核通过；2-审核未通过；3-审核中"
+        },
+        "applyTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证申请时间 秒时间戳(1664603400)"
+        },
+        "applyTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证申请时间 秒时间戳(1664603400)"
+        },
+        "auditTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证审核时间 秒时间戳(1664603400)"
+        },
+        "auditTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证审核时间 秒时间戳(1664603400)"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CreatorListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CreatorListResp.Data"
+        }
+      }
+    },
+    "CreatorListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CreatorUserInfo"
+          }
+        }
+      }
+    },
+    "CreatorUserInfo": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户类型：1-个人;2-企业;3-个体工商户"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实名称(企业用户为公司名称，个人用户为真实姓名"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "企业简称(企业用户适用)"
+        },
+        "applyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证申请时间"
+        },
+        "auditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证审核时间"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人审核状态：1-审核通过；2-审核未通过；3-审核中"
+        },
+        "rejectReason": {
+          "type": "string",
+          "description": "创作人审核不通过原因"
+        },
+        "applyMaterial": {
+          "type": "string",
+          "description": "创作人申请材料"
+        }
+      }
+    },
+    "ForgetPwdReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "0手机1邮箱"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数字验证吗"
+        },
+        "password": {
+          "type": "string",
+          "description": "新密码6-12位"
+        }
+      },
+      "required": [
+        "account",
+        "code",
+        "password"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号:手机号或者邮箱"
+        },
+        "password": {
+          "type": "string",
+          "description": "账号密码6-16位"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1手机号验证码2账号密码登陆"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数字(1000-9999)验证吗"
+        }
+      },
+      "required": [
+        "account",
+        "type"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/LoginResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "LoginResp.Data": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "用户详情"
+        },
+        "token": {
+          "type": "string",
+          "description": "用户token"
+        },
+        "expiresIn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "失效时间"
+        },
+        "pwdExpired": {
+          "type": "boolean",
+          "description": "密码是否过期,true表示密码已过期;false表示密码未过期",
+          "title": "密码是否过期,true表示密码已过期;false表示密码未过期"
+        }
+      }
+    },
+    "RealNameClaim": {
+      "type": "object",
+      "properties": {
+        "didType": {
+          "type": "string",
+          "description": "个人:individuality;企业:enterprise;个体工商户:individualBusiness"
+        },
+        "name": {
+          "type": "string",
+          "description": "名称"
+        },
+        "profile": {
+          "type": "string",
+          "description": "简介"
+        },
+        "address": {
+          "type": "string",
+          "description": "地址"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间2022-09-01 11:00:00"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展json信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didType",
+        "name",
+        "declareTime"
+      ]
+    },
+    "RealNameNewReq": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账户ID",
+          "title": "账户ID"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-个人;2-企业;3-个体工商户"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实名称(企业用户为公司名称，个人用户为真实姓名)"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "企业简称(企业用户适用)"
+        },
+        "idNo": {
+          "type": "string",
+          "description": "身份证件号码(非个人用户为法人身份证件，个人用户为个人证件)"
+        },
+        "idPhone": {
+          "type": "string",
+          "description": "手机号(身份证号实名的手机号)"
+        },
+        "idPhoneCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "验证码"
+        },
+        "idPicFront": {
+          "type": "string",
+          "description": "身份证件照片正面(非个人用户为法人证件，个人用户为个人证件)"
+        },
+        "idPicBack": {
+          "type": "string",
+          "description": "身份证件照片背面(非个人用户为法人证件，个人用户为个人证件)"
+        },
+        "idPicHand": {
+          "type": "string",
+          "description": "非个人用户为手持营业执照，个人用户为手持身份证照片"
+        },
+        "licenseNo": {
+          "type": "string",
+          "description": "机构营业执照号码"
+        },
+        "licensePic": {
+          "type": "string",
+          "description": "机构营业执照照片"
+        },
+        "legalPersonName": {
+          "type": "string",
+          "description": "机构法人姓名"
+        },
+        "contactName": {
+          "type": "string",
+          "description": "联系人姓名"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "联系电话"
+        },
+        "contactAddress": {
+          "type": "string",
+          "description": "联系地址"
+        },
+        "logo": {
+          "type": "string",
+          "description": "公司LOGO或个人头像图片地址"
+        },
+        "claim": {
+          "$ref": "#/definitions/RealNameClaim",
+          "description": "存证声明数据"
+        },
+        "developerFlag": {
+          "type": "boolean",
+          "description": "是否申请成为开发者",
+          "title": "是否申请成为开发者"
+        }
+      },
+      "required": [
+        "accountId",
+        "accountType",
+        "realName",
+        "idNo",
+        "idPhone",
+        "claim"
+      ]
+    },
+    "RealNameNewResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/RealNameNewResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "RealNameNewResp.Data": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证id"
+        },
+        "credential": {
+          "type": "string",
+          "description": "用户身份存证"
+        },
+        "certifyAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"
+        }
+      }
+    },
+    "RealNameReq": {
+      "type": "object",
+      "properties": {
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-个人;2-企业;3-个体工商户"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实名称(企业用户为公司名称，个人用户为真实姓名)"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "企业简称(企业用户适用)"
+        },
+        "idNo": {
+          "type": "string",
+          "description": "身份证件号码(非个人用户为法人身份证件，个人用户为个人证件)"
+        },
+        "idPhone": {
+          "type": "string",
+          "description": "手机号(身份证号实名的手机号)"
+        },
+        "idPhoneCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "验证码"
+        },
+        "idPicFront": {
+          "type": "string",
+          "description": "身份证件照片正面(非个人用户为法人证件，个人用户为个人证件)"
+        },
+        "idPicBack": {
+          "type": "string",
+          "description": "身份证件照片背面(非个人用户为法人证件，个人用户为个人证件)"
+        },
+        "idPicHand": {
+          "type": "string",
+          "description": "非个人用户为手持营业执照，个人用户为手持身份证照片"
+        },
+        "licenseNo": {
+          "type": "string",
+          "description": "机构营业执照号码"
+        },
+        "licensePic": {
+          "type": "string",
+          "description": "机构营业执照照片"
+        },
+        "legalPersonName": {
+          "type": "string",
+          "description": "机构法人姓名"
+        },
+        "contactName": {
+          "type": "string",
+          "description": "联系人姓名"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "联系电话"
+        },
+        "contactAddress": {
+          "type": "string",
+          "description": "联系地址"
+        },
+        "logo": {
+          "type": "string",
+          "description": "公司LOGO或个人头像图片地址"
+        },
+        "claim": {
+          "$ref": "#/definitions/RealNameClaim",
+          "description": "存证声明数据"
+        },
+        "developerFlag": {
+          "type": "boolean",
+          "description": "是否申请成为开发者",
+          "title": "是否申请成为开发者"
+        }
+      },
+      "required": [
+        "accountType",
+        "realName",
+        "idNo",
+        "claim"
+      ]
+    },
+    "RealNameResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/RealNameResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "RealNameResp.Data": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证id"
+        },
+        "credential": {
+          "type": "string",
+          "description": "用户身份存证"
+        },
+        "certifyAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"
+        }
+      }
+    },
+    "RegisterReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号:手机号或者邮箱"
+        },
+        "password": {
+          "type": "string",
+          "description": "账号密码6-16位"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数字验证码"
+        }
+      },
+      "required": [
+        "account",
+        "password",
+        "code"
+      ]
+    },
+    "SendSetPwdCodeReq": {
+      "type": "object",
+      "properties": {
+        "codeType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0发送手机验证码1发送邮箱验证码"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "短信签名0:DAOP,1:哈稀"
+        }
+      },
+      "required": [
+        "codeType",
+        "sourceType"
+      ]
+    },
+    "SetPwdReq": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位数字验证吗"
+        },
+        "codeType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0手机1邮箱"
+        },
+        "password": {
+          "type": "string",
+          "description": "新密码6-12位"
+        }
+      },
+      "required": [
+        "code",
+        "codeType",
+        "password"
+      ]
+    },
+    "UserAccountAdminInfo": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户类型：1-个人;2-企业;3-个体工商户"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "应用编号"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "certifyAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "creatorAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "merchantStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户签约状态：0-待签约；1-已签约；2-签约失败"
+        },
+        "developerAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开发者认证状态,0-待认证；1-已认证；2-认证未通过；3-认证中",
+          "title": "开发者认证状态, 0-待认证；1-已认证；2-认证未通过；3-认证中"
+        },
+        "developerRejectReason": {
+          "type": "string",
+          "description": "开发者认证审核不通过原因",
+          "title": "开发者认证审核不通过原因"
+        },
+        "developerAuditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开发者认证审核时间",
+          "title": "开发者认证审核时间"
+        },
+        "capitalBalance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "充值资金余额(分)"
+        },
+        "presentBalance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送资金余额(分)"
+        },
+        "frozenPaidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "冻结充值的金额(分)"
+        },
+        "frozenPresentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "冻结赠送的金额(分)"
+        },
+        "credentialChainPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证上链价格（单位：分/次）"
+        },
+        "collectionCastingPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品铸造上链价格（单位：分/次）"
+        },
+        "collectionOnlinePrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品链上上架价格（单位：分/次）"
+        },
+        "collectionOfflinePrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品链上下架价格（单位：分/次）"
+        },
+        "collectionTransferPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品转让上链价格（单位：分/次）"
+        },
+        "apiCallPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "其它API调用价格（单位：分/次）"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1正常2禁用"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "注册时间"
+        },
+        "certInfo": {
+          "$ref": "#/definitions/UserCertificationInfo",
+          "description": "认证信息",
+          "title": "认证信息"
+        }
+      }
+    },
+    "UserAccountAdminListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAccountAdminListResp.Data"
+        }
+      }
+    },
+    "UserAccountAdminListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserAccountAdminInfo"
+          }
+        }
+      }
+    },
+    "UserAccountChangePriceReq": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "credentialChainPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证上链价格（单位：分/次）"
+        },
+        "collectionCastingPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品铸造上链价格（单位：分/次）"
+        },
+        "collectionOnlinePrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品链上上架价格（单位：分/次）"
+        },
+        "collectionOfflinePrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品链上下架价格（单位：分/次）"
+        },
+        "collectionTransferPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品转让上链价格（单位：分/次）"
+        },
+        "apiCallPrice": {
+          "type": "integer",
+          "format": "int64",
+          "description": "其它API调用价格（单位：分/次）"
+        }
+      },
+      "required": [
+        "accountId",
+        "credentialChainPrice",
+        "collectionCastingPrice",
+        "collectionOnlinePrice",
+        "collectionOfflinePrice",
+        "collectionTransferPrice",
+        "apiCallPrice"
+      ]
+    },
+    "UserAdminDeveloperAuditReq": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账户ID",
+          "title": "账户ID"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核状态,1审核通过;2审核驳回",
+          "title": "审核状态,11审核通过;2审核驳回"
+        },
+        "reason": {
+          "type": "string",
+          "description": "开发者认证审核不通过原因",
+          "title": "开发者认证审核不通过原因,审核驳回时必填"
+        }
+      },
+      "required": [
+        "accountId",
+        "status"
+      ]
+    },
+    "UserAdminGetConsumptiveDetail": {
+      "type": "object",
+      "properties": {
+        "transactionType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易类型：1-充值；2-消费"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "交易流水号"
+        },
+        "paidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付金额(分)"
+        },
+        "presentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送金额(分)"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-交易成功；2-交易中；3-交易失败"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "UserAdminGetConsumptiveDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "可开发票表id",
+          "title": "ID"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        }
+      },
+      "required": [
+        "id",
+        "page",
+        "limit"
+      ]
+    },
+    "UserAdminGetConsumptiveDetailResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAdminGetConsumptiveDetailResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserAdminGetConsumptiveDetailResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserAdminGetConsumptiveDetail"
+          }
+        }
+      }
+    },
+    "UserAdminInfo": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "应用编号"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "address": {
+          "type": "string",
+          "description": "用户address"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1正常2禁用"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "注册时间"
+        }
+      }
+    },
+    "UserAdminInvoiceGetInfo": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票金额"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0-未开票；1-开票中；2-开票完成"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-企业；2-个人"
+        },
+        "personalName": {
+          "type": "string",
+          "description": "发票为个人时的姓名"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "企业名称"
+        },
+        "businessLicenseNumber": {
+          "type": "string",
+          "description": "企业营业执照号"
+        },
+        "registeredAddress": {
+          "type": "string",
+          "description": "企业注册地址"
+        },
+        "telephone": {
+          "type": "string",
+          "description": "企业电话"
+        },
+        "bankAccount": {
+          "type": "string",
+          "description": "开户行"
+        },
+        "creditCardNumbers": {
+          "type": "string",
+          "description": "银行卡号"
+        },
+        "name": {
+          "type": "string",
+          "description": "收件人姓名"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "收件人联系电话"
+        },
+        "area": {
+          "type": "string",
+          "description": "收件人地区"
+        },
+        "address": {
+          "type": "string",
+          "description": "收件人详细地址"
+        },
+        "account": {
+          "type": "string",
+          "description": "账号手机号或邮箱"
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "description": "发票单号"
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "发票物流单号"
+        }
+      }
+    },
+    "UserAdminInvoiceGetInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请开票列表id"
+        }
+      }
+    },
+    "UserAdminInvoiceGetInfoResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAdminInvoiceGetInfo",
+          "description": "发票信息"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserAdminInvoiceGetMonthsInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "date": {
+          "type": "string",
+          "description": "日期月份"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票金额"
+        }
+      }
+    },
+    "UserAdminInvoiceGetMonthsInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "可开发票表id"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        }
+      },
+      "required": [
+        "id",
+        "page",
+        "limit"
+      ]
+    },
+    "UserAdminInvoiceGetMonthsInfoResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAdminInvoiceGetMonthsInfoResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserAdminInvoiceGetMonthsInfoResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserAdminInvoiceGetMonthsInfo"
+          }
+        }
+      }
+    },
+    "UserAdminInvoiceInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "account": {
+          "type": "string",
+          "description": "DAOP账号"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票金额"
+        },
+        "applyDate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请日期"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0-未开票；1-开票中；2-开票完成"
+        }
+      }
+    },
+    "UserAdminInvoiceListReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号"
+        },
+        "startDate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始日期",
+          "title": "开始日期"
+        },
+        "endDate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束日期",
+          "title": "结束日期"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发票进度"
+        },
+        "applyDate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请开发票的日期"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        }
+      },
+      "required": [
+        "page",
+        "limit"
+      ]
+    },
+    "UserAdminInvoiceListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAdminInvoiceListResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserAdminInvoiceListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserAdminInvoiceInfo"
+          }
+        }
+      }
+    },
+    "UserAdminInvoiceSetInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "可开发票表唯一id"
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "description": "发票号"
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "物流号"
+        }
+      },
+      "required": [
+        "id",
+        "invoiceNumber",
+        "trackingNumber"
+      ]
+    },
+    "UserAdminInvoiceSetInfoResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserAdminListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAdminListResp.Data"
+        }
+      }
+    },
+    "UserAdminListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserAdminInfo"
+          }
+        }
+      }
+    },
+    "UserAdminPresentByAccountReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送能量值"
+        },
+        "remark": {
+          "type": "string",
+          "description": "备注",
+          "title": "ID"
+        }
+      },
+      "required": [
+        "amount"
+      ]
+    },
+    "UserAdminPresentByAccountResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserBaseInfo": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户类型：1-个人;2-企业;3-个体工商户"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "应用标识"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实名称(企业用户为公司名称，个人用户为真实姓名"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "企业简称(企业用户适用)"
+        },
+        "certifyApplyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证申请时间"
+        },
+        "certifyAuditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核时间"
+        },
+        "certifyAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "certifyRejectReason": {
+          "type": "string",
+          "description": "实名认证审核拒绝理由"
+        },
+        "creatorApplyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证申请时间"
+        },
+        "creatorAuditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证审核时间"
+        },
+        "creatorAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "creatorRejectReason": {
+          "type": "string",
+          "description": "创作人审核状态拒绝理由"
+        },
+        "merchantStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户签约状态：0-待签约；1-已签约；2-签约失败"
+        },
+        "userAddress": {
+          "type": "string",
+          "description": "用户在链上的账号地址"
+        },
+        "userPrivateKey": {
+          "type": "string",
+          "description": "用户私钥"
+        },
+        "accountStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号有效状态：1-有效;2-锁定"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户有效状态：1-有效;2-锁定"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "UserCapitalAllDetail": {
+      "type": "object",
+      "properties": {
+        "transactionType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易类型：1-充值；2-消费"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "交易流水号"
+        },
+        "paidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付金额(分)"
+        },
+        "presentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送金额(分)"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-交易成功；2-交易中；3-交易失败"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "UserCapitalAllInfo": {
+      "type": "object",
+      "properties": {
+        "transactionType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易类型：1-充值；2-消费"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "交易流水号"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "paidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付金额(分)"
+        },
+        "presentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送金额(分)"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-交易成功；2-交易中；3-交易失败"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "transactionMode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易方式：1-线上；2-线下"
+        }
+      }
+    },
+    "UserCapitalAllListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserCapitalAllListResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserCapitalAllListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserCapitalAllInfo"
+          }
+        }
+      }
+    },
+    "UserCapitalInfo": {
+      "type": "object",
+      "properties": {
+        "transactionType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易类型：1-充值；2-消费"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "交易流水号"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-交易成功；2-交易中；3-交易失败"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "paidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付金额(分)"
+        },
+        "presentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送金额(分)"
+        },
+        "transactionMode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易类型：1-线上；2-线下"
+        }
+      }
+    },
+    "UserCapitalListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserCapitalListResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserCapitalListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserCapitalInfo"
+          }
+        }
+      }
+    },
+    "UserCapitalResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserCapitalResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserCapitalResp.Data": {
+      "type": "object",
+      "properties": {
+        "capitalBalance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "资金余额(分)",
+          "title": "资金余额(分)"
+        },
+        "presentBalance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送资金余额(分)",
+          "title": "赠送资金余额(分)"
+        },
+        "frozenPaidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "冻结充值的金额(分)",
+          "title": "冻结充值的金额(分)"
+        },
+        "frozenPresentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "冻结赠送的金额(分)",
+          "title": "冻结赠送的金额(分)"
+        }
+      }
+    },
+    "UserCertificationInfo": {
+      "type": "object",
+      "properties": {
+        "idNo": {
+          "type": "string",
+          "description": "身份证件号码(非个人用户为法人身份证件，个人用户为个人证件)"
+        },
+        "idPicFront": {
+          "type": "string",
+          "description": "身份证件照片正面(非个人用户为法人证件，个人用户为个人证件"
+        },
+        "idPicBack": {
+          "type": "string",
+          "description": "身份证件照片背面(非个人用户为法人证件，个人用户为个人证件"
+        },
+        "idPicHand": {
+          "type": "string",
+          "description": "非个人用户为手持营业执照，个人用户为手持身份证照片"
+        },
+        "licenseNo": {
+          "type": "string",
+          "description": "机构营业执照号码"
+        },
+        "licensePic": {
+          "type": "string",
+          "description": "机构营业执照照片"
+        },
+        "legalPersonName": {
+          "type": "string",
+          "description": "机构法人姓名"
+        },
+        "applyMaterial": {
+          "type": "string",
+          "description": "实名认证申请材料"
+        },
+        "contactName": {
+          "type": "string",
+          "description": "联系人姓名"
+        },
+        "contactPhone": {
+          "type": "string",
+          "description": "联系电话"
+        },
+        "contactAddress": {
+          "type": "string",
+          "description": "联系地址"
+        },
+        "logo": {
+          "type": "string",
+          "description": "公司LOGO或个人头像图片地址"
+        },
+        "idPhone": {
+          "type": "string",
+          "description": "实名手机号",
+          "title": "实名手机号"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户类型：1-个人;2-企业;3-个体工商户"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实名称(企业用户为公司名称，个人用户为真实姓名"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "企业简称(企业用户适用)"
+        },
+        "applyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证申请时间"
+        },
+        "auditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核时间"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "rejectReason": {
+          "type": "string",
+          "description": "实名认证审核拒绝理由"
+        },
+        "credential": {
+          "type": "string",
+          "description": "原始身份声明存证DIDCredential"
+        },
+        "claim": {
+          "$ref": "#/definitions/RealNameClaim",
+          "description": "存证声明数据"
+        }
+      }
+    },
+    "UserIndexStatisticsResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserIndexStatisticsResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserIndexStatisticsResp.Data": {
+      "type": "object",
+      "properties": {
+        "compositionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品数量"
+        },
+        "copyrightNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "登记版权数量"
+        },
+        "collectionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "铸造藏品数量"
+        },
+        "holdCollectionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "持有藏品数"
+        },
+        "capitalBalance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "资金余额(分)"
+        },
+        "presentBalance": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送资金余额(分)"
+        },
+        "frozenPaidAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "冻结充值的金额(分)"
+        },
+        "frozenPresentAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "冻结赠送的金额(分)"
+        },
+        "chargeNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "充值金额"
+        },
+        "presentChargeNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "(赠送)充值金额"
+        },
+        "expendNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支出金额"
+        },
+        "presentExpendNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "(赠送)支出金额"
+        },
+        "dealAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "成交金额(分)"
+        },
+        "dealNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "成交数"
+        },
+        "refundAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "退款金额(分)"
+        },
+        "refundNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "退款数量"
+        }
+      }
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号id"
+        },
+        "accountType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户类型：1-个人;2-企业;3-个体工商户"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "应用标识"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实名称(企业用户为公司名称，个人用户为真实姓名"
+        },
+        "shortName": {
+          "type": "string",
+          "description": "企业简称(企业用户适用)"
+        },
+        "certifyApplyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证申请时间"
+        },
+        "certifyAuditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核时间"
+        },
+        "certifyAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "certifyRejectReason": {
+          "type": "string",
+          "description": "实名认证审核拒绝理由"
+        },
+        "creatorApplyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证申请时间"
+        },
+        "creatorAuditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人认证审核时间"
+        },
+        "creatorAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"
+        },
+        "creatorRejectReason": {
+          "type": "string",
+          "description": "创作人审核状态拒绝理由"
+        },
+        "merchantStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户签约状态：0-待签约；1-已签约；2-签约失败"
+        },
+        "chainStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链状态：0-待上链；1-已上链；2-上链失败"
+        },
+        "chainTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链状态时间"
+        },
+        "chainFailedReason": {
+          "type": "string",
+          "description": "上链失败原因"
+        },
+        "userAddress": {
+          "type": "string",
+          "description": "用户在链上的账号地址"
+        },
+        "userPrivateKey": {
+          "type": "string",
+          "description": "用户私钥"
+        },
+        "credential": {
+          "type": "string",
+          "description": "身份存证uid"
+        },
+        "accountStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号有效状态：1-有效;2-锁定"
+        },
+        "userStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户有效状态：1-有效;2-锁定"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "userCertificationInfo": {
+          "$ref": "#/definitions/UserCertificationInfo",
+          "description": "实名信息"
+        },
+        "claim": {
+          "$ref": "#/definitions/RealNameClaim",
+          "description": "存证声明数据"
+        },
+        "developerAuditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开发者认证状态：0-待认证；1-已认证；2-认证未通过；3-认证中",
+          "title": "开发者认证状态：0-待认证；1-已认证；2-认证未通过；3-认证中"
+        },
+        "developerRejectReason": {
+          "type": "string",
+          "description": "开发者认证审核不通过原因",
+          "title": "开发者认证审核不通过原因"
+        },
+        "developerContract": {
+          "type": "string",
+          "description": "开发者认证协议链接",
+          "title": "开发者认证协议链接"
+        }
+      }
+    },
+    "UserInfoResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功其他失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "提示语"
+        },
+        "data": {
+          "$ref": "#/definitions/UserInfo",
+          "description": "用户信息"
+        }
+      }
+    },
+    "UserInvoiceApplyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "可开发票表id"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发票类型",
+          "title": "uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"可开发票表id\"}];"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发票金额"
+        },
+        "personalName": {
+          "type": "string",
+          "description": "发票为个人时的姓名"
+        },
+        "companyName": {
+          "type": "string",
+          "description": "企业名称"
+        },
+        "businessLicenseNumber": {
+          "type": "string",
+          "description": "企业营业执照号"
+        },
+        "registeredAddress": {
+          "type": "string",
+          "description": "企业注册地址"
+        },
+        "telephone": {
+          "type": "string",
+          "description": "企业电话"
+        },
+        "bankAccount": {
+          "type": "string",
+          "description": "开户行"
+        },
+        "creditCardNumbers": {
+          "type": "string",
+          "description": "银行卡号"
+        },
+        "name": {
+          "type": "string",
+          "description": "收件人姓名"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "收件人联系电话"
+        },
+        "area": {
+          "type": "string",
+          "description": "收件人地区"
+        },
+        "address": {
+          "type": "string",
+          "description": "收件人地址"
+        },
+        "account": {
+          "type": "string",
+          "description": "账号手机号或邮箱"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ]
+    },
+    "UserInvoiceApplyResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserInvoiceConsumptiveDetailReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "可开发票表id",
+          "title": "账户ID"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        }
+      },
+      "required": [
+        "id",
+        "page",
+        "limit"
+      ]
+    },
+    "UserInvoiceConsumptiveDetailResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserInvoiceConsumptiveDetailResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserInvoiceConsumptiveDetailResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserCapitalAllDetail"
+          }
+        }
+      }
+    },
+    "UserInvoiceGetInfoByIdReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "已完成开发票表id"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票类型1个人2企业3个体工商户"
+        }
+      }
+    },
+    "UserInvoiceGetInfoByIdResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserAdminInvoiceGetInfo",
+          "description": "发票信息"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserInvoiceInclusiveMonthInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "date": {
+          "type": "string",
+          "description": "日期月份"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票金额"
+        }
+      }
+    },
+    "UserInvoiceInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "date": {
+          "type": "string",
+          "description": "日期"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票金额"
+        },
+        "progress": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0-未开票；1-开票中；2-开票完成"
+        },
+        "invoiceInfoId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发标信息表id"
+        }
+      }
+    },
+    "UserInvoiceListReq": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        },
+        "startDate": {
+          "type": "string",
+          "format": "uint64",
+          "description": "开始日期",
+          "title": "开始日期"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "uint64",
+          "description": "结束日期",
+          "title": "结束日期"
+        }
+      },
+      "required": [
+        "page",
+        "limit"
+      ]
+    },
+    "UserInvoiceListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserInvoiceListResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserInvoiceListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserInvoiceInfo"
+          }
+        }
+      }
+    },
+    "UserInvoicedInclusiveMonthReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "可开发票表id"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        }
+      },
+      "required": [
+        "id",
+        "page",
+        "limit"
+      ]
+    },
+    "UserInvoicedInclusiveMonthResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserInvoicedInclusiveMonthResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserInvoicedInclusiveMonthResp.Data": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserInvoiceInclusiveMonthInfo"
+          }
+        }
+      }
+    },
+    "UserInvoicedInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "applyInvoiceId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "apply_invoice_id"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开票金额"
+        },
+        "invoiceNumber": {
+          "type": "string",
+          "description": "发票流水号"
+        },
+        "applyDate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请开票日期",
+          "title": "创建时间"
+        },
+        "actualDate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实际开票日期"
+        },
+        "inclusiveMonth": {
+          "type": "integer",
+          "format": "int64",
+          "description": "包含月份"
+        }
+      }
+    },
+    "UserInvoicedListReq": {
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "uint64",
+          "description": "开始日期",
+          "title": "开始日期"
+        },
+        "endDate": {
+          "type": "string",
+          "format": "uint64",
+          "description": "结束日期",
+          "title": "结束日期"
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "page"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "limit"
+        }
+      },
+      "required": [
+        "page",
+        "limit"
+      ]
+    },
+    "UserInvoicedListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UserInvoicedListResp.Data"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UserInvoicedListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserInvoicedInfo"
+          }
+        }
+      }
+    },
+    "UserResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功其他失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "提示语"
+        }
+      }
+    },
+    "UserServiceBaseListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/UserServiceBaseListResp.Data"
+        }
+      }
+    },
+    "UserServiceBaseListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/UserBaseInfo"
+          }
+        }
+      }
+    }
+  }
+}

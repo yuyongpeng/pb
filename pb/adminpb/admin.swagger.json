@@ -1,0 +1,1920 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/adminpb/admin.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "AdminService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/admin/auth/login": {
+      "post": {
+        "summary": "登录",
+        "operationId": "AdminService_Login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "登录-请求参数",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/auth/resetPassword": {
+      "post": {
+        "summary": "重置密码",
+        "operationId": "AdminService_ResetPassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "重置密码-请求参数",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetPasswordReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/auth/updatePassword": {
+      "post": {
+        "summary": "修改密码",
+        "operationId": "AdminService_UpdatePassword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "修改密码-请求参数",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePasswordReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/bass/getAccountAddressGasList": {
+      "get": {
+        "summary": "获取账号gas 费用列表",
+        "operationId": "AdminService_GetAccountAddressGasList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountAddressGasListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountAddress",
+            "description": "账号address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timeStart",
+            "description": "统计日期(时间戳秒) 最小",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "timeEnd",
+            "description": "统计日期 (时间戳秒)最大 ",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/bass/getAccountAddressList": {
+      "get": {
+        "summary": "获取账号地址列表",
+        "operationId": "AdminService_GetAccountAddressList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountAddressListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountAddress",
+            "description": "账号address",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/invoice/presentByAccount": {
+      "post": {
+        "summary": "运营后台admin给指定账户增加能量值",
+        "operationId": "AdminService_AdminPresentByAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AdminPresentByAccountResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdminPresentByAccountReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/authorisePrivilegesToRole": {
+      "post": {
+        "summary": "存储角色的权限",
+        "operationId": "AdminService_AuthorisePrivilegesToRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthorisePrivilegesToRoleReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/deleteAccount": {
+      "post": {
+        "summary": "删除账号",
+        "operationId": "AdminService_DeleteAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpStatusReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/deletePrivilege": {
+      "post": {
+        "summary": "删除权限",
+        "operationId": "AdminService_DeletePrivilege",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpStatusReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/deleteRole": {
+      "post": {
+        "summary": "删除角色",
+        "operationId": "AdminService_DeleteRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpStatusReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/deleteRoleGroup": {
+      "post": {
+        "summary": "删除角色分组",
+        "operationId": "AdminService_DeleteRoleGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpStatusReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAccountByEmail": {
+      "get": {
+        "summary": "通过Email取账号信息",
+        "operationId": "AdminService_GetAccountByEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "description": "邮箱",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAccountById": {
+      "get": {
+        "summary": "通过账号ID取账号信息",
+        "operationId": "AdminService_GetAccountById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountId",
+            "description": "账号ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAccountByMobile": {
+      "get": {
+        "summary": "通过手机号码登录名取账号信息",
+        "operationId": "AdminService_GetAccountByMobile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "mobile",
+            "description": "手机号码",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAccountByName": {
+      "get": {
+        "summary": "通过账号名称登录名取账号信息",
+        "operationId": "AdminService_GetAccountByName",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "accountName",
+            "description": "登录用户名",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAccountsByRoleId": {
+      "get": {
+        "summary": "取给定角色ID对应角色下的所有账号信息",
+        "operationId": "AdminService_GetAccountsByRoleId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "roleId",
+            "description": "角色ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAllAccounts": {
+      "get": {
+        "summary": "取所有账号信息",
+        "operationId": "AdminService_GetAllAccounts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAccountListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "r",
+            "in": "query",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAllPrivileges": {
+      "get": {
+        "summary": "取所有权限",
+        "operationId": "AdminService_GetAllPrivileges",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPrivilegeListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "r",
+            "in": "query",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAllRoleGroup": {
+      "get": {
+        "summary": "获取所有角色分组",
+        "operationId": "AdminService_GetAllRoleGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetRoleGroupListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "r",
+            "in": "query",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getAllRoles": {
+      "get": {
+        "summary": "取出所有角色",
+        "operationId": "AdminService_GetAllRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetRoleListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "r",
+            "in": "query",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getPrivilegesOfAllRoles": {
+      "get": {
+        "summary": "取所有角色的权限",
+        "operationId": "AdminService_GetPrivilegesOfAllRoles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPrivilegesOfAllRolesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "r",
+            "in": "query",
+            "required": false,
+            "type": "object"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getPrivilegesOfRole": {
+      "post": {
+        "summary": "通过角色ID取出该角色拥有的所有权限",
+        "operationId": "AdminService_GetPrivilegesOfRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPrivilegesOfRoleResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetPrivilegesOfRoleReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/getRoleById": {
+      "get": {
+        "summary": "通过ID取角色",
+        "operationId": "AdminService_GetRoleById",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetRoleResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "roleId",
+            "description": "角色ID",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/handleAccount": {
+      "post": {
+        "summary": "创建账号",
+        "operationId": "AdminService_HandleAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HandleAccountReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/handlePrivilege": {
+      "post": {
+        "summary": "添加/更新权限",
+        "operationId": "AdminService_HandlePrivilege",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HandlePrivilegeReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/handleRole": {
+      "post": {
+        "summary": "添加/更新角色",
+        "operationId": "AdminService_HandleRole",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HandleRoleReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/handleRoleGroup": {
+      "post": {
+        "summary": "添加/更新角色分组",
+        "operationId": "AdminService_HandleRoleGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HandleRoleGroupReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    },
+    "/admin/rbac/lockUnlockAccount": {
+      "post": {
+        "summary": "锁定/解锁账号",
+        "operationId": "AdminService_LockUnlockAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BaseResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpStatusReq"
+            }
+          }
+        ],
+        "tags": [
+          "AdminService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Account": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号ID"
+        },
+        "accountName": {
+          "type": "string",
+          "description": "登录用户名"
+        },
+        "password": {
+          "type": "string",
+          "default": "66668888",
+          "description": "登录密码"
+        },
+        "roleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色ID"
+        },
+        "roleNameCn": {
+          "type": "string",
+          "description": "中文名"
+        },
+        "roleNameEn": {
+          "type": "string",
+          "description": "英文名"
+        },
+        "groupId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "分组ID"
+        },
+        "groupName": {
+          "type": "string",
+          "description": "分组名称"
+        },
+        "realName": {
+          "type": "string",
+          "description": "真实姓名"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "头像链接"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号码"
+        },
+        "email": {
+          "type": "string",
+          "description": "邮箱"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "简介"
+        },
+        "bindIp": {
+          "type": "string",
+          "description": "绑定登录IP"
+        },
+        "bindMac": {
+          "type": "string",
+          "description": "绑定登录MAC地址"
+        },
+        "operatorId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改人ID"
+        },
+        "operatorName": {
+          "type": "string",
+          "description": "真实姓名"
+        },
+        "lastLoginTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "lastLoginIp": {
+          "type": "string",
+          "description": "创建时间"
+        },
+        "lastLoginMac": {
+          "type": "string",
+          "description": "创建时间"
+        },
+        "initState": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "初始状态：1-系统初始用户;2-非系统初始用户"
+        },
+        "isSystemAdmin": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "是否为系统管理员：1-是;2-否"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "modifyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "状态：0-删除;1-有效;2-锁定"
+        }
+      },
+      "title": "账号相关数据结构",
+      "required": [
+        "accountName",
+        "roleId",
+        "roleNameCn"
+      ]
+    },
+    "AdminPresentByAccountReq": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "type": "string",
+          "description": "账号"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "赠送能量值"
+        },
+        "remark": {
+          "type": "string",
+          "description": "备注",
+          "title": "ID"
+        }
+      }
+    },
+    "AdminPresentByAccountResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        }
+      }
+    },
+    "AuthorisePrivilegesToRoleReq": {
+      "type": "object",
+      "properties": {
+        "roleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色ID"
+        },
+        "privilegeId": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "权限ID列表"
+        }
+      },
+      "title": "保存角色权限请求",
+      "required": [
+        "roleId",
+        "privilegeId"
+      ]
+    },
+    "BaseResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {}
+      },
+      "title": "返回的基础结构类型"
+    },
+    "GetAccountAddressGasInfo": {
+      "type": "object",
+      "properties": {
+        "accountAddress": {
+          "type": "string",
+          "description": "账号address"
+        },
+        "statisticDay": {
+          "type": "string",
+          "description": "统计日期日期"
+        },
+        "gasBalance": {
+          "type": "string",
+          "description": "账号gas余额"
+        }
+      }
+    },
+    "GetAccountAddressGasListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/GetAccountAddressGasListResp.Data"
+        }
+      }
+    },
+    "GetAccountAddressGasListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "gasBalance": {
+          "type": "string"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/GetAccountAddressGasInfo"
+          }
+        }
+      }
+    },
+    "GetAccountAddressListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/GetAccountAddressListResp.Data"
+        }
+      }
+    },
+    "GetAccountAddressListResp.Data": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "GetAccountListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Account"
+          },
+          "description": "账号信息"
+        }
+      },
+      "title": "取账号列表返回的数据结构"
+    },
+    "GetAccountResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "$ref": "#/definitions/Account",
+          "description": "账号信息"
+        }
+      },
+      "title": "取单个账号返回的数据结构"
+    },
+    "GetPrivilegeListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Privilege"
+          },
+          "description": "权限信息"
+        }
+      },
+      "title": "取权限列表返回数据结构"
+    },
+    "GetPrivilegeResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "$ref": "#/definitions/Privilege",
+          "description": "权限信息"
+        }
+      },
+      "title": "取单个权限返回数据结构"
+    },
+    "GetPrivilegesOfAllRolesResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "$ref": "#/definitions/RoleGroupPrivilege",
+          "description": "角色、角色分组及权限信息"
+        }
+      },
+      "title": "取所有角色的权限的返回结构"
+    },
+    "GetPrivilegesOfRoleReq": {
+      "type": "object",
+      "properties": {
+        "roleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色ID"
+        },
+        "isSystemAdmin": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "是否系统管理员角色"
+        }
+      },
+      "title": "通过角色ID取单个权限请求",
+      "required": [
+        "roleId"
+      ]
+    },
+    "GetPrivilegesOfRoleResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/RoleAndPrivilege"
+          },
+          "description": "角色权限信息"
+        }
+      },
+      "title": "通过角色ID取单个权限请求"
+    },
+    "GetRoleGroupListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/RoleGroup"
+          },
+          "description": "角色分组信息"
+        }
+      },
+      "title": "取角色分组列表返回数据结构"
+    },
+    "GetRoleListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/Role"
+          },
+          "description": "角色信息"
+        }
+      },
+      "title": "取角色列表返回数据结构"
+    },
+    "GetRoleResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "$ref": "#/definitions/Role",
+          "description": "角色信息"
+        }
+      },
+      "title": "取单个角色返回数据结构"
+    },
+    "HandleAccountReq": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "integer",
+          "format": "int64",
+          "description": "操作类型：1-添加；2-更新"
+        },
+        "account": {
+          "$ref": "#/definitions/Account",
+          "description": "账号信息"
+        }
+      },
+      "title": "添加/编辑账号请求",
+      "required": [
+        "action",
+        "account"
+      ]
+    },
+    "HandlePrivilegeReq": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "integer",
+          "format": "int64",
+          "description": "操作类型：1-添加；2-更新"
+        },
+        "privilege": {
+          "$ref": "#/definitions/Privilege",
+          "description": "权限信息"
+        }
+      },
+      "title": "添加/编辑权限请求",
+      "required": [
+        "action",
+        "privilege"
+      ]
+    },
+    "HandleRoleGroupReq": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "integer",
+          "format": "int64",
+          "description": "操作类型：1-添加；2-更新"
+        },
+        "group": {
+          "$ref": "#/definitions/RoleGroup",
+          "description": "角色分组信息"
+        }
+      },
+      "title": "添加/编辑分组请求",
+      "required": [
+        "action",
+        "group"
+      ]
+    },
+    "HandleRoleReq": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "integer",
+          "format": "int64",
+          "description": "操作类型：1-添加；2-更新"
+        },
+        "role": {
+          "$ref": "#/definitions/Role",
+          "description": "角色信息"
+        }
+      },
+      "title": "添加/编辑角色请求",
+      "required": [
+        "action",
+        "role"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "example": {},
+      "properties": {
+        "accountName": {
+          "type": "string",
+          "description": "账号名:手机号或者邮箱"
+        },
+        "password": {
+          "type": "string",
+          "description": "账户密码6-12位"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "四位验证吗1000-9999",
+          "title": "uint32 type = 3 [(validate.rules).uint32  = {in:[2,1]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"登录方式：1-手机号验证码;2-账号密码登陆\"}];"
+        }
+      },
+      "description": "登录-请求参数",
+      "title": "登录-请求参数",
+      "required": [
+        "accountName",
+        "type"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "错误码：0-成功；其它都为失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误描述"
+        },
+        "data": {
+          "$ref": "#/definitions/LoginResp.Data"
+        }
+      }
+    },
+    "LoginResp.Data": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号ID"
+        },
+        "accountName": {
+          "type": "string",
+          "description": "账号名称"
+        },
+        "token": {
+          "type": "string",
+          "description": "Token"
+        },
+        "expireIn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Token过期时间"
+        },
+        "pwdExpired": {
+          "type": "boolean",
+          "description": "密码是否过期,true表示密码已过期;false表示密码未过期",
+          "title": "密码是否过期,true表示密码已过期;false表示密码未过期"
+        },
+        "privileges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/RoleAndPrivilege"
+          },
+          "description": "分配给账号对应角色的权限"
+        }
+      }
+    },
+    "NullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "Privilege": {
+      "type": "object",
+      "properties": {
+        "privilegeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权限ID"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "父级权限ID"
+        },
+        "showNameCn": {
+          "type": "string",
+          "description": "中文名"
+        },
+        "showNameEn": {
+          "type": "string",
+          "description": "英文名"
+        },
+        "privilegeType": {
+          "type": "integer",
+          "format": "int64",
+          "default": "4",
+          "description": "权限类型：1-页面；2-按钮；3-内容块；4-接口"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "菜单类权限的层级"
+        },
+        "routerUri": {
+          "type": "string",
+          "description": "目标页面对应的路由地址"
+        },
+        "icon": {
+          "type": "string",
+          "description": "页面或元素的图标"
+        },
+        "target": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "连接目标类型：1-当前窗口；2-新窗口/标签；3-弹出窗口(暂未使用)"
+        },
+        "isShow": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "是否显示：1-是;2-否"
+        },
+        "onTop": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "菜单级权限是否显示在顶部导航条：1-是;2-否"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int64",
+          "description": "菜单级权限在同级菜单排列位置"
+        },
+        "isPublic": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "是否可公开访问的权限：1-是;2-否"
+        },
+        "needLogin": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "是否需要登录后才能访问：1-需要;2-不需要"
+        },
+        "needAuthorise": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "是否需要授权后才能访问：1-需要;2-不需要"
+        },
+        "initState": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "初始状态：1-系统初始菜单；2-非系统初始菜单；3-系统管理员专有菜单"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "modifyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "状态：0-删除；1-有效"
+        }
+      },
+      "description": "权限数据结构",
+      "title": "权限数据结构",
+      "required": [
+        "parentId",
+        "showNameCn",
+        "routerUri"
+      ]
+    },
+    "ResetPasswordReq": {
+      "type": "object",
+      "example": {},
+      "properties": {
+        "accountId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "账号ID",
+          "title": "string account_name = 2 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"账号名:手机号或者邮箱\"}];"
+        }
+      },
+      "description": "重置密码-请求参数",
+      "title": "重置密码-请求参数",
+      "required": [
+        "accountId"
+      ]
+    },
+    "Role": {
+      "type": "object",
+      "properties": {
+        "roleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色ID"
+        },
+        "roleNameCn": {
+          "type": "string",
+          "description": "中文名"
+        },
+        "roleNameEn": {
+          "type": "string",
+          "description": "英文名"
+        },
+        "roleGroupId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色分组ID"
+        },
+        "groupNameCn": {
+          "type": "string",
+          "description": "角色分组中文名"
+        },
+        "groupNameEn": {
+          "type": "string",
+          "description": "角色分组英文名"
+        },
+        "roleGrade": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权限等级，等级越大，权限越小（暂未启用，待定）"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int64",
+          "description": "排列位置"
+        },
+        "initState": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "初始状态：1-系统初始化角色;2-非系统初始化角色"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "isSystem": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "是否为系统管理员：1-是;2-否"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "modifyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "状态：0-删除；1-有效"
+        }
+      },
+      "title": "角色数据结构",
+      "required": [
+        "roleNameCn",
+        "roleGroupId",
+        "groupNameCn"
+      ]
+    },
+    "RoleAndGroup": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "$ref": "#/definitions/RoleGroup",
+          "description": "角色分组信息"
+        },
+        "roleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色ID"
+        },
+        "roleNameCn": {
+          "type": "string",
+          "description": "中文名"
+        },
+        "roleNameEn": {
+          "type": "string",
+          "description": "英文名"
+        },
+        "roleGrade": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权限等级，等级越大，权限越小（暂未启用，待定）"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int64",
+          "description": "排列位置"
+        },
+        "initState": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "初始状态：1-系统初始化角色;2-非系统初始化角色"
+        },
+        "isSystem": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "是否为系统管理员：1-是;2-否"
+        }
+      },
+      "title": "角色分组及其下角色数据结构",
+      "required": [
+        "group",
+        "roleId",
+        "roleNameCn"
+      ]
+    },
+    "RoleAndPrivilege": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/definitions/RolePrivilege",
+          "description": "角色和权限关系信息"
+        },
+        "privilegeNameCn": {
+          "type": "string",
+          "description": "权限中文名"
+        },
+        "privilegeNameEn": {
+          "type": "string",
+          "description": "权限英文名"
+        },
+        "routerUri": {
+          "type": "string",
+          "description": "路由地址"
+        },
+        "parentId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "父级权限ID"
+        },
+        "privilegeType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权限类型：1-页面；2-按钮；3-内容块；4-接口"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int64",
+          "description": "菜单类权限的层级"
+        },
+        "icon": {
+          "type": "string",
+          "description": "页面或元素的图标"
+        },
+        "isPublic": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "是否可公开访问的权限：1-是;2-否"
+        },
+        "needLogin": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "是否需要登录后才能访问：1-需要;2-不需要"
+        },
+        "needAuthorise": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "是否需要授权后才能访问：1-需要;2-不需要"
+        }
+      },
+      "title": "角色和权限关系数据结构(附带权限名称等信息)",
+      "required": [
+        "ref",
+        "privilegeNameCn",
+        "parentId"
+      ]
+    },
+    "RoleGroup": {
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色分组ID"
+        },
+        "groupNameCn": {
+          "type": "string",
+          "description": "角色分组中文名"
+        },
+        "groupNameEn": {
+          "type": "string",
+          "description": "角色分组英文名"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int64",
+          "description": "排列位置"
+        },
+        "initState": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "初始状态：1-系统初始化角色;2-非系统初始化角色"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "modifyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "1",
+          "description": "状态：0-删除；1-有效"
+        }
+      },
+      "title": "角色分组数据结构",
+      "required": [
+        "groupNameCn"
+      ]
+    },
+    "RoleGroupPrivilege": {
+      "type": "object",
+      "properties": {
+        "rg": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/RoleAndGroup"
+          },
+          "description": "角色和分组信息"
+        },
+        "rp": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/RoleAndPrivilege"
+          },
+          "description": "角色权限信息"
+        }
+      },
+      "required": [
+        "rg",
+        "rp"
+      ]
+    },
+    "RolePrivilege": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "关系ID"
+        },
+        "roleId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "角色ID"
+        },
+        "privilegeId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权限ID"
+        },
+        "initState": {
+          "type": "integer",
+          "format": "int64",
+          "default": "2",
+          "description": "初始状态：1-系统初始化角色;2-非系统初始化角色"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "default": "0",
+          "description": "状态：0-删除；1-有效"
+        }
+      },
+      "title": "角色和权限关系数据结构",
+      "required": [
+        "roleId",
+        "privilegeId"
+      ]
+    },
+    "UpStatusReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "记录ID"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "状态：0-删除;1-有效..."
+        }
+      },
+      "title": "更新数据状态请求",
+      "required": [
+        "id",
+        "status"
+      ]
+    },
+    "UpdatePasswordReq": {
+      "type": "object",
+      "example": {
+        "account_id": 123,
+        "account_name": "vingo",
+        "old_password": "123456",
+        "new_password": "111111"
+      },
+      "properties": {
+        "oldPassword": {
+          "type": "string",
+          "description": "旧密码",
+          "title": "string account_name = 2 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"账号名:手机号或者邮箱\"}];"
+        },
+        "newPassword": {
+          "type": "string",
+          "description": "新密码"
+        }
+      },
+      "description": "修改密码-请求参数",
+      "title": "修改密码-请求参数",
+      "required": [
+        "oldPassword",
+        "newPassword"
+      ]
+    }
+  }
+}

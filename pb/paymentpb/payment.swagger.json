@@ -1,0 +1,1768 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/paymentpb/payment.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "PaymentService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/payment/amtSettle": {
+      "post": {
+        "summary": "资金结算",
+        "operationId": "PaymentService_AmtSettle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AmtSettleOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AmtSettleIn"
+            }
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/billQuery": {
+      "get": {
+        "summary": "查询账单下载地址",
+        "operationId": "PaymentService_BillQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BillQueryOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "payChannel",
+            "description": "支付通道\n\n支付通道",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "date",
+            "description": "账单日期 0000-00-00\n\n账单日期 0000-00-00",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/merchantApply": {
+      "post": {
+        "summary": "商户进件",
+        "operationId": "PaymentService_MerchantApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantApplyOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MerchantApplyIn"
+            }
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/merchantApplyQuery": {
+      "get": {
+        "summary": "商户进件查询",
+        "operationId": "PaymentService_MerchantApplyQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantApplyQueryOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "payChannel",
+            "description": "支付通道\n\n支付通道, 枚举字段, 枚举: alipay_zft",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "alipay_zft",
+              "alipay_merchant"
+            ]
+          },
+          {
+            "name": "regApplyNo",
+            "description": "商户进件申请单号, 与`商户编号`互斥\n\n商户进件申请单号, 与`商户编号`互斥",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "merchantNo",
+            "description": "商户编号, 与`商户进件申请单号`互斥\n\n商户编号, 与`商户进件申请单号`互斥",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/merchantDetail": {
+      "get": {
+        "summary": "获取支付商户详情",
+        "operationId": "PaymentService_MerchantDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantDetailOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "merchantId",
+            "description": "商户ID,与商户编号互斥\n\n商户ID,与商户编号互斥",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "merchantNo",
+            "description": "商户编号,与商户ID互斥\n\n商户编号,与商户ID互斥",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/merchantList": {
+      "get": {
+        "summary": "支付商户列表",
+        "operationId": "PaymentService_MerchantList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/MerchantListOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "用户ID\n\n用户ID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "uint32"
+          },
+          {
+            "name": "page",
+            "description": "页码\n\n页码,默认值1",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "uint32"
+          },
+          {
+            "name": "pageSize",
+            "description": "每页显示数\n\n每页显示数",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "uint32"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/orderSettle": {
+      "post": {
+        "summary": "订单结算",
+        "operationId": "PaymentService_OrderSettle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/OrderSettleOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderSettleIn"
+            }
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/orderSettleQuery": {
+      "get": {
+        "summary": "订单结算查询",
+        "operationId": "PaymentService_OrderSettleQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/OrderSettleQueryOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "outRequestNo",
+            "description": "订单结算请求号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/pay": {
+      "post": {
+        "summary": "支付",
+        "operationId": "PaymentService_Pay",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PayOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PayIn"
+            }
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/payQuery": {
+      "get": {
+        "summary": "支付查询",
+        "operationId": "PaymentService_PayQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PayQueryOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "payChannel",
+            "description": "支付通道\n\n支付通道",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "merchantNo",
+            "description": "商户号\n\n商户号",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "outTradeNo",
+            "description": "商户订单号\n\n商户订单号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "tradeNo",
+            "description": "订单号\n\n订单号",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/refund": {
+      "post": {
+        "summary": "退款",
+        "operationId": "PaymentService_Refund",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RefundOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RefundIn"
+            }
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    },
+    "/payment/refundQuery": {
+      "get": {
+        "summary": "退款查询",
+        "operationId": "PaymentService_RefundQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RefundQueryOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "payChannel",
+            "description": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连\n\n支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "alipay_zft",
+              "alipay_merchant"
+            ]
+          },
+          {
+            "name": "requestNo",
+            "description": "退款请求号(业务操作成功时)\n\n退款请求号(业务操作成功时)",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "PaymentService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AddressInfo": {
+      "type": "object",
+      "properties": {
+        "provinceCode": {
+          "type": "string",
+          "description": "省份编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。",
+          "title": "省份编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。"
+        },
+        "cityCode": {
+          "type": "string",
+          "description": "城市编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。",
+          "title": "城市编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。"
+        },
+        "districtCode": {
+          "type": "string",
+          "description": "区县编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。",
+          "title": "区县编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。"
+        },
+        "address": {
+          "type": "string",
+          "description": "地址。商户详细经营地址或人员所在地点"
+        }
+      }
+    },
+    "AmtSettleIn": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "enum": [
+            "alipay_zft",
+            "alipay_merchant"
+          ],
+          "description": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连",
+          "title": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结算金额, 指定的结算金额",
+          "title": "(optional) 结算金额, 指定的结算金额"
+        },
+        "extraParams": {
+          "$ref": "#/definitions/ExtraParams",
+          "title": "(optional) 拓展参数"
+        }
+      },
+      "title": "AmtSettleIn 资金结算-请求消息",
+      "required": [
+        "payChannel",
+        "outTradeNo"
+      ]
+    },
+    "AmtSettleOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/AmtSettleOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "AmtSettleOut 资金结算-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "AmtSettleOut.Data": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "description": "支付通道",
+          "title": "支付通道"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "requestNo": {
+          "type": "string",
+          "description": "确认结算请求流水号",
+          "title": "确认结算请求流水号"
+        },
+        "settleAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "本次实际结算金额",
+          "title": "本次实际结算金额"
+        },
+        "result": {
+          "type": "boolean",
+          "description": "资金结算操作结果, true操作成功;false操作失败",
+          "title": "资金结算操作结果, true操作成功;false操作失败"
+        },
+        "signal": {
+          "type": "integer",
+          "format": "int32",
+          "description": "资金结算标记, -1资金结算失败;0资金结算之前已操作成功;1本次资金结算操作执行成功",
+          "title": "资金结算标记, -1资金结算失败;0资金结算之前已操作成功;1本次资金结算操作执行成功"
+        }
+      }
+    },
+    "BillQueryOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/BillQueryOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "BillQueryOut 账单查询-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "BillQueryOut.Data": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "账单下载地址",
+          "title": "账单下载地址"
+        }
+      }
+    },
+    "ContactInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "联系人名字",
+          "title": "联系人名字"
+        },
+        "phone": {
+          "type": "string",
+          "description": "电话",
+          "title": "电话"
+        },
+        "mobile": {
+          "type": "string",
+          "description": "手机号。必填与否参见外层对象描述,无特别说明认为是非必填",
+          "title": "手机号。必填与否参见外层对象描述,无特别说明认为是非必填"
+        },
+        "email": {
+          "type": "string",
+          "description": "电子邮箱",
+          "title": "电子邮箱"
+        },
+        "idCardNo": {
+          "type": "string",
+          "description": "身份证号",
+          "title": "身份证号"
+        }
+      }
+    },
+    "DefaultSettleRule": {
+      "type": "object",
+      "properties": {
+        "defaultSettleType": {
+          "type": "string",
+          "description": "默认结算类型,可选值有bankCard/alipayAccount。bankCard表示结算到银行卡;alipayAccount表示结算到支付宝账号",
+          "title": "默认结算类型,可选值有bankCard/alipayAccount。bankCard表示结算到银行卡;alipayAccount表示结算到支付宝账号"
+        },
+        "defaultSettleTarget": {
+          "type": "string",
+          "description": "默认结算目标。当默认结算类型为bankCard时填写银行卡卡号,其值需在进件填写的结算银行卡范围内;当默认结算类型为alipayAccount时填写支付宝账号登录号,其值需在进件填写的结算支付宝账号范围内。",
+          "title": "默认结算目标。当默认结算类型为bankCard时填写银行卡卡号,其值需在进件填写的结算银行卡范围内;当默认结算类型为alipayAccount时填写支付宝账号登录号,其值需在进件填写的结算支付宝账号范围内。"
+        }
+      }
+    },
+    "ExtraParams": {
+      "type": "object",
+      "properties": {
+        "amtFreeze": {
+          "type": "boolean",
+          "title": "是否进行资金冻结"
+        }
+      }
+    },
+    "MerchantApplyDataForAlipayZFT": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "进件的二级商户名称。一般情况下要与证件的名称相同。个体工商户类型可以放宽到法人名称",
+          "title": "进件的二级商户名称。一般情况下要与证件的名称相同。个体工商户类型可以放宽到法人名称"
+        },
+        "aliasName": {
+          "type": "string",
+          "description": "商户别名。支付宝账单中的商户名称会展示此处设置的别名,如果涉及支付宝APP内的支付,支付结果页也会展示该别名.如果涉及当面付场景,请填写线下店铺名称",
+          "title": "商户别名。支付宝账单中的商户名称会展示此处设置的别名,如果涉及支付宝APP内的支付,支付结果页也会展示该别名.如果涉及当面付场景,请填写线下店铺名称"
+        },
+        "merchantType": {
+          "type": "string",
+          "description": "商户类型: 01: 企业; cert_type填写201(营业执照);cert_no填写营业执照号; 02:事业单位:cert_type填写218(事业单位法人证书);cert_no填写事业单位法人证书编号; 03:民办非企业组织:cert_type填写204(民办非企业登记证书);cert_no填写民办非企业登记证书编号; 04:社会团体:cert_type填写206(社会团体法人登记证书);cert_no填写社会团体法人登记证书编号; 05:党政及国家机关:cert_type填写219(党政机关批准设立文件/行政执法主体资格证);cert_no填写党政机关批准设立文件/行政执法主体资格证编号; 06:个人商户:cert_type填写100(个人身份证);cert_no填写个人身份证号码; 07:个体工商户:cert_type填写201(营业执照);cert_no填写营业执照编号;",
+          "title": "商户类型: 01: 企业; cert_type填写201(营业执照);cert_no填写营业执照号; 02:事业单位:cert_type填写218(事业单位法人证书);cert_no填写事业单位法人证书编号; 03:民办非企业组织:cert_type填写204(民办非企业登记证书);cert_no填写民办非企业登记证书编号; 04:社会团体:cert_type填写206(社会团体法人登记证书);cert_no填写社会团体法人登记证书编号; 05:党政及国家机关:cert_type填写219(党政机关批准设立文件/行政执法主体资格证);cert_no填写党政机关批准设立文件/行政执法主体资格证编号; 06:个人商户:cert_type填写100(个人身份证);cert_no填写个人身份证号码; 07:个体工商户:cert_type填写201(营业执照);cert_no填写营业执照编号;"
+        },
+        "mcc": {
+          "type": "string",
+          "description": "商户类别码mcc,参见https://gw.alipayobjects.com/os/bmw-prod/b28421ce-0ddf-422f-9e9c-c2c3c7f30c73.xlsx 特殊行业要按照MCC说明中的资质一栏上传辅助资质,辅助资质要在qualifications中上传,会有人工审核。",
+          "title": "商户类别码mcc,参见https://gw.alipayobjects.com/os/bmw-prod/b28421ce-0ddf-422f-9e9c-c2c3c7f30c73.xlsx 特殊行业要按照MCC说明中的资质一栏上传辅助资质,辅助资质要在qualifications中上传,会有人工审核。"
+        },
+        "defaultSettleRule": {
+          "$ref": "#/definitions/DefaultSettleRule",
+          "description": "默认结算规则。当调用收单接口,结算条款中设置默认结算规则时,交易资金将结算至此处设置的默认结算目标账户中。其详细描述及收单接口传参示例参考功能包文档",
+          "title": "默认结算规则。当调用收单接口,结算条款中设置默认结算规则时,交易资金将结算至此处设置的默认结算目标账户中。其详细描述及收单接口传参示例参考功能包文档"
+        },
+        "alipayLogonId": {
+          "type": "string",
+          "description": "结算支付宝账号,结算账号使用支付宝账号时必填.本字段要求与商户名称name同名,且是实名认证支付宝账户(个体工商户可以与name或cert_name相同)",
+          "title": "结算支付宝账号,结算账号使用支付宝账号时必填.本字段要求与商户名称name同名,且是实名认证支付宝账户(个体工商户可以与name或cert_name相同)"
+        },
+        "bindingAlipayLogonId": {
+          "type": "string",
+          "description": "签约支付宝账户,用于协议确认,及后续二级商户增值产品服务签约时使用。本字段要求与商户名称name同名(个体工商户可以与name或cert_name相同),且是实名认证支付宝账户",
+          "title": "签约支付宝账户,用于协议确认,及后续二级商户增值产品服务签约时使用。本字段要求与商户名称name同名(个体工商户可以与name或cert_name相同),且是实名认证支付宝账户"
+        },
+        "contactInfos": {
+          "$ref": "#/definitions/ContactInfo",
+          "description": "商户联系人信息。在本业务中,ContactInfo对象中联系人姓名、手机号必填,其他选填",
+          "title": "商户联系人信息。在本业务中,ContactInfo对象中联系人姓名、手机号必填,其他选填"
+        },
+        "sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/SiteInfo"
+          },
+          "description": "商户站点信息,包括网站、app、小程序。商户使用服务包含电脑支付或wap支付时,必须填充一个类型为01(网站)的SiteInfo对象,site_type/site_url/site_name必填;当包含app支付时,必须至少填充类型为02(APP)或06(支付宝小程序)中一种类型的SiteInfo对象,site_type/site_name必填",
+          "title": "商户站点信息,包括网站、app、小程序。商户使用服务包含电脑支付或wap支付时,必须填充一个类型为01(网站)的SiteInfo对象,site_type/site_url/site_name必填;当包含app支付时,必须至少填充类型为02(APP)或06(支付宝小程序)中一种类型的SiteInfo对象,site_type/site_name必填"
+        },
+        "service": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "商户使用服务,可选值有:当面付、app支付、wap支付、电脑支付、线上资金预授权、新当面资金授权、商户代扣、小程序支付。其值会影响其他字段必填性,详见其他字段描述",
+          "title": "商户使用服务,可选值有:当面付、app支付、wap支付、电脑支付、线上资金预授权、新当面资金授权、商户代扣、小程序支付。其值会影响其他字段必填性,详见其他字段描述"
+        },
+        "businessAddress": {
+          "$ref": "#/definitions/AddressInfo",
+          "description": "经营地址。当使用当面付服务时,本字段要求必填。地址对象中省、市、区、地址必填,其余选填",
+          "title": "经营地址。当使用当面付服务时,本字段要求必填。地址对象中省、市、区、地址必填,其余选填"
+        }
+      }
+    },
+    "MerchantApplyDataForWxpaySFT": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "title": "微信支付-收付通: 商户进件信息"
+    },
+    "MerchantApplyIn": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "enum": [
+            "alipay_zft",
+            "alipay_merchant"
+          ],
+          "description": "支付通道, 枚举字段, 枚举: alipay_zft",
+          "title": "支付通道"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "uint32",
+          "description": "用户ID",
+          "title": "用户ID"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户编号",
+          "title": "商户编号"
+        },
+        "alipayApplyData": {
+          "$ref": "#/definitions/MerchantApplyDataForAlipayZFT",
+          "description": "支付通道商户申请数据, 支付渠道为`支付宝-直付通`必选",
+          "title": "(支付宝直付通)支付通道商户申请数据, 支付渠道为`支付宝-直付通`必选"
+        },
+        "wxpayRegData": {
+          "$ref": "#/definitions/MerchantApplyDataForWxpaySFT",
+          "description": "(微信支付收付通)支付通道商户申请数据",
+          "title": "(微信支付收付通)支付通道商户申请数据"
+        }
+      },
+      "title": "MerchantApplyIn 商户进件-请求消息",
+      "required": [
+        "payChannel",
+        "userId",
+        "merchantNo"
+      ]
+    },
+    "MerchantApplyOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/MerchantApplyOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "MerchantApplyQueryIn 商户进件-请求消息",
+      "required": [
+        "code",
+        "msg",
+        "data"
+      ]
+    },
+    "MerchantApplyOut.Data": {
+      "type": "object",
+      "properties": {
+        "regApplyNo": {
+          "type": "string",
+          "description": "商户进件申请单号",
+          "title": "商户进件单号"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户编号",
+          "title": "商户编号"
+        },
+        "result": {
+          "type": "boolean",
+          "description": "业务操作结果",
+          "title": "业务操作结果"
+        },
+        "error": {
+          "type": "string",
+          "description": "业务操作错误",
+          "title": "业务操作结果"
+        }
+      },
+      "required": [
+        "result",
+        "error"
+      ]
+    },
+    "MerchantApplyQueryOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/MerchantApplyQueryOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "MerchantApplyQueryOut 商户进件查询-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "MerchantApplyQueryOut.Data": {
+      "type": "object",
+      "properties": {
+        "regApplyNo": {
+          "type": "string",
+          "description": "商户进件申请单号",
+          "title": "商户进件申请单号"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户编号",
+          "title": "商户编号"
+        },
+        "applyStatus": {
+          "type": "integer",
+          "format": "uint32",
+          "enum": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "description": "商户进件状态,0待进件;1进件中;2进件成功;3进件失败",
+          "title": "商户进件状态, 0待进件;1进件中;2进件成功;3进件失败"
+        },
+        "payResp": {
+          "default": "null",
+          "description": "支付通道响应数据",
+          "title": "支付通道响应数据"
+        }
+      }
+    },
+    "MerchantDetail": {
+      "type": "object",
+      "properties": {
+        "merchantId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户ID",
+          "title": "商户ID"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID",
+          "title": "2"
+        },
+        "payChannel": {
+          "type": "string",
+          "description": "支付平台标识, alipay_zft支付宝-直付通;alipay_merchant支付宝-商户直连;wxpay_sft微信支付-收付通;wxpay_merchant微信支付-商户直连",
+          "title": "支付平台标识, alipay_zft支付宝-直付通;alipay_merchant支付宝-商户直连;wxpay_sft微信支付-收付通;wxpay_merchant微信支付-商户直连"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户编号",
+          "title": "支付商户编号"
+        },
+        "payMerchantNo": {
+          "type": "string",
+          "description": "(支付通道)商户号,支付通道商户编号",
+          "title": "(支付通道)商户号,支付通道商户编号"
+        },
+        "merchantName": {
+          "type": "string",
+          "description": "商户名称",
+          "title": "商户名称"
+        },
+        "merchantType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户类型,1收单商户;2分账商户",
+          "title": "商户类型,1收单商户;2分账商户"
+        },
+        "payApplyNo": {
+          "type": "string",
+          "description": "(支付通道)商户进件申请单号(最近一次)",
+          "title": "(支付通道)商户进件申请单号(最近一次)"
+        },
+        "settleData": {
+          "type": "string",
+          "description": "结算信息",
+          "title": "10\n11\n12\n14"
+        },
+        "feeRate": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户费率, 单位万分之一",
+          "title": "商户费率, 单位万分之一"
+        },
+        "applyAt": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户认证申请时间",
+          "title": "商户认证申请时间"
+        },
+        "certifyAt": {
+          "type": "integer",
+          "format": "int64",
+          "description": "(支付通道)商户认证通知时间",
+          "title": "(支付通道)商户认证通知时间"
+        },
+        "certifyMsg": {
+          "type": "string",
+          "description": "(支付通道)商户认证通知描述",
+          "title": "(支付通道)商户认证通知描述"
+        },
+        "applyStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商户进件状态,0待进件;1进件中;2进件成功;3进件失败",
+          "title": "商户进件状态,0待进件;1进件中;2进件成功;3进件失败"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核状态, 0待审核;1审核通过;2审核拒绝",
+          "title": "审核状态, 0待审核;1审核通过;2审核拒绝"
+        },
+        "modifiedAt": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间",
+          "title": "最后修改时间"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间",
+          "title": "创建时间"
+        }
+      },
+      "title": "MerchantDetail 商户详情",
+      "required": [
+        "merchantId",
+        "userId",
+        "payChannel",
+        "merchantNo"
+      ]
+    },
+    "MerchantDetailOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/MerchantDetail",
+          "description": "商户详情",
+          "title": "商户详情"
+        }
+      },
+      "title": "MerchantDetailIn 获取商户详情-响应消息",
+      "required": [
+        "code",
+        "msg",
+        "data"
+      ]
+    },
+    "MerchantListOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/MerchantListOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "MerchantDetailIn 获取商户列表-响应消息",
+      "required": [
+        "code",
+        "msg",
+        "data"
+      ]
+    },
+    "MerchantListOut.Data": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结果总数",
+          "title": "结果总数"
+        },
+        "pageTotal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总页数",
+          "title": "总页数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/MerchantDetail"
+          },
+          "description": "商户列表",
+          "title": "商户列表"
+        }
+      },
+      "required": [
+        "total",
+        "pageTotal",
+        "list"
+      ]
+    },
+    "NullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "OrderSettleIn": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "title": "支付通道"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "title": "商户订单号"
+        },
+        "settlementParams": {
+          "$ref": "#/definitions/SettlementParams",
+          "title": "分账参数"
+        }
+      },
+      "title": "OrderSettleIn 订单结算-请求消息"
+    },
+    "OrderSettleOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/OrderSettleOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "OrderSettleOut 订单结算-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "OrderSettleOut.Data": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "enum": [
+            "alipay_zft",
+            "alipay_merchant"
+          ],
+          "description": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连",
+          "title": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户号",
+          "title": "商户号"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "result": {
+          "type": "boolean",
+          "description": "订单结算业务操作结果",
+          "title": "订单结算业务操作结果"
+        },
+        "payRespForAmt": {
+          "title": "支付通道响应数据"
+        },
+        "payRespForBind": {
+          "title": "支付通道响应数据"
+        },
+        "payRespForSettle": {
+          "title": "支付通道响应数据"
+        },
+        "payRespForUnbind": {
+          "title": "支付通道响应数据"
+        }
+      },
+      "required": [
+        "payChannel"
+      ]
+    },
+    "OrderSettleQueryOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/OrderSettleQueryOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "OrderSettleQueryOut 订单查询-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "OrderSettleQueryOut.Data": {
+      "type": "object",
+      "properties": {
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "payChannel": {
+          "type": "string",
+          "description": "支付通道",
+          "title": "支付通道"
+        },
+        "SettleStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单结算状态",
+          "title": "订单结算状态"
+        }
+      }
+    },
+    "PayIn": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "enum": [
+            "alipay_zft",
+            "alipay_merchant"
+          ],
+          "description": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连",
+          "title": "支付通道"
+        },
+        "payScene": {
+          "type": "string",
+          "enum": [
+            "H5",
+            "APP",
+            "PC"
+          ],
+          "description": "支付场景, H5:手机H5支付;APP:APP支付;PC:电脑支付",
+          "title": "支付场景"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户号",
+          "title": "商户号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "totalAmount": {
+          "type": "integer",
+          "format": "decimal",
+          "description": "订单总金额,单位元, eg: 0.01; 1.23",
+          "title": "订单总金额,单位分, eg: 1; 123"
+        },
+        "subject": {
+          "type": "string",
+          "description": "订单标题",
+          "title": "订单标题"
+        },
+        "body": {
+          "type": "string",
+          "description": "订单附加信息",
+          "title": "订单附加信息"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "format": "url",
+          "description": "应用回调通知地址",
+          "title": "应用回调通知地址"
+        },
+        "profitSharing": {
+          "type": "integer",
+          "format": "uint32",
+          "enum": [
+            "0",
+            "1"
+          ],
+          "default": "0",
+          "description": "是否分账订单, 0非分账订单;1分账订单",
+          "title": "是否分账订单, 0非分账订单; 1分账订单"
+        },
+        "quitUrl": {
+          "type": "string",
+          "description": "退出支付返回地址, 支付通道支付宝/[支付场景H5｜支付场景PC]必选",
+          "title": "(支付宝/H5必选) 退出支付返回地址"
+        },
+        "returnUrl": {
+          "type": "string",
+          "description": "支付完成返回地址, 支付通道支付宝/[支付场景H5｜支付场景PC]必选",
+          "title": "(支付宝/H5必选) 支付完成返回地址"
+        },
+        "extra": {
+          "type": "string",
+          "description": "回传参数",
+          "title": "回传参数"
+        },
+        "timeExpire": {
+          "type": "string",
+          "description": "订单绝对超时时间,格式:5080-12-13 15:36:19",
+          "title": "订单绝对超时时间,格式: 5080-12-13 15:36:19"
+        }
+      },
+      "title": "PayIn 支付-请求消息",
+      "required": [
+        "payChannel",
+        "payScene",
+        "merchantNo",
+        "totalAmount",
+        "subject",
+        "notifyUrl"
+      ]
+    },
+    "PayOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/PayOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "PayOut 支付-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "PayOut.Data": {
+      "type": "object",
+      "properties": {
+        "merchantNo": {
+          "type": "string",
+          "description": "商户编号",
+          "title": "商户编号"
+        },
+        "payChannel": {
+          "type": "string",
+          "description": "支付通道",
+          "title": "支付通道"
+        },
+        "payScene": {
+          "type": "string",
+          "description": "支付场景",
+          "title": "支付场景"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "h5Url": {
+          "type": "string",
+          "description": "支付通道/支付场景=(alipay_zft|alipay_merchant|wxpay_merchant|wxpay_sft)/H5:H5支付地址",
+          "title": "支付通道/支付场景=(alipay_zft|alipay_merchant|wxpay_merchant|wxpay_sft)/H5:H5支付地址"
+        },
+        "sdk": {
+          "type": "string",
+          "description": "支付通道/支付场景=alipay_zft/APP:调起SDK字符串",
+          "title": "支付通道/支付场景=alipay_zft/APP:调起SDK字符串"
+        },
+        "pcUrl": {
+          "type": "string",
+          "description": "支付通道/支付场景=alipay_zft/PC:电脑支付地址",
+          "title": "支付通道/支付场景=alipay_zft/PC:电脑支付地址"
+        },
+        "wxpayParamsJsapi": {
+          "$ref": "#/definitions/WxpayParamsJSAPI",
+          "description": "微信支付:JSAPI支付:微信支付调起参数",
+          "title": "微信支付:JSAPI支付:微信支付调起参数"
+        },
+        "wxpayParamsApp": {
+          "$ref": "#/definitions/WxpayParamsAPP",
+          "description": "微信支付:APP支付:微信支付调起参数",
+          "title": "微信支付:APP支付:微信支付调起参数"
+        },
+        "wxpayCodeUrl": {
+          "type": "string",
+          "description": "微信支付:PC支付:此URL用于生成支付二维码,然后提供给用户扫码支付.",
+          "title": "微信支付:PC支付:此URL用于生成支付二维码，然后提供给用户扫码支付。"
+        }
+      }
+    },
+    "PayQueryOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/PayQueryOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "支付查询-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "PayQueryOut.Data": {
+      "type": "object",
+      "properties": {
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "payChannel": {
+          "type": "string",
+          "description": "支付通道",
+          "title": "支付通道"
+        },
+        "payScene": {
+          "type": "string",
+          "description": "支付场景",
+          "title": "支付场景"
+        },
+        "totalAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单总金额, 单位:分",
+          "title": "订单总金额, 单位:分"
+        },
+        "subject": {
+          "type": "string",
+          "description": "订单标题",
+          "title": "订单标题"
+        },
+        "body": {
+          "type": "string",
+          "description": "订单附加信息",
+          "title": "订单附加信息"
+        },
+        "extra": {
+          "type": "string",
+          "description": "自定义参数",
+          "title": "自定义参数"
+        },
+        "payStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付状态",
+          "title": "支付状态"
+        }
+      }
+    },
+    "RefundIn": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "enum": [
+            "alipay_zft",
+            "alipay_merchant"
+          ],
+          "description": "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连",
+          "title": "支付通道"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户号",
+          "title": "商户号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "refundAmount": {
+          "type": "integer",
+          "format": "decimal",
+          "description": "退款金额,单位分, eg: 1; 123",
+          "title": "退款金额,单位分, eg: 1; 123"
+        },
+        "refundReason": {
+          "type": "string",
+          "description": "退款原因",
+          "title": "退款原因"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "退款结果通知地址",
+          "title": "退款结果通知地址"
+        }
+      },
+      "title": "RefundIn 退款-请求消息",
+      "required": [
+        "payChannel",
+        "merchantNo",
+        "refundAmount",
+        "refundReason",
+        "notifyUrl"
+      ]
+    },
+    "RefundOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/RefundOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "RefundOut 退款-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "RefundOut.Data": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "boolean",
+          "description": "业务操作结果,true业务操作成功,false业务员操作失败",
+          "title": "业务操作结果,true业务操作成功,false业务员操作失败"
+        },
+        "requestNo": {
+          "type": "string",
+          "description": "退款请求号(业务操作成功时)",
+          "title": "退款请求号(业务操作成功时)"
+        }
+      },
+      "required": [
+        "result"
+      ]
+    },
+    "RefundQueryOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/RefundQueryOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "RefundQueryOut 退款查询-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "RefundQueryOut.Data": {
+      "type": "object",
+      "properties": {
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "refundAmount": {
+          "type": "integer",
+          "format": "decimal",
+          "description": "退款金额,单位分, eg: 1; 123",
+          "title": "退款金额,单位分, eg: 1; 123"
+        },
+        "refundReason": {
+          "type": "string",
+          "description": "退款原因",
+          "title": "退款原因"
+        },
+        "refundStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "退款状态, 0未退款;1部分退款中;2部分退款成功;3部分退款失败;4全额退款中;5全额退款成功;6全额退款失败",
+          "title": "退款状态, 0未退款;1部分退款中;2部分退款成功;3部分退款失败;4全额退款中;5全额退款成功;6全额退款失败"
+        }
+      }
+    },
+    "SettlementParams": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "分账类型, rate按比例分账;amt按金额分账"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TransferInfo"
+          },
+          "title": "分账接收方"
+        }
+      }
+    },
+    "SiteInfo": {
+      "type": "object",
+      "properties": {
+        "siteType": {
+          "type": "string",
+          "description": "网站:01 APP:02 服务窗:03 公众号:04 其他:05 支付宝小程序:06",
+          "title": "网站:01 APP:02 服务窗:03 公众号:04 其他:05 支付宝小程序:06"
+        },
+        "siteUrl": {
+          "type": "string",
+          "description": "站点地址",
+          "title": "站点地址"
+        },
+        "siteName": {
+          "type": "string",
+          "description": "站点名称",
+          "title": "站点名称"
+        },
+        "account": {
+          "type": "string",
+          "description": "测试账号",
+          "title": "测试账号"
+        },
+        "password": {
+          "type": "string",
+          "description": "测试密码",
+          "title": "测试密码"
+        }
+      }
+    },
+    "TransferInfo": {
+      "type": "object",
+      "properties": {
+        "merchantNo": {
+          "type": "string",
+          "description": "商户号",
+          "title": "商户号"
+        },
+        "account": {
+          "type": "string",
+          "description": "分账方账号",
+          "title": "分账方账号"
+        },
+        "name": {
+          "type": "string",
+          "description": "分账方名称",
+          "title": "分账方名称"
+        },
+        "rate": {
+          "type": "number",
+          "format": "double",
+          "description": "分账比例,值的范围(0.00, 100],精度0.01,仅对分账类型:按比例分账(rate)",
+          "title": "分账比例,值的范围(0.00, 100],精度0.01,仅对分账类型:按比例分账(rate)"
+        },
+        "amount": {
+          "type": "number",
+          "format": "double",
+          "description": "分账金额,仅对分账类型:按金额分账(amt)",
+          "title": "分账金额,仅对分账类型:按金额分账(amt)"
+        },
+        "desc": {
+          "type": "string",
+          "description": "分账描述",
+          "title": "分账描述"
+        }
+      },
+      "title": "TransferInfo 分账方信息"
+    },
+    "WxpayParamsAPP": {
+      "type": "object",
+      "properties": {
+        "prepayId": {
+          "type": "string",
+          "title": "微信返回的支付交易会话ID"
+        },
+        "partnerId": {
+          "type": "string",
+          "title": "商户号mchid对应的值"
+        },
+        "timestamp": {
+          "type": "string",
+          "title": "时间戳"
+        },
+        "nonceStr": {
+          "type": "string",
+          "title": "随机字符串，不长于32位"
+        },
+        "package": {
+          "type": "string",
+          "title": "JSAPI下单接口返回的prepay_id参数值"
+        },
+        "sign": {
+          "type": "string",
+          "title": "签名"
+        }
+      },
+      "title": "微信支付-APP支付-微信支付调起参数"
+    },
+    "WxpayParamsJSAPI": {
+      "type": "object",
+      "properties": {
+        "appId": {
+          "type": "string",
+          "title": "商户申请的公众号对应的appid"
+        },
+        "timestamp": {
+          "type": "string",
+          "title": "时间戳"
+        },
+        "nonceStr": {
+          "type": "string",
+          "title": "随机字符串，不长于32位"
+        },
+        "package": {
+          "type": "string",
+          "title": "JSAPI下单接口返回的prepay_id参数值"
+        },
+        "signType": {
+          "type": "string",
+          "title": "签名类型"
+        },
+        "paySign": {
+          "type": "string",
+          "title": "签名"
+        }
+      },
+      "title": "微信支付-JSAPI支付-微信支付调起参数"
+    }
+  }
+}

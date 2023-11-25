@@ -1,0 +1,466 @@
+syntax = "proto3";
+
+package dcmp.pb.dscreenpb;
+option go_package="pb/dscreenpb;dscreenpb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+
+message ImportKeyReq{
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"用户id"}];
+  string phone = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"手机号"}];
+  string address = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"钱包地址"}];
+}
+
+message ImportKeyResp{
+  uint32 code = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"错误信息"}];
+}
+
+message PlatformsReq{
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"用户id"}];
+}
+
+message PlatformsResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"错误信息"}];
+  message Data {
+    repeated PlatformInfo data = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "平台信息"}];
+  }
+  Data data = 3;
+}
+
+message PlatformInfo{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "平台id"}];
+  uint32 chain_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链id"}];
+  string platform_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "平台名称"}];
+  string chain_name = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链名称"}];
+}
+
+message DisplayReq{
+  uint32 chain_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链id"}];
+  string token = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "token"}];
+  string token_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "token id"}];
+  string address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "钱包地址"}];
+  string device_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "设备id"}];
+  string image_url = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "nft url"}];
+  string media_url = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "media url"}];
+  uint32 duration = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏时长"}];
+  string uri = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "json uri"}];
+}
+
+message DisplayResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+  DisplayResInfo data = 3;
+}
+
+message DisplayResInfo{
+  uint32 displayID = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发布投屏的ID"}];
+}
+
+
+message QueryProgressReq{
+  uint32 displayID = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发布投屏的ID"}];
+}
+
+message QueryProgressResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+  string progress = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏进度"}];
+  uint32 txStatus = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链后回调结果状态"}];
+}
+
+message QueryDisplayLogReq{
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"用户id"}];
+  uint32 date_time = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"开始投屏的时间秒时间戳(1664603400)"}];
+  string device_id =3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "设备ID"}];
+}
+
+message QueryDisplayLogResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+  repeated DisplayLogInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏日志信息"}];
+}
+
+message DisplayLogInfo{
+  string image_url = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "NFT url"}];
+  string media_url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "NFT url"}];
+  uint32 begin_time = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏开始时间"}];
+  uint32 duration = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏时长"}];
+  string device_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏的设备"}];
+}
+
+message ApplyEnterReq{
+  uint32 type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请类型"}];
+  string proposer = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请人"}];
+  string phone = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string apply_reason = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请理由"}];
+}
+
+message ApplyEnterResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+}
+
+message DelAppVersionReq{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "删除版本信息"}];
+}
+
+message DelAppVersionResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+}
+
+message SetAppVersionReq{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ID"}];
+  string url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "apk地址"}];
+  string version = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本号"}];
+  uint32 version_code = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本code"}];
+  uint32 status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+}
+
+message SetAppVersionResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+}
+
+message GetAppVersionReq{
+
+}
+
+message GetAppVersionResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+  repeated AppVersionInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最新的版本信息"}];
+}
+
+message AppVersionInfo{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ID"}];
+  string url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "pak地址"}];
+  string version = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本号"}];
+  uint32 version_code = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本code"}];
+  uint32 status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+  uint32 create_time = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 update_time = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "更新时间"}];
+};
+
+message SetDeviceVersionReq{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ID"}];
+  uint32 version_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本code"}];
+  string version_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本名称"}];
+  string url = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "apk地址"}];
+  string description = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本描述"}];
+  uint32 system_signed = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "系统签名"}];
+  string env = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "运行环境"}];
+  uint32 create_time = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+  uint32 update_time = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+  uint32 deleted = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+}
+
+message SetDeviceVersionResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+}
+
+message GetDeviceVersionReq{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}];
+  string env = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "运行环境"}];
+}
+
+message GetDeviceVersionResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+  DeviceVersionInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最新的版本信息"}];
+}
+
+message DeviceVersionInfo{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "ID"}];
+  uint32 version_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本code"}];
+  string version_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版本名称"}];
+  string url = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "apk地址"}];
+  string description = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "描述"}];
+  uint32 system_signed = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "系统签名"}];
+  string env = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "运行环境"}];
+  uint32 create_time = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+  uint32 update_time = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+  uint32 deleted = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0有效1无效"}];
+};
+
+message GetScreenCastByDeviceIdReq{
+  string device_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "设备id"}];
+}
+
+message GetScreenCastByDeviceIdResp{
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功1或者其他表示失败"}];
+  string msg = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误消息"}];
+  repeated NFTInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏的NFT信息"}];
+}
+
+message NFTInfo{
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+  uint32 chain_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链ID"}];
+  string token = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "token"}];
+  string token_id = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "token ID"}];
+  string address = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "链账户"}];
+  string device_id = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "投屏的设备"}];
+  uint64 begin_time = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "image NFT url"}];
+  uint64 end_time = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "image NFT url"}];
+  string image_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "image NFT url"}];
+  string media_url =10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "media NFT url"}];
+}
+
+message BatchNotifyReq {
+  string id = 1 ;//请求id
+  message ChainNotifyTx{
+    int32 chain = 1;
+    string  address=2;
+    string method=3;
+    string args = 4;
+    string account = 5;
+    string contract = 6;
+    string opts = 7;
+  }
+  ChainNotifyTx tx = 2 ;
+  message ReceiptInfo{
+    uint32 blockNumber = 1;//区块号
+    string transactionHash = 2;//交易id
+  }
+  ReceiptInfo receipt=3;
+  message ErrorInfo{
+    int32 errno = 1;
+    string description = 2;
+    string name = 3;
+    string message = 4;
+    int32 code = 5;
+  }
+  ErrorInfo  error = 4;
+}
+
+message BassResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功其他失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}];
+}
+
+message GetNFTByOwnerReq{
+  string owner = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"导入的钱包地址"}];
+}
+
+message GetNFTByOwnerResp{
+  uint32 code = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"错误信息"}];
+  repeated MvpNFTInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "从MVPServer获取到的NFT信息"}];
+}
+
+message MvpNFTInfo{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT ID"}];
+  string token = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"合约地址"}];
+  string tokenId = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"tokenId"}];
+  string count = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"数量"}];
+  string uri = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"链外数据uri"}];
+  string media = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"视频地址"}];
+  string mediaOrigin = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"视频元地址"}];
+  uint32 type = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"类型"}];
+  string image = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT地址"}];
+  string imageOrigin = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT元地址"}];
+  string owner = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"钱包地址"}];
+}
+
+message GetNFTByPhoneReq{
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"用户id"}];
+  string phone = 2[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"手机号"}];
+  uint32 platform_id = 3[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"平台id"}];
+  uint32 cur_page = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"分页参数"}];
+  uint32 page_size = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"下一页key"}];
+}
+
+message GetNFTByPhoneResp{
+  uint32 code = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"0成功1或者其他表示失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"错误信息"}];
+  message Data {
+    uint32 count = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT的数量"}];
+    repeated PlatFormNFTInfo data = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "从平台获取到的NFT信息"}];
+  }
+  Data data = 3;
+}
+message PlatFormNFTInfo{
+  string id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT ID"}];
+  string token = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"合约地址"}];
+  string token_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"tokenId"}];
+  uint32 count = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"数量"}];
+  string uri = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"链外数据uri"}];
+  string media = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"视频地址"}];
+  string mediaOrigin = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"视频元地址"}];
+  string type = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"类型"}];
+  string image = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT地址"}];
+  string imageOrigin = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"NFT元地址"}];
+  string owner = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"钱包地址"}];
+  uint32 beginTime = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"开始时间"}];
+  uint32 endTime = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"结束时间"}];
+  uint32 duration = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"投屏时长"}];
+  uint32 resType = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description:"资源类型0不支持类型1无扩展名2[png,jpg,webp]3[gif]4[mp4]"}];
+  repeated string ext = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支持扩展名的类型"}];
+}
+
+
+service DScreenService{
+  rpc Import(ImportKeyReq) returns (ImportKeyResp){
+    option (google.api.http) = {
+      post:"/dscreen/import"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"导出私钥"
+    };
+  }
+
+  rpc Platforms(PlatformsReq) returns (PlatformsResp){
+    option (google.api.http) = {
+      post:"/dscreen/platforms"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"获取平台列表"
+    };
+  }
+
+  rpc GetNFTByPhone(GetNFTByPhoneReq) returns (GetNFTByPhoneResp){
+    option (google.api.http) = {
+      post:"/dscreen/getnftbyphone"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"根据链账户获取NFT列表"
+    };
+  }
+
+  rpc Display(DisplayReq) returns (DisplayResp){
+    option (google.api.http) = {
+      post:"/dscreen/display"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"投屏"
+    };
+
+  }
+
+  rpc QueryProgress(QueryProgressReq) returns (QueryProgressResp){
+    option (google.api.http) = {
+      post:"/dscreen/queryprogress"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"查询NFT的投屏进度"
+    };
+  }
+
+  rpc QueryDisplayLog(QueryDisplayLogReq) returns (QueryDisplayLogResp){
+    option (google.api.http) = {
+      post:"/dscreen/querydisplaylog"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"查询所有NFT的投屏日志"
+    };
+  }
+
+  rpc ApplyEnter(ApplyEnterReq) returns (ApplyEnterResp){
+    option (google.api.http) = {
+      post:"/dscreen/applyenter"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"入驻申请"
+    };
+  }
+
+  rpc GetScreencastByDeviceId(GetScreenCastByDeviceIdReq) returns (GetScreenCastByDeviceIdResp){
+    option (google.api.http) = {
+      post:"/dscreen/getscreencastbydeviceid"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"设备获取投屏NFT"
+    };
+  }
+
+  rpc BatchNotify(BatchNotifyReq) returns (BassResp) {
+    option (google.api.http) = {
+      post: "/dscreen/batchnotify"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "批量上链回调"
+    };
+  }
+
+  rpc GetNFTByOwner(GetNFTByOwnerReq) returns (GetNFTByOwnerResp){
+    option (google.api.http) = {
+      post:"/dscreen/getnftbyowner"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"导入钱包时从mvp-ser获取NFT列表"
+    };
+  }
+
+  rpc SetAppVersion(SetAppVersionReq) returns (SetAppVersionResp){
+    option (google.api.http) = {
+      post:"/dscreen/setAppVersion"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"填加/更新app版本信息"
+    };
+  }
+
+  rpc getAppVersion(GetAppVersionReq) returns (GetAppVersionResp){
+    option (google.api.http) = {
+      post:"/dscreen/getAppVersion"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"获取app版本信息列表"
+    };
+  }
+
+  rpc DelAppVersion(DelAppVersionReq) returns (DelAppVersionResp){
+    option (google.api.http) = {
+      post:"/dscreen/delAppVersion"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"删除app版本信息"
+    };
+  }
+
+  rpc SetDeviceVersion(SetDeviceVersionReq) returns (SetDeviceVersionResp){
+    option (google.api.http) = {
+      post:"/dscreen/setDeviceVersion"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"填加/更新设备版本信息"
+    };
+  }
+
+  rpc getDeviceVersion(GetDeviceVersionReq) returns (GetDeviceVersionResp){
+    option (google.api.http) = {
+      post:"/dscreen/getDeviceVersion"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation)={
+      summary:"获取设备版本信息列表"
+    };
+  }
+
+
+}
+
+
+
+
+

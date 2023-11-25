@@ -1,0 +1,5209 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/dassetpb/dasset.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "DAssetService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/dasset/admin/collection/list": {
+      "post": {
+        "summary": "admin藏品列表",
+        "operationId": "DAssetService_CollectionAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/admin/contract/list": {
+      "post": {
+        "summary": "admin版权合约列表",
+        "operationId": "DAssetService_ContractAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/admin/copyright/authorizationclaimlist": {
+      "post": {
+        "summary": "admin合约版权列表",
+        "operationId": "DAssetService_AuthorizationClaimAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthorizationClaimListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/admin/copyright/authorizationlist": {
+      "post": {
+        "summary": "admin授权合约列表",
+        "operationId": "DAssetService_CopyrightAuthorizationAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/admin/copyright/claimlist": {
+      "post": {
+        "summary": "admin声明的版权列表",
+        "operationId": "DAssetService_CopyrightClaimAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/admin/copyright/registerlist": {
+      "post": {
+        "summary": "admin版权列表",
+        "operationId": "DAssetService_CopyrightRegisterAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/admin/credential/list": {
+      "post": {
+        "summary": "admin存证列表",
+        "operationId": "DAssetService_CredentialAllList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CredentialListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CredentialListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/batch/create": {
+      "post": {
+        "summary": "批量创建藏品(授权)",
+        "operationId": "DAssetService_CollectionBatchCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionBatchCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionBatchCreateReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/checkin": {
+      "post": {
+        "summary": "藏品权益兑现",
+        "operationId": "DAssetService_CollectionCheckIn",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionCheckInResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionCheckInReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/checkinlist": {
+      "post": {
+        "summary": "藏品权益兑现列表",
+        "operationId": "DAssetService_CollectionCheckInList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionCheckInListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionCheckInListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/claimcreate": {
+      "post": {
+        "summary": "创建藏品claim",
+        "operationId": "DAssetService_CollectionClaimCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionClaimCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionClaimCreateReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/create": {
+      "post": {
+        "summary": "创建藏品",
+        "operationId": "DAssetService_CollectionCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionCreateReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/light/create": {
+      "post": {
+        "summary": "批量创建藏品(无授权)",
+        "operationId": "DAssetService_CollectionLightCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionLightCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionLightCreateReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/light/transaction": {
+      "post": {
+        "summary": "批量藏品交易",
+        "operationId": "DAssetService_CollectionLightTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionLightTransactionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionLightTransactionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/lightCreate": {
+      "post": {
+        "summary": "(应用)批量创建藏品(无授权)",
+        "operationId": "DAssetService_CollectionLightCreateNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionLightCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionLightCreateReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/lightTransaction": {
+      "post": {
+        "summary": "(应用)批量藏品交易",
+        "operationId": "DAssetService_CollectionLightTransactionNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionLightTransactionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionLightTransactionReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/list": {
+      "post": {
+        "summary": "我的藏品列表",
+        "operationId": "DAssetService_CollectionList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/token": {
+      "get": {
+        "summary": "通过token获取藏品信息",
+        "operationId": "DAssetService_CollectionToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionTokenResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "tokenId",
+            "description": "tokenId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/transaction": {
+      "post": {
+        "summary": "藏品交易",
+        "operationId": "DAssetService_CollectionTransaction",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionTransactionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionTransactionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collection/transactionclaim": {
+      "post": {
+        "summary": "创建藏品交易claim",
+        "operationId": "DAssetService_CollectionTransactionClaim",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionTransactionClaimResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionTransactionClaimReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collectionCreate": {
+      "post": {
+        "summary": "(应用)创建藏品",
+        "operationId": "DAssetService_CollectionCreateNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionCreateReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collectionList": {
+      "post": {
+        "summary": "(应用)我的藏品列表",
+        "operationId": "DAssetService_CollectionListNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionListReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/collectionTransaction": {
+      "post": {
+        "summary": "(应用)藏品交易",
+        "operationId": "DAssetService_CollectionTransactionNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CollectionTransactionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionTransactionReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/combination": {
+      "post": {
+        "summary": "(新)一键三发接口(铸造/交易/CheckIn)",
+        "operationId": "DAssetService_CombinationNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CombinationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CombinationReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/contract/authorization": {
+      "post": {
+        "summary": "合约授权",
+        "operationId": "DAssetService_ContractAuthorization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractAuthorizationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractAuthorizationReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/contract/create": {
+      "post": {
+        "summary": "创建合约",
+        "operationId": "DAssetService_ContractCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractCreateReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/contract/list": {
+      "post": {
+        "summary": "我的版权合约列表",
+        "operationId": "DAssetService_ContractList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/contractAuthorization": {
+      "post": {
+        "summary": "(应用)合约授权",
+        "operationId": "DAssetService_ContractAuthorizationNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractAuthorizationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractAuthorizationReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/contractCreate": {
+      "post": {
+        "summary": "(应用)创建合约",
+        "operationId": "DAssetService_ContractCreateNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractCreateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractCreateReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/contractList": {
+      "post": {
+        "summary": "(应用)我的版权合约列表",
+        "operationId": "DAssetService_ContractListNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContractListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractListReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/authorizationclaimlist": {
+      "post": {
+        "summary": "我的合约版权列表",
+        "operationId": "DAssetService_AuthorizationClaimList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthorizationClaimListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/authorizationlist": {
+      "post": {
+        "summary": "我的授权合约列表",
+        "operationId": "DAssetService_CopyrightAuthorizationList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/claimadd": {
+      "post": {
+        "summary": "添加版权声明",
+        "operationId": "DAssetService_CopyrightClaimAdd",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimAddReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/claimcheck": {
+      "post": {
+        "summary": "版权声明审核",
+        "operationId": "DAssetService_CopyrightClaimCheck",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DidCredentialResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimCheckReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/claimedit": {
+      "post": {
+        "summary": "编辑版权声明",
+        "operationId": "DAssetService_CopyrightClaimEdit",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimEditReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/claimlist": {
+      "post": {
+        "summary": "我声明的版权列表",
+        "operationId": "DAssetService_CopyrightClaimList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/register": {
+      "post": {
+        "summary": "版权登记",
+        "operationId": "DAssetService_CopyrightRegister",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/registerlist": {
+      "post": {
+        "summary": "我的版权列表",
+        "operationId": "DAssetService_CopyrightRegisterList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyright/statistics": {
+      "post": {
+        "summary": "统计查询",
+        "operationId": "DAssetService_CopyrightStatistics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightStatisticsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightStatisticsReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightAuthorizationclaimlist": {
+      "post": {
+        "summary": "(应用)我的合约版权列表",
+        "operationId": "DAssetService_AuthorizationClaimListNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuthorizationClaimListReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightAuthorizationlist": {
+      "post": {
+        "summary": "(应用)我的授权合约列表",
+        "operationId": "DAssetService_CopyrightAuthorizationListNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationListReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightClaimadd": {
+      "post": {
+        "summary": "(应用)添加版权声明",
+        "operationId": "DAssetService_CopyrightClaimAddNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimAddReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightClaimlist": {
+      "post": {
+        "summary": "(应用)我声明的版权列表",
+        "operationId": "DAssetService_CopyrightClaimListNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimListReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightRegister": {
+      "post": {
+        "summary": "(应用)版权登记",
+        "operationId": "DAssetService_CopyrightRegisterNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightRegisterlist": {
+      "post": {
+        "summary": "(应用)我的版权列表",
+        "operationId": "DAssetService_CopyrightRegisterListNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightRegisterListReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightclaim/authorization": {
+      "post": {
+        "summary": "版权/声明/授权",
+        "operationId": "DAssetService_CopyrightClaimAuthorization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimAuthorizationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimAuthorizationReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/copyrightclaimAuthorization": {
+      "post": {
+        "summary": "(应用)版权/声明/授权",
+        "operationId": "DAssetService_CopyrightClaimAuthorizationNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimAuthorizationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimAuthorizationReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/credential/did": {
+      "post": {
+        "summary": "创建身份信息存证数据（机构或个人）",
+        "operationId": "DAssetService_DidCredential",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DidCredentialResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DidCredentialReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/credential/info": {
+      "post": {
+        "summary": "存证详情",
+        "operationId": "DAssetService_CredentialInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CredentialInfoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CredentialInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/credential/list": {
+      "post": {
+        "summary": "存证列表",
+        "operationId": "DAssetService_CredentialList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CredentialListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CredentialListReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/credential/proof": {
+      "post": {
+        "summary": "获取claim签名",
+        "operationId": "DAssetService_ClaimProof",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ClaimProofResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ClaimProofReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/lite/combination": {
+      "post": {
+        "summary": "一键三发接口(铸造/交易/CheckIn)",
+        "operationId": "DAssetService_Combination",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CombinationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CombinationReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/lite/lock": {
+      "post": {
+        "summary": "锁定藏品",
+        "operationId": "DAssetService_Lock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LockResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LockReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/lite/unlock": {
+      "post": {
+        "summary": "解锁藏品",
+        "operationId": "DAssetService_Unlock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UnlockResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnlockReq"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/lock": {
+      "post": {
+        "summary": "(新)锁定藏品",
+        "operationId": "DAssetService_LockNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LockResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LockReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    },
+    "/dasset/unlock": {
+      "post": {
+        "summary": "(新)解锁藏品",
+        "operationId": "DAssetService_UnlockNew",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UnlockResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnlockReqNew"
+            }
+          }
+        ],
+        "tags": [
+          "DAssetService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AuthorizationClaimListReq": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品的标题"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "isOriginal": {
+          "type": "string",
+          "description": "是否原创：0-否；1-是"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "AuthorizationClaimListReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约持有人ID"
+        },
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品的标题"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "isOriginal": {
+          "type": "string",
+          "description": "是否原创：0-否；1-是"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "ClaimProofReq": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "type": "string",
+          "description": "claim json 字符串"
+        },
+        "credentialType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "类型：1-身份存证；2-版权存证；3-授权存证；4-藏品存证；5-藏品Transfer存证..."
+        }
+      },
+      "required": [
+        "claim",
+        "credentialType"
+      ]
+    },
+    "ClaimProofResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ClaimProofResp.Data"
+        }
+      }
+    },
+    "ClaimProofResp.Data": {
+      "type": "object",
+      "properties": {
+        "proof": {
+          "type": "string"
+        }
+      }
+    },
+    "CollectionBatchCreateReq": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id(授权id或者授权码必须提交一个)"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码授权id或者授权码必须提交一个)"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionCreateInfo"
+          },
+          "description": "藏品列表"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      }
+    },
+    "CollectionBatchCreateResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionBatchCreateResp.Data"
+        }
+      }
+    },
+    "CollectionBatchCreateResp.Data": {
+      "type": "object",
+      "properties": {
+        "collectionBid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品批量id"
+        },
+        "collectionId": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "藏品id"
+        }
+      }
+    },
+    "CollectionCheckInInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "兑换id"
+        },
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "token_id"
+        },
+        "checkinScene": {
+          "type": "string",
+          "description": "兑换场景"
+        },
+        "checkinTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "兑换时间"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "兑换应用"
+        },
+        "userUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "兑换人uid"
+        },
+        "userUidName": {
+          "type": "string",
+          "description": "兑换姓名"
+        },
+        "userAddress": {
+          "type": "string",
+          "description": "兑换address"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "CollectionCheckInListReq": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "checkinScene": {
+          "type": "string",
+          "description": "兑换场景"
+        },
+        "checkinTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "兑换时间 (时间戳秒)最小"
+        },
+        "checkinTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "兑换时间 (时间戳秒)最大 "
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CollectionCheckInListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionCheckInListResp.Data"
+        }
+      }
+    },
+    "CollectionCheckInListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionCheckInInfo"
+          }
+        }
+      }
+    },
+    "CollectionCheckInReq": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "checkinScene": {
+          "type": "string",
+          "description": "兑换场景"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "collectionId",
+        "checkinScene"
+      ]
+    },
+    "CollectionCheckInResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionCheckInResp.Data"
+        }
+      }
+    },
+    "CollectionCheckInResp.Data": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易id"
+        }
+      }
+    },
+    "CollectionClaim": {
+      "type": "object",
+      "properties": {
+        "collectionName": {
+          "type": "string",
+          "description": "数字藏品名称"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证",
+          "title": "string claim_sign_address = 2 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"藏品链上持有人用户userAddress\"}];  注释原因：系统自己生成签名"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "tokenId"
+        },
+        "from": {
+          "type": "string",
+          "description": "铸造人userAddress"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "collectionName",
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCredential",
+        "collectionHash",
+        "tokenId",
+        "from",
+        "declareTime"
+      ]
+    },
+    "CollectionClaimCreateReq": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "collectionName": {
+          "type": "string",
+          "description": "数字藏品名称"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        }
+      },
+      "required": [
+        "collectionName",
+        "declareTime"
+      ]
+    },
+    "CollectionClaimCreateResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionClaimCreateResp.Data"
+        }
+      }
+    },
+    "CollectionClaimCreateResp.Data": {
+      "type": "object",
+      "properties": {
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证",
+          "title": "string claim_sign_address = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"藏品链上持有人用户userAddress\"}];"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "from": {
+          "type": "string",
+          "description": "铸造人userAddress"
+        }
+      }
+    },
+    "CollectionCreateInfo": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "价格(分)"
+        },
+        "tokenUrl": {
+          "type": "string",
+          "description": "访问藏品内容对应的url"
+        },
+        "availableTimes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权益可兑现总次数"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionClaim",
+          "description": "藏品存证声明数据"
+        }
+      },
+      "required": [
+        "price",
+        "availableTimes",
+        "claim"
+      ]
+    },
+    "CollectionCreateReq": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id(授权id或者授权码必须提交一个)"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码授权id或者授权码必须提交一个)"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "价格(分)"
+        },
+        "tokenUrl": {
+          "type": "string",
+          "description": "访问藏品内容对应的url"
+        },
+        "availableTimes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权益可兑现总次数"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionClaim",
+          "description": "藏品存证声明数据"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接",
+          "title": "string proof = 8 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"存证声明数据的签名\"}]; 注释原因：系统自己生成签名"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "price",
+        "availableTimes",
+        "claim"
+      ]
+    },
+    "CollectionCreateReqNew": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id(授权id或者授权码必须提交一个)"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码授权id或者授权码必须提交一个)"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "价格(分)"
+        },
+        "tokenUrl": {
+          "type": "string",
+          "description": "访问藏品内容对应的url"
+        },
+        "availableTimes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权益可兑现总次数"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionClaim",
+          "description": "藏品存证声明数据"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品持有用户ID"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "price",
+        "availableTimes",
+        "claim",
+        "userId"
+      ]
+    },
+    "CollectionCreateResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionCreateResp.Data"
+        }
+      }
+    },
+    "CollectionCreateResp.Data": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "collectionCredential": {
+          "type": "string",
+          "description": "藏品存证"
+        }
+      }
+    },
+    "CollectionInfo": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "collectionName": {
+          "type": "string",
+          "description": "藏品名称"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "藏品hash"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "tokenId"
+        },
+        "credential": {
+          "type": "string",
+          "description": "存证"
+        },
+        "castingUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "铸造人uid"
+        },
+        "castingUidName": {
+          "type": "string",
+          "description": "铸造人姓名"
+        },
+        "castingAddress": {
+          "type": "string",
+          "description": "铸造人address"
+        },
+        "ownerUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "所有权人uid"
+        },
+        "ownerUidName": {
+          "type": "string",
+          "description": "所有权人姓名"
+        },
+        "ownerAddress": {
+          "type": "string",
+          "description": "所有权人address"
+        },
+        "holderAddress": {
+          "type": "string",
+          "description": "持有人address"
+        },
+        "availableTimes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权益次数"
+        },
+        "checkedTimes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权益已兑现次数"
+        },
+        "sellStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "销售状态：1-上架；2-下架"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "铸造应用"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "价格(分)"
+        },
+        "chainStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链状态：0-待上链；1-已上链；2-上链中；3-上链失败"
+        },
+        "chainTxid": {
+          "type": "string",
+          "description": "上链产生的链上交易地址"
+        },
+        "chainBlockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链产生交易在链上的区块号"
+        },
+        "chainTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间"
+        },
+        "checkInAppNo": {
+          "type": "string",
+          "description": "最后兑现应用"
+        },
+        "usedScene": {
+          "type": "string",
+          "description": "当前应用此藏品的场景"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "modifyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间"
+        }
+      }
+    },
+    "CollectionLight": {
+      "type": "object",
+      "properties": {
+        "collectionName": {
+          "type": "string",
+          "description": "数字藏品名称"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "价格(分)"
+        },
+        "tokenUrl": {
+          "type": "string",
+          "description": "访问藏品内容对应的url"
+        },
+        "availableTimes": {
+          "type": "integer",
+          "format": "int64",
+          "description": "权益可兑现总次数"
+        }
+      },
+      "required": [
+        "collectionName",
+        "price",
+        "availableTimes"
+      ]
+    },
+    "CollectionLightCreateReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionLight"
+          },
+          "description": "藏品列表"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "CollectionLightCreateReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionLight"
+          },
+          "description": "藏品列表"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "userId",
+        "data"
+      ]
+    },
+    "CollectionLightCreateResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionLightCreateResp.Data"
+        }
+      }
+    },
+    "CollectionLightCreateResp.Data": {
+      "type": "object",
+      "properties": {
+        "collectionBid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品批量id"
+        },
+        "collectionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "藏品id"
+        }
+      }
+    },
+    "CollectionLightTransaction": {
+      "type": "object",
+      "properties": {
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId"
+        },
+        "from": {
+          "type": "string",
+          "description": "所有权人userAddress"
+        },
+        "to": {
+          "type": "string",
+          "description": "受让人userAddress"
+        }
+      },
+      "required": [
+        "tokenId",
+        "from",
+        "to"
+      ]
+    },
+    "CollectionLightTransactionReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionLightTransaction"
+          },
+          "description": "藏品列表"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "data"
+      ]
+    },
+    "CollectionLightTransactionReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionLightTransaction"
+          },
+          "description": "藏品列表"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "userId",
+        "data"
+      ]
+    },
+    "CollectionLightTransactionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionLightTransactionResp.Data"
+        }
+      }
+    },
+    "CollectionLightTransactionResp.Data": {
+      "type": "object",
+      "properties": {
+        "transactionBid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "批量交易id"
+        },
+        "transactionIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "交易id"
+        }
+      }
+    },
+    "CollectionListReq": {
+      "type": "object",
+      "properties": {
+        "collectionHash": {
+          "type": "string",
+          "description": "藏品hash"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "castingAddress": {
+          "type": "string",
+          "description": "藏品铸造人用户address"
+        },
+        "ownerAddress": {
+          "type": "string",
+          "description": "藏品所有权人用户address"
+        },
+        "credential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "collectionType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0持有1铸造"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CollectionListReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "藏品hash"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "castingAddress": {
+          "type": "string",
+          "description": "藏品铸造人用户address"
+        },
+        "ownerAddress": {
+          "type": "string",
+          "description": "藏品所有权人用户address"
+        },
+        "credential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "collectionType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0持有1铸造"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "CollectionListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionListResp.Data"
+        }
+      }
+    },
+    "CollectionListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CollectionInfo"
+          }
+        }
+      }
+    },
+    "CollectionTokenResp": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "藏品描述"
+        },
+        "externalUrl": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string",
+          "description": "藏品图片"
+        },
+        "name": {
+          "type": "string",
+          "description": "藏品名称"
+        },
+        "num": {
+          "type": "string"
+        },
+        "txId": {
+          "type": "string",
+          "description": "交易id"
+        },
+        "txTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易时间"
+        }
+      }
+    },
+    "CollectionTransactionClaim": {
+      "type": "object",
+      "properties": {
+        "collectionName": {
+          "type": "string",
+          "description": "数字藏品名称"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证",
+          "title": "string claim_sign_address = 2 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"藏品链上持有人用户userAddress\"}]; 注释原因：系统自己生成签名"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "collectionCredential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "previousTransactionCredential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId"
+        },
+        "from": {
+          "type": "string",
+          "description": "所有权人userAddress"
+        },
+        "to": {
+          "type": "string",
+          "description": "受让人userAddress"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "collectionName",
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCredential",
+        "collectionCredential",
+        "from",
+        "to",
+        "declareTime"
+      ]
+    },
+    "CollectionTransactionClaimReq": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        }
+      }
+    },
+    "CollectionTransactionClaimResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionTransactionClaimResp.Data"
+        }
+      }
+    },
+    "CollectionTransactionClaimResp.Data": {
+      "type": "object",
+      "properties": {
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证",
+          "title": "string claim_sign_address = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"藏品链上持有人用户userAddress\"}];"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "collectionCredential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "previousTransactionCredential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId"
+        },
+        "from": {
+          "type": "string",
+          "description": "所有权人userAddress"
+        }
+      },
+      "required": [
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCredential",
+        "collectionCredential",
+        "previousTransactionCredential",
+        "from"
+      ]
+    },
+    "CollectionTransactionReq": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionTransactionClaim",
+          "description": "藏品存证声明数据"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接",
+          "title": "string proof = 8 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"存证声明数据的签名\"}]; 注释原因：系统自己生成签名"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "collectionId",
+        "claim"
+      ]
+    },
+    "CollectionTransactionReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionTransactionClaim",
+          "description": "藏品存证声明数据"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "异步通知应用版权登记结果的链接"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "userId",
+        "collectionId",
+        "claim"
+      ]
+    },
+    "CollectionTransactionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionTransactionResp.Data"
+        }
+      }
+    },
+    "CollectionTransactionResp.Data": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易id"
+        },
+        "transactionCredential": {
+          "type": "string",
+          "description": "交易存证"
+        }
+      }
+    },
+    "CombinationInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "藏品名称",
+          "title": "藏品名称"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品价格",
+          "title": "藏品价格"
+        },
+        "tokenUrl": {
+          "type": "string",
+          "description": "访问藏品内容对应的url",
+          "title": "访问藏品内容对应的url"
+        },
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权ID",
+          "title": "授权ID,可选"
+        },
+        "toUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "受让人用户ID,可选",
+          "title": "受让人用户ID,可选. 指定受让人用户ID,则需要将此藏品转让给受让人用户"
+        },
+        "checkIn": {
+          "type": "boolean",
+          "description": "是否CheckIn,可选",
+          "title": "是否CheckIn,可选. CheckIn为true时,则需要将此藏品CheckIn"
+        }
+      },
+      "required": [
+        "name",
+        "tokenUrl"
+      ]
+    },
+    "CombinationReq": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/CombinationInfo",
+          "description": "上链数据",
+          "title": "上链数据"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调通知地址",
+          "title": "回调通知地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息",
+          "title": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "data",
+        "notifyUrl"
+      ]
+    },
+    "CombinationReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "所有权用户ID",
+          "title": "所有权用户ID"
+        },
+        "data": {
+          "$ref": "#/definitions/CombinationInfo",
+          "description": "上链数据",
+          "title": "上链数据"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调通知地址",
+          "title": "回调通知地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息",
+          "title": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "userId",
+        "data",
+        "notifyUrl"
+      ]
+    },
+    "CombinationResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/CombinationResp.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "CombinationResp.Data": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        },
+        "transactionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易id",
+          "title": "交易ID"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenID,链上存储的藏品NFT唯一标识",
+          "title": "藏品tokenID,链上存储的藏品NFT唯一标识"
+        }
+      },
+      "required": [
+        "collectionId"
+      ]
+    },
+    "ContractAuthorizationClaim": {
+      "type": "object",
+      "properties": {
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCategory": {
+          "type": "string",
+          "description": "授权类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权数量"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCategory",
+        "authorizedNumber",
+        "declareTime"
+      ]
+    },
+    "ContractAuthorizationReq": {
+      "type": "object",
+      "properties": {
+        "contractId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约id"
+        },
+        "authorizedAddress": {
+          "type": "string",
+          "description": "被授权人用户address"
+        },
+        "authorizationContent": {
+          "type": "string",
+          "description": "授权说明"
+        },
+        "claim": {
+          "$ref": "#/definitions/ContractAuthorizationClaim",
+          "description": "存证声明数据"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调地址",
+          "title": "string proof = 6 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"存证声明数据的签名\"}];注释原因：系统自己生成签名"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "可选参数,传递什么,回调的时候带回去什么"
+        }
+      },
+      "required": [
+        "contractId",
+        "authorizedAddress",
+        "authorizationContent",
+        "claim"
+      ]
+    },
+    "ContractAuthorizationReqNew": {
+      "type": "object",
+      "properties": {
+        "contractId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约id"
+        },
+        "authorizedAddress": {
+          "type": "string",
+          "description": "被授权人用户address"
+        },
+        "authorizationContent": {
+          "type": "string",
+          "description": "授权说明"
+        },
+        "claim": {
+          "$ref": "#/definitions/ContractAuthorizationClaim",
+          "description": "存证声明数据"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建合约用户ID"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "可选参数,传递什么,回调的时候带回去什么"
+        }
+      },
+      "required": [
+        "contractId",
+        "authorizedAddress",
+        "authorizationContent",
+        "claim",
+        "userId"
+      ]
+    },
+    "ContractAuthorizationResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ContractAuthorizationResp.Data"
+        }
+      }
+    },
+    "ContractAuthorizationResp.Data": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        }
+      }
+    },
+    "ContractCreateReq": {
+      "type": "object",
+      "properties": {
+        "copyrightClaimIds": {
+          "type": "string",
+          "description": "多个声明id 逗号分割"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约在授权应用的类别可铸造藏品总量,取多个声明 可铸造藏品总量 最小值"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "合约类别"
+        },
+        "content": {
+          "type": "string",
+          "description": "合约说明"
+        }
+      },
+      "required": [
+        "copyrightClaimIds",
+        "authorizedNumber",
+        "copyrightCategory",
+        "content"
+      ]
+    },
+    "ContractCreateReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建合约用户ID"
+        },
+        "copyrightClaimIds": {
+          "type": "string",
+          "description": "多个声明id 逗号分割"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约在授权应用的类别可铸造藏品总量,取多个声明 可铸造藏品总量 最小值"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "合约类别"
+        },
+        "content": {
+          "type": "string",
+          "description": "合约说明"
+        }
+      },
+      "required": [
+        "userId",
+        "copyrightClaimIds",
+        "authorizedNumber",
+        "copyrightCategory",
+        "content"
+      ]
+    },
+    "ContractCreateResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ContractCreateResp.Data"
+        }
+      }
+    },
+    "ContractCreateResp.Data": {
+      "type": "object",
+      "properties": {
+        "contractId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约id"
+        }
+      }
+    },
+    "ContractInfo": {
+      "type": "object",
+      "properties": {
+        "contractId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约id"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "合约类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约在授权应用的类别可铸造藏品总量"
+        },
+        "authorizedUsedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约在授权应用的类别已授权藏品总量"
+        },
+        "castedCollectionNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约在授权应用的类别已铸造的藏品数量"
+        },
+        "content": {
+          "type": "string",
+          "description": "合约说明"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "合约版权声明存证,多个分号分割"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "ContractListReq": {
+      "type": "object",
+      "properties": {
+        "contractIds": {
+          "type": "string",
+          "description": "合约id 多个逗号分割"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "ContractListReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "contractIds": {
+          "type": "string",
+          "description": "合约id 多个逗号分割"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "ContractListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/ContractListResp.Data"
+        }
+      }
+    },
+    "ContractListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ContractInfo"
+          }
+        }
+      }
+    },
+    "CopyrightAuthorizationInfo": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id"
+        },
+        "contractId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约id"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "authorizerUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权用户id"
+        },
+        "authorizerUidName": {
+          "type": "string",
+          "description": "授权用户名称"
+        },
+        "authorizerUserAddress": {
+          "type": "string",
+          "description": "授权用户address"
+        },
+        "authorizedUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "被授权用户id"
+        },
+        "authorizedUidName": {
+          "type": "string",
+          "description": "被授权用户名称"
+        },
+        "authorizedUserAddress": {
+          "type": "string",
+          "description": "被授权用户address"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "授权应用"
+        },
+        "authorizationCategory": {
+          "type": "string",
+          "description": "授权类别"
+        },
+        "authorizationNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权数量"
+        },
+        "authorizationContent": {
+          "type": "string",
+          "description": "授权说明"
+        },
+        "credential": {
+          "type": "string",
+          "description": "授权的存证"
+        },
+        "copyrights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CopyrightRegisterInfo"
+          },
+          "description": "版权信息"
+        },
+        "copyrightClaims": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CopyrightClaimInfo"
+          },
+          "description": "声明信息"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权时间"
+        }
+      }
+    },
+    "CopyrightAuthorizationListReq": {
+      "type": "object",
+      "properties": {
+        "credential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "authorizationIds": {
+          "type": "string",
+          "description": "授权id 多个逗号分割"
+        },
+        "contractIds": {
+          "type": "string",
+          "description": "合约id 多个逗号分割"
+        },
+        "authorizerUserAddress": {
+          "type": "string",
+          "description": "授权人user_address"
+        },
+        "authorizedUserAddress": {
+          "type": "string",
+          "description": "被授权人user_address"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "authorizationType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "类型0我授权的1授权给我的2全部"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CopyrightAuthorizationListReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权人ID"
+        },
+        "credential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "authorizationIds": {
+          "type": "string",
+          "description": "授权id 多个逗号分割"
+        },
+        "contractIds": {
+          "type": "string",
+          "description": "合约id 多个逗号分割"
+        },
+        "authorizerUserAddress": {
+          "type": "string",
+          "description": "授权人user_address"
+        },
+        "authorizedUserAddress": {
+          "type": "string",
+          "description": "被授权人user_address"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权码"
+        },
+        "authorizationType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "类型0我授权的1授权给我的2全部"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "CopyrightAuthorizationListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightAuthorizationListResp.Data"
+        }
+      }
+    },
+    "CopyrightAuthorizationListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CopyrightAuthorizationInfo"
+          }
+        }
+      }
+    },
+    "CopyrightClaim": {
+      "type": "object",
+      "properties": {
+        "didCredential": {
+          "type": "string",
+          "description": "登记人身份存证",
+          "title": "string claim_sign_address = 1 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"登记人签名地址\"}];注释原因：用星矿userAddress"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "claimTitle": {
+          "type": "string",
+          "description": "版权声明名称"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "creativeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权作品创作时间(秒时间戳1661961600)"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "版权作品访问链接，多个链接用分号分隔"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "声明版权可使用的类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别可铸造藏品总量"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didCredential",
+        "copyrightHash",
+        "claimTitle",
+        "creator",
+        "attachUrl",
+        "copyrightCategory",
+        "declareTime"
+      ]
+    },
+    "CopyrightClaimAddReq": {
+      "type": "object",
+      "properties": {
+        "copyrightId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权id"
+        },
+        "claim": {
+          "$ref": "#/definitions/CopyrightClaim",
+          "description": "存证声明数据"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注",
+          "title": "string proof = 5 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"存证声明数据的签名\"}];注释原因：系统自己生成签名"
+        }
+      },
+      "required": [
+        "copyrightId",
+        "claim"
+      ]
+    },
+    "CopyrightClaimAddReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权用户ID"
+        },
+        "copyrightId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权id"
+        },
+        "claim": {
+          "$ref": "#/definitions/CopyrightClaim",
+          "description": "存证声明数据"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        }
+      },
+      "required": [
+        "userId",
+        "copyrightId",
+        "claim"
+      ]
+    },
+    "CopyrightClaimAuthorizationReq": {
+      "type": "object",
+      "properties": {
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品名称"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "版权作品访问链接，多个链接用逗号(,)分隔"
+        },
+        "creativeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权作品创作时间(秒时间戳1661961600)"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "版权登记备注"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "可选参数,传递什么,回调的时候带回去什么"
+        },
+        "copyrightClaim": {
+          "$ref": "#/definitions/CopyrightClaimRegister",
+          "description": "声明数据"
+        },
+        "copyrightContract": {
+          "$ref": "#/definitions/CopyrightContractRegister",
+          "description": "合约数据"
+        },
+        "copyrightContractAuthorization": {
+          "$ref": "#/definitions/CopyrightContractAuthorizationRegister",
+          "description": "授权数据"
+        }
+      },
+      "required": [
+        "copyrightType",
+        "copyrightTitle",
+        "creator",
+        "copyrightClaim",
+        "copyrightContract",
+        "copyrightContractAuthorization"
+      ]
+    },
+    "CopyrightClaimAuthorizationReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品名称"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "版权作品访问链接，多个链接用逗号(,)分隔"
+        },
+        "creativeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权作品创作时间(秒时间戳1661961600)"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "版权登记备注"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "可选参数,传递什么,回调的时候带回去什么"
+        },
+        "copyrightClaim": {
+          "$ref": "#/definitions/CopyrightClaimRegister",
+          "description": "声明数据"
+        },
+        "copyrightContract": {
+          "$ref": "#/definitions/CopyrightContractRegister",
+          "description": "合约数据"
+        },
+        "copyrightContractAuthorization": {
+          "$ref": "#/definitions/CopyrightContractAuthorizationRegister",
+          "description": "授权数据"
+        }
+      },
+      "required": [
+        "userId",
+        "copyrightType",
+        "copyrightTitle",
+        "creator",
+        "copyrightClaim",
+        "copyrightContract",
+        "copyrightContractAuthorization"
+      ]
+    },
+    "CopyrightClaimAuthorizationResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightClaimAuthorizationResp.Data"
+        }
+      }
+    },
+    "CopyrightClaimAuthorizationResp.Data": {
+      "type": "object",
+      "properties": {
+        "authorizationId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权id"
+        },
+        "authorizationCode": {
+          "type": "string",
+          "description": "授权code"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        }
+      }
+    },
+    "CopyrightClaimCheckReq": {
+      "type": "object",
+      "properties": {
+        "copyrightClaimId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权声明id"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1-通过；2-不通过"
+        },
+        "rejectReason": {
+          "type": "string",
+          "description": "拒绝理由"
+        }
+      },
+      "required": [
+        "copyrightClaimId",
+        "auditStatus"
+      ]
+    },
+    "CopyrightClaimEditReq": {
+      "type": "object",
+      "properties": {
+        "copyrightClaimId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明id"
+        },
+        "claim": {
+          "$ref": "#/definitions/CopyrightClaim",
+          "description": "存证声明数据"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        }
+      },
+      "required": [
+        "copyrightClaimId",
+        "claim"
+      ]
+    },
+    "CopyrightClaimInfo": {
+      "type": "object",
+      "properties": {
+        "copyrightClaimId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权声明id"
+        },
+        "claimTitle": {
+          "type": "string",
+          "description": "声明的标题"
+        },
+        "copyrightId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权id"
+        },
+        "registerAddress": {
+          "type": "string",
+          "description": "版权登记人address"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "作品应用"
+        },
+        "credential": {
+          "type": "string",
+          "description": "版权声明存证"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核状态：0-待审核；1-通过；2-不通过"
+        },
+        "auditTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核时间"
+        },
+        "rejectReason": {
+          "type": "string",
+          "description": "拒绝原因"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "声明版权可使用的类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别可铸造藏品总量"
+        },
+        "authorizedUsedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别已分配给合约的藏品数量"
+        },
+        "castedCollectionNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别已铸造藏品数量"
+        },
+        "claim": {
+          "type": "string",
+          "description": "存证声明数据的 json 串"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "CopyrightClaimListReq": {
+      "type": "object",
+      "properties": {
+        "claimTitle": {
+          "type": "string",
+          "description": "版权声明名称"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "credential": {
+          "type": "string",
+          "description": "'声明的存证uuid"
+        },
+        "registerAddress": {
+          "type": "string",
+          "description": "版权登记人address"
+        },
+        "contractIds": {
+          "type": "string",
+          "description": "合约ids  多个逗号分割"
+        },
+        "auditStatus": {
+          "type": "string",
+          "description": "审核状态：空全部；0-待审核；1-通过；2-不通过"
+        },
+        "auditTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核时间 (时间戳秒)最小"
+        },
+        "auditTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核时间 (时间戳秒)最大 "
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CopyrightClaimListReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权用户ID"
+        },
+        "claimTitle": {
+          "type": "string",
+          "description": "版权声明名称"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "credential": {
+          "type": "string",
+          "description": "'声明的存证uuid"
+        },
+        "registerAddress": {
+          "type": "string",
+          "description": "版权登记人address"
+        },
+        "contractIds": {
+          "type": "string",
+          "description": "合约ids  多个逗号分割"
+        },
+        "auditStatus": {
+          "type": "string",
+          "description": "审核状态：空全部；0-待审核；1-通过；2-不通过"
+        },
+        "auditTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核时间 (时间戳秒)最小"
+        },
+        "auditTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "审核时间 (时间戳秒)最大 "
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "CopyrightClaimListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightClaimListResp.Data"
+        }
+      }
+    },
+    "CopyrightClaimListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CopyrightClaimInfo"
+          }
+        }
+      }
+    },
+    "CopyrightClaimRegister": {
+      "type": "object",
+      "properties": {
+        "claimTitle": {
+          "type": "string",
+          "description": "版权声明名称"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "声明版权可使用的类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别可铸造藏品总量"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "声明扩展信息(应用可自行定义扩展属性)"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "声明备注"
+        }
+      },
+      "required": [
+        "claimTitle",
+        "copyrightCategory",
+        "authorizedNumber",
+        "declareTime"
+      ]
+    },
+    "CopyrightContractAuthorizationRegister": {
+      "type": "object",
+      "properties": {
+        "authorizedAddress": {
+          "type": "string",
+          "description": "被授权人用户address"
+        },
+        "authorizationContent": {
+          "type": "string",
+          "description": "授权说明"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "授权备注"
+        },
+        "authorizationCategory": {
+          "type": "string",
+          "description": "授权类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "授权数量"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "授权声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "授权扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "authorizedAddress",
+        "authorizationContent",
+        "remarks",
+        "authorizationCategory",
+        "authorizedNumber",
+        "declareTime"
+      ]
+    },
+    "CopyrightContractRegister": {
+      "type": "object",
+      "properties": {
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "合约在授权应用的类别可铸造藏品总量"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "合约类别"
+        },
+        "content": {
+          "type": "string",
+          "description": "合约说明"
+        }
+      },
+      "required": [
+        "authorizedNumber",
+        "copyrightCategory",
+        "content"
+      ]
+    },
+    "CopyrightRegisterInfo": {
+      "type": "object",
+      "properties": {
+        "copyrightId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权id"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品的标题"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "creativeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权作品创作时间 时间戳秒"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "版权作品访问链接，多个链接用分号分隔"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "登记应用"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "CopyrightRegisterListReq": {
+      "type": "object",
+      "properties": {
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品的标题"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "isOriginal": {
+          "type": "string",
+          "description": "是否原创：0-否；1-是"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CopyrightRegisterListReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品的标题"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "isOriginal": {
+          "type": "string",
+          "description": "是否原创：0-否；1-是"
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "CopyrightRegisterListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightRegisterListResp.Data"
+        }
+      }
+    },
+    "CopyrightRegisterListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CopyrightRegisterInfo"
+          }
+        }
+      }
+    },
+    "CopyrightRegisterReq": {
+      "type": "object",
+      "properties": {
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品名称"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "版权作品访问链接，多个链接用分号分隔"
+        },
+        "creativeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权作品创作时间(秒时间戳1661961600)"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        }
+      },
+      "required": [
+        "copyrightType",
+        "copyrightTitle",
+        "creator",
+        "attachUrl",
+        "creativeTime"
+      ]
+    },
+    "CopyrightRegisterReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户ID"
+        },
+        "copyrightType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"
+        },
+        "copyrightTitle": {
+          "type": "string",
+          "description": "作品名称"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "版权作品访问链接，多个链接用分号分隔"
+        },
+        "creativeTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权作品创作时间(秒时间戳1661961600)"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "备注"
+        }
+      },
+      "required": [
+        "userId",
+        "copyrightType",
+        "copyrightTitle",
+        "creator",
+        "attachUrl",
+        "creativeTime"
+      ]
+    },
+    "CopyrightRegisterResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightRegisterResp.Data"
+        }
+      }
+    },
+    "CopyrightRegisterResp.Data": {
+      "type": "object",
+      "properties": {
+        "copyrightId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权id"
+        },
+        "copyrightHash": {
+          "type": "string",
+          "description": "版权登记Hash值"
+        },
+        "copyrightClaimId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权声明id"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证"
+        }
+      }
+    },
+    "CopyrightStatisticsReq": {
+      "type": "object"
+    },
+    "CopyrightStatisticsResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightStatisticsResp.Data"
+        }
+      }
+    },
+    "CopyrightStatisticsResp.Data": {
+      "type": "object",
+      "properties": {
+        "compositionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "作品数量"
+        },
+        "copyrightNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版权登记数量"
+        },
+        "collectionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "铸造藏品数量"
+        },
+        "holdCollectionNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "持有藏品数量"
+        },
+        "dealAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "成交金额"
+        },
+        "dealNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "成交数量"
+        }
+      }
+    },
+    "CredentialInfo": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证id"
+        },
+        "credential": {
+          "type": "string",
+          "description": "存证标识（uuid）"
+        },
+        "credentialType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证类型：1-身份存证；2-版权存证；3-授权存证；4-藏品存证；5-藏品Transfer存证..."
+        },
+        "creatorUid": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建存证的用户的ID"
+        },
+        "creatorUidName": {
+          "type": "string",
+          "description": "创建存证的用户的ID 姓名"
+        },
+        "holderAddress": {
+          "type": "string",
+          "description": "藏品链上持有地址"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "身份声明数据的存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明数据的存证"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "版权授权声明数据的存证"
+        },
+        "collectionCredential": {
+          "type": "string",
+          "description": "数字藏品存证"
+        },
+        "hash": {
+          "type": "string",
+          "description": "存证声明的 hash 串"
+        },
+        "chainTxid": {
+          "type": "string",
+          "description": "上链产生的链上交易地址"
+        },
+        "chainBlockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链产生交易在链上的区块号"
+        },
+        "chainStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链状态：0-待上链；1-已上链；2-上链中；3-上链失败"
+        },
+        "chainFailedReason": {
+          "type": "string",
+          "description": "上链失败原因"
+        },
+        "chainTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        }
+      }
+    },
+    "CredentialInfoReq": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证id"
+        }
+      }
+    },
+    "CredentialInfoResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CredentialInfo"
+        }
+      }
+    },
+    "CredentialListReq": {
+      "type": "object",
+      "properties": {
+        "credentialIds": {
+          "type": "string",
+          "description": "存证ids 多个逗号分隔"
+        },
+        "credentialType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证类型：0全部1-身份存证；2-版权存证；3-授权存证；4-藏品存证；5-藏品Transfer存证..."
+        },
+        "credential": {
+          "type": "string",
+          "description": "存证标识（uuid）"
+        },
+        "holderAddress": {
+          "type": "string",
+          "description": "藏品链上持有地址"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "身份声明数据的存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明数据的存证"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "版权授权声明数据的存证"
+        },
+        "collectionCredential": {
+          "type": "string",
+          "description": "数字藏品存证"
+        },
+        "hash": {
+          "type": "string",
+          "description": "存证声明的 hash 串"
+        },
+        "chainTxid": {
+          "type": "string",
+          "description": "上链产生的链上交易地址"
+        },
+        "chainBlockNumber": {
+          "type": "string",
+          "description": "上链产生交易在链上的区块号"
+        },
+        "chainTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间(时间戳秒) 最小"
+        },
+        "chainTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间 (时间戳秒)最大 "
+        },
+        "chainStatus": {
+          "type": "string",
+          "description": "上链状态：空表示全部；0-待上链；1-已上链；2-上链中；3-上链失败 "
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "CredentialListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/CredentialListResp.Data"
+        }
+      }
+    },
+    "CredentialListResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/CredentialInfo"
+          }
+        }
+      }
+    },
+    "DidCredentialClaim": {
+      "type": "object",
+      "properties": {
+        "didType": {
+          "type": "string",
+          "description": "个人账号:individuality;企业用户:enterprise;个体工商户:individualBusiness"
+        },
+        "name": {
+          "type": "string",
+          "description": "名称"
+        },
+        "profile": {
+          "type": "string",
+          "description": "简称"
+        },
+        "address": {
+          "type": "string",
+          "description": "地址"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didType",
+        "name",
+        "declareTime"
+      ]
+    },
+    "DidCredentialReq": {
+      "type": "object",
+      "properties": {
+        "claim": {
+          "$ref": "#/definitions/DidCredentialClaim",
+          "description": "存证声明数据",
+          "title": "string claim_sign_address = 9 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"签名地址\"}]; 注释原因：系统自己生成签名\n  string proof = 10 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: \"存证声明数据的签名\"}];注释原因：系统自己生成签名"
+        }
+      },
+      "required": [
+        "claim"
+      ]
+    },
+    "DidCredentialResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/DidCredentialResp.Data"
+        }
+      }
+    },
+    "DidCredentialResp.Data": {
+      "type": "object",
+      "properties": {
+        "credentialId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "credential": {
+          "type": "string"
+        }
+      }
+    },
+    "LockReq": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调通知地址",
+          "title": "回调通知地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息",
+          "title": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "collectionId",
+        "notifyUrl"
+      ]
+    },
+    "LockReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "所有权用户ID",
+          "title": "所有权用户ID"
+        },
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调通知地址",
+          "title": "回调通知地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息",
+          "title": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "userId",
+        "collectionId",
+        "notifyUrl"
+      ]
+    },
+    "LockResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/LockResp.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "LockResp.Data": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        }
+      },
+      "required": [
+        "collectionId"
+      ]
+    },
+    "UnlockReq": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调通知地址",
+          "title": "回调通知地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息",
+          "title": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "collectionId",
+        "notifyUrl"
+      ]
+    },
+    "UnlockReqNew": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "所有权用户ID",
+          "title": "所有权用户ID"
+        },
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调通知地址",
+          "title": "回调通知地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "上链回调(json)扩展信息",
+          "title": "上链回调(json)扩展信息"
+        }
+      },
+      "required": [
+        "userId",
+        "collectionId",
+        "notifyUrl"
+      ]
+    },
+    "UnlockResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/UnlockResp.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "UnlockResp.Data": {
+      "type": "object",
+      "properties": {
+        "collectionId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "藏品id",
+          "title": "藏品ID"
+        }
+      },
+      "required": [
+        "collectionId"
+      ]
+    }
+  }
+}

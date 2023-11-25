@@ -1,0 +1,1278 @@
+syntax = "proto3";
+
+package daop.user;
+
+option go_package = "pb/userpb;userpb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/visibility.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+// UserService 用户服务
+service UserService {
+  // Register 用户注册
+  rpc Register(RegisterReq) returns (LoginResp) {
+    option (google.api.http) = {post: "/user/register" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户注册"};
+  }
+  // Login 用户登录
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {post: "/user/login" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户登录"};
+  }
+  // AuthLogin 用户授权登陆
+  rpc AuthLogin(AuthLoginReq) returns (LoginResp) {
+    option (google.api.http) = {post: "/user/auth/login" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户授权登陆"};
+  }
+  // Bind 用户绑定账号
+  rpc Bind(BindReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/bind" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户绑定账号"};
+  }
+  // ChangePwd 修改密码
+  rpc ChangePwd(ChangePwdReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/change/pwd" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "修改密码"};
+  }
+  // ChangePwdNew 修改密码
+  //   - version: v2
+  rpc ChangePwdNew(ChangePwdNewReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/changePwd" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "(新)修改密码"};
+  }
+  // ForgetPwd 忘记密码 
+  rpc ForgetPwd(ForgetPwdReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/forget/pwd" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "忘记密码"};
+  }
+  // SetPwd 重置密码
+  rpc SetPwd(SetPwdReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/set/pwd" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "重置密码"};
+  }
+  // SendSetPwdCode 发送重置密码验证码
+  rpc SendSetPwdCode(SendSetPwdCodeReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/send/setpwdcode" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "发送重置密码验证码"};
+  }
+  // ChangeUserStatus 修改用户状态
+  rpc ChangeUserStatus(ChangeStatusReq) returns (UserResp) {
+    // option (google.api.http) = {post: "/user/change/userstatus" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "修改用户状态"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // ChangeAccountStatus 修改账号状态
+  rpc ChangeAccountStatus(ChangeStatusReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/change/accountstatus" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "修改账号状态"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // ChangeAccountCredential 修改账号uuid
+  rpc ChangeAccountCredential(ChangeCredential) returns (UserResp) {
+    option (google.api.http) = {post: "/user/change/accountcredential" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "修改账号uuid"};
+  }
+  // ChangeAccountMerchantStatus 修改账号商户签约状态
+  rpc ChangeAccountMerchantStatus(ChangeStatusReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/change/accountmerchantstatus" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "修改账号商户签约状态"};
+  }
+  // CreatorApply 申请创作者
+  rpc CreatorApply(CreatorApplyReq) returns (CreatorApplyResp) {
+    option (google.api.http) = {post: "/user/creator/apply" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请创作者"};
+  }
+  // CreatorAudit 创作者审核
+  rpc CreatorAudit(CreatorAuditReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/creator/audit" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "创作者审核"};
+  }
+  // CreatorList 创作者列表
+  rpc CreatorList(CreatorListReq) returns (CreatorListResp) {
+    option (google.api.http) = {post: "/user/creator/list" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "创作者列表"};
+  }
+  // RealName 用户实名
+  rpc RealName(RealNameReq) returns (RealNameResp) {
+    option (google.api.http) = {post: "/user/real/name" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户实名"};
+  }
+  // RealNameNew (新)用户实名
+  //   - version: v2
+  rpc RealNameNew(RealNameNewReq) returns (RealNameNewResp) {
+    option (google.api.http) = {post: "/user/realName" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "(新)用户实名"};
+  }
+  // UserValidity 用户是否可用
+  rpc UserValidity(UserInfoReq) returns (UserResp) {
+    // option (google.api.http) = {get: "/user/validity"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户是否可用"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserMyInfo 我的用户信息
+  rpc UserMyInfo(google.protobuf.Empty) returns (UserInfoResp) {
+    option (google.api.http) = {get: "/user/my/info"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "我的用户信息"}; // 我的用户信息
+  }
+  // CancelMyAccount 注销我的账号
+  rpc CancelMyAccount(google.protobuf.Empty) returns (UserResp) {
+    option (google.api.http) = {post: "/user/my/cancelaccount" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "注销我的账号"}; // 注销我的账号
+  }
+  // UserIndexStatistics (商户后台)用户首页数据统计
+  rpc UserIndexStatistics(UserIndexStatisticsReq) returns (UserIndexStatisticsResp) {
+    option (google.api.http) = {get: "/user/index/statistics"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户首页数据统计"};
+  }
+  // UserServiceBaseList 获取用户列表
+  rpc UserServiceBaseList(UserServiceBaseListReq) returns (UserServiceBaseListResp) {
+    option (google.api.http) = {get: "/user/service/baselist"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取用户列表"};
+  }
+  // UserCapital 用户资金
+  rpc UserCapital(UserCapitalReq) returns (UserCapitalResp) {
+    option (google.api.http) = {get: "/user/capital"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户资金"};
+  }
+  // UserCapitalList 用户资金明细
+  rpc UserCapitalList(UserCapitalListReq) returns (UserCapitalListResp) {
+    option (google.api.http) = {get: "/user/capital/list"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户资金明细"};
+  }
+
+  // UserChainCost 查询上链预算费用
+  rpc UserChainCost(UserChainCostReq) returns (UserChainCostResp) {
+    option (google.api.http) = {post: "/user/capital/chain/cost" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "查询上链费用"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserDeveloperApply 申请开发者认证
+  rpc UserDeveloperApply(google.protobuf.Empty) returns (UserResp) {
+    option (google.api.http) = {post: "/user/developer/apply" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请开发者认证"};
+  }
+  // UserBaseInfo 用户基础详情
+  rpc UserBaseInfo(UserBaseInfoReq) returns (UserBaseInfoResp) {
+    // option (google.api.http) = {get: "/user/baseinfo"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户基础详情"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserInfo 用户详情
+  rpc UserInfo(UserInfoReq) returns (UserInfoResp) {
+    // option (google.api.http) = {get: "/user/info"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户详情"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserBaseInfoList 用户基础信息列表
+  rpc UserBaseInfoList(UserBaseInfoListReq) returns (UserBaseInfoListResp) {
+    // option (google.api.http) = {get: "/user/baseinfolist"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户基础信息列表"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserCharge 用户充值
+  rpc UserCharge(UserChargeReq) returns (UserChargeResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户充值"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserChargeStatus 获取用户充值状态
+  rpc UserChargeStatus(UserChargeStatusReq) returns (UserChargeStatusResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取用户充值状态"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserChargeChange 用户充值状态修改
+  rpc UserChargeChange(UserChargeChangeReq) returns (UserResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "用户充值状态修改"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserAccountInfo 查询用户账户信息
+  rpc UserAccountInfo(UserAccountInfoReq) returns (UserAccountInfoResp) {
+    // option (google.api.http) = {get: "/user/account/info"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "查询用户账户信息"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserFrozenCapital 冻结用户余额
+  rpc UserFrozenCapital(UserFrozenCapitalReq) returns (UserFrozenCapitalResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "冻结用户余额"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserUnFrozenCapital 解冻用户余额
+  rpc UserUnFrozenCapital(UserUnFrozenCapitalReq) returns (UserResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "解冻用户余额"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+  // UserInvoiceList 查询可开发票的列表
+  rpc UserInvoiceList(UserInvoiceListReq) returns (UserInvoiceListResp) {
+    option (google.api.http) = {post: "/user/invoice/list" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取可开发票的月份和额度列表"};
+  }
+  // UserInvoicedlist 查看已经开过的发票列表
+  rpc UserInvoicedList(UserInvoicedListReq) returns (UserInvoicedListResp) {
+    option (google.api.http) = {post: "/user/invoice/invoicedlist" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取已开发票的列表"};
+  }
+  // UserInvoicedInclusiveMonth  查看已经开票包含的月份
+  rpc UserInvoicedInclusiveMonth(UserInvoicedInclusiveMonthReq) returns (UserInvoicedInclusiveMonthResp) {
+    option (google.api.http) = {post: "/user/invoice/inclusivemonth" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取已开发票包含月份"};
+  }
+  //UserInvoiceConsumptiveDetail 查看水月消费明细
+  rpc UserInvoiceConsumptiveDetail(UserInvoiceConsumptiveDetailReq) returns (UserInvoiceConsumptiveDetailResp) {
+    option (google.api.http) = {post: "/user/invoice/consumptivedetail" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "查看当月消费明细"};
+  }
+  // UserInvoiceApply 申请开发票
+  rpc UserInvoiceApply(UserInvoiceApplyReq) returns (UserInvoiceApplyResp) {
+    option (google.api.http) = {post: "/user/invoice/apply" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请开票"};
+  }
+  // UserInvoiceGetInfoById 查看发票信息
+  rpc UserInvoiceGetInfoById(UserInvoiceGetInfoByIdReq) returns (UserInvoiceGetInfoByIdResp) {
+    option (google.api.http) = {post: "/user/invoice/getinfobyid" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "申请开票"};
+  }
+  // AdminSetPwd admin重置密码
+  rpc AdminSetPwd(AdminSetPwdReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/admin/set/pwd" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin重置密码"};
+  }
+  // UserAdminList (manager)admin获取用户列表
+  rpc UserAdminList(UserAdminListReq) returns (UserAdminListResp) {
+    option (google.api.http) = {get: "/user/admin/list"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin获取用户列表"};
+  }
+  // UserAccountAdminList admin获取用户账号列表
+  rpc UserAccountAdminList(UserAccountAdminListReq) returns (UserAccountAdminListResp) {
+    option (google.api.http) = {get: "/user/admin/accountlist"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "(manager)admin获取用户账号列表"};
+  }
+  // UserAccountChangePrice 修改账号价格
+  rpc UserAccountChangePrice(UserAccountChangePriceReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/admin/change/price" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "修改账号价格"};
+  }
+  // UserCapitalAllList admin用户资金明细
+  rpc UserCapitalAllList(UserCapitalAllListReq) returns (UserCapitalAllListResp) {
+    option (google.api.http) = {get: "/user/admin/capital/list"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin用户资金明细"};
+  }
+  // UserAdminDeveloperAudit admin审核开发者
+  rpc UserAdminDeveloperAudit(UserAdminDeveloperAuditReq) returns (UserResp) {
+    option (google.api.http) = {post: "/user/admin/developer/audit" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin审核开发者"};
+  }
+  // UserAdminInvoiceSetInfo (运营后台)更新发票相关信息
+  rpc UserAdminInvoiceSetInfo(UserAdminInvoiceSetInfoReq) returns (UserAdminInvoiceSetInfoResp) {
+    option (google.api.http) = {post: "/user/admin/invoice/setinvoiceinfo" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin更新发票相关信息"};
+  }
+  // UserAdminInvoiceList (运营后台)查询申请开发票的列表
+  rpc UserAdminInvoiceList(UserAdminInvoiceListReq) returns (UserAdminInvoiceListResp) {
+    option (google.api.http) = {post: "/user/admin/invoice/invoicelist" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin查询申请开发票的列表"};
+  }
+  // UserAdminInvoiceGetInfo (运营后台)查看发票内容信息
+  rpc UserAdminInvoiceGetInfo(UserAdminInvoiceGetInfoReq) returns (UserAdminInvoiceGetInfoResp) {
+    option (google.api.http) = {post: "/user/admin/invoice/getinfo" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin查看发票内容信息"};
+  }
+  // UserAdminInvoiceGetMonthsInfo (运营后台)查看发票包含的月份信息
+  rpc UserAdminInvoiceGetMonthsInfo(UserAdminInvoiceGetMonthsInfoReq) returns (UserAdminInvoiceGetMonthsInfoResp) {
+    option (google.api.http) = {post: "/user/admin/invoice/getmonthsinfo" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin查看发票包含的月份信息"};
+  }
+  // UserAdminGetConsumptiveDetail (运营后台)查看当月消费明细
+  rpc UserAdminGetConsumptiveDetail(UserAdminGetConsumptiveDetailReq) returns (UserAdminGetConsumptiveDetailResp) {
+    option (google.api.http) = {post: "/user/admin/invoice/getconsumptivedetail" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin查看当月消费明细"};
+  }
+  // UserAdminPresentByAccount (运营后台)指定账户增加
+  rpc UserAdminPresentByAccount(UserAdminPresentByAccountReq) returns (UserAdminPresentByAccountResp) {
+    option (google.api.http) = {post: "/user/admin/invoice/presentbyaccount" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "admin指定账户增加能量值"};
+  }
+}
+
+message RegisterReq {
+  string account = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号:手机号或者邮箱"}];
+  string password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号密码6-16位"}];
+  uint32 code = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 1000,lt: 9999}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数字验证码"}];
+}
+
+message AuthLoginReq {
+  string account = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号:手机号或者邮箱"}];
+  string sign = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "将appid、nonce和secretKey(在开发者管理后台创建应用后得到)按顺序拼接成一个字符串后，再用md5算法生成的签名hash"}];
+  string nonce = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "签名用到的随机字符串"}];
+}
+
+message LoginReq {
+  string account = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号:手机号或者邮箱"}];
+  string password = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号密码6-16位"}];
+  uint32 type = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 0,lt: 3}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1手机号验证码2账号密码登陆"}];
+  uint32 code = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数字(1000-9999)验证吗"}];
+}
+
+message LoginResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    UserInfo user_info = 1[(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户详情"}];
+    string token = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户token"}];
+    uint32 expires_in = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "失效时间"}];
+    bool pwd_expired = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "密码是否过期,true表示密码已过期;false表示密码未过期"}]; // 密码是否过期,true表示密码已过期;false表示密码未过期
+  }
+  Data data = 3;
+}
+
+message BindReq {
+  string account = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号:手机号或者邮箱"}];
+  uint32 code = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 1000,lt: 9999}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数字(1000-9999)验证吗"}];
+}
+
+message ChangePwdReq {
+  string old_password = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "旧密码6-12位"}];
+  string password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "新密码6-12位"}];
+}
+
+message SendSetPwdCodeReq{
+  uint32 code_type = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte: 0,lte: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0发送手机验证码1发送邮箱验证码"}];
+  uint32 source_type = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "短信签名0:DAOP,1:哈稀"}];
+}
+
+message SetPwdReq {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 1000,lt: 9999}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数字验证吗"}];
+  uint32 code_type = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte: 0,lte: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0手机1邮箱"}];
+  string password = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "新密码6-12位"}];
+}
+
+message ForgetPwdReq {
+  string account = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 1, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0手机1邮箱"}];
+  uint32 code = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 1000,lt: 9999}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数字验证吗"}];
+  string password = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "新密码6-12位"}];
+}
+
+message AdminSetPwdReq{
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte:0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}] ;
+  string password = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "新密码6-12位"}];
+
+}
+
+message ChangeStatusReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "user/account id"}] ;
+  uint32 status = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte:1,lte: 2}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0-删除;1-有效;2-锁定"}] ;
+}
+
+message ChangeCredential {
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte:0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}] ;
+  string credential = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string.min_len = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号:手机号或者邮箱"}];
+}
+
+message RealNameReq{
+  uint32 account_type = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 0,lt: 3}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-个人;2-企业;3-个体工商户"}];
+  string real_name = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实名称(企业用户为公司名称，个人用户为真实姓名)"}];
+  string short_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称(企业用户适用)"}];
+  string id_no = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件号码(非个人用户为法人身份证件，个人用户为个人证件)"}];
+  string id_phone = 5 [ (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号(身份证号实名的手机号)"}];
+  uint32 id_phone_code = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码"}];
+  string id_pic_front = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件照片正面(非个人用户为法人证件，个人用户为个人证件)"}];
+  string id_pic_back = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件照片背面(非个人用户为法人证件，个人用户为个人证件)"}];
+  string id_pic_hand = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "非个人用户为手持营业执照，个人用户为手持身份证照片"}];
+  string license_no = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构营业执照号码"}];
+  string license_pic = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构营业执照照片"}];
+  string legal_person_name = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构法人姓名"}];
+  string contact_name = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人姓名"}];
+  string contact_phone = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系电话"}];
+  string contact_address = 15 [ (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系地址"}];
+  string logo = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "公司LOGO或个人头像图片地址"}];
+  RealNameClaim claim = 17 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+  bool developer_flag = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否申请成为开发者"}]; // 是否申请成为开发者
+
+  //string proof = 16 [(validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据的签名"}];注释原因：系统自己生成签名
+}
+
+message RealNameResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 credential_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证id"}];
+    string credential = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户身份存证"}];
+    uint32 certify_audit_status = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  }
+  Data data = 3;
+}
+
+message RealNameClaim{
+  string did_type = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "个人:individuality;企业:enterprise;个体工商户:individualBusiness"}];
+  string name = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "名称"}];
+  string profile = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "简介"}];
+  string address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "地址"}];
+  string declare_time = 5 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "声明时间2022-09-01 11:00:00"}];
+  string extension = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "扩展json信息(应用可自行定义扩展属性)"}];
+}
+
+message UserServiceBaseListReq {
+  string user_ids = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+  bool is_all = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "false 分页 true 全部"}];
+  uint32 page = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+}
+
+message UserServiceBaseListResp {
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated UserBaseInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserListResp {
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated UserInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserInfo {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 account_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户类型：1-个人;2-企业;3-个体工商户"}];
+  uint32 user_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+  string app_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用标识"}];
+  string mobile = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string real_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实名称(企业用户为公司名称，个人用户为真实姓名"}];
+  string short_name = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称(企业用户适用)"}];
+  uint32 certify_apply_time = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证申请时间"}];
+  uint32 certify_audit_time = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核时间"}];
+  uint32 certify_audit_status = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  string certify_reject_reason = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核拒绝理由"}];
+  uint32 creator_apply_time = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证申请时间"}];
+  uint32 creator_audit_time = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证审核时间"}];
+  uint32 creator_audit_status = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"}];
+  string creator_reject_reason = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态拒绝理由"}];
+  uint32 merchant_status = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户签约状态：0-待签约；1-已签约；2-签约失败"}];
+  uint32 chain_status = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链状态：0-待上链；1-已上链；2-上链失败"}];
+  uint32 chain_time = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链状态时间"}];
+  string chain_failed_reason = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链失败原因"}];
+  string user_address = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户在链上的账号地址"}];
+  string user_private_key = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户私钥"}];
+  string credential = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份存证uid"}];
+  uint32 account_status = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号有效状态：1-有效;2-锁定"}];
+  uint32 user_status = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户有效状态：1-有效;2-锁定"}];
+  uint32 create_time = 28 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  UserCertificationInfo user_certification_info = 29 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名信息"}];
+  RealNameClaim claim = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+  uint32 developer_audit_status = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证状态：0-待认证；1-已认证；2-认证未通过；3-认证中"}]; // 开发者认证状态：0-待认证；1-已认证；2-认证未通过；3-认证中
+  string developer_reject_reason = 32 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证审核不通过原因"}]; // 开发者认证审核不通过原因
+  string developer_contract = 33 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证协议链接"}]; // 开发者认证协议链接
+}
+
+message UserCertificationInfo{
+  string id_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件号码(非个人用户为法人身份证件，个人用户为个人证件)"}];
+  string id_pic_front = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件照片正面(非个人用户为法人证件，个人用户为个人证件"}];
+  string id_pic_back = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件照片背面(非个人用户为法人证件，个人用户为个人证件"}];
+  string id_pic_hand = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "非个人用户为手持营业执照，个人用户为手持身份证照片"}];
+  string license_no = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构营业执照号码"}];
+  string license_pic = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构营业执照照片"}];
+  string legal_person_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构法人姓名"}];
+  string apply_material = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证申请材料"}];
+  string contact_name = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人姓名"}];
+  string contact_phone = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系电话"}];
+  string contact_address = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系地址"}];
+  string logo = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "公司LOGO或个人头像图片地址"}];
+  string id_phone = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名手机号"}]; // 实名手机号
+  uint32 account_type = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户类型：1-个人;2-企业;3-个体工商户"}];
+  string real_name = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实名称(企业用户为公司名称，个人用户为真实姓名"}];
+  string short_name = 32 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称(企业用户适用)"}];
+  uint32 apply_time = 33 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证申请时间"}];
+  uint32 audit_time = 34 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核时间"}];
+  uint32 audit_status = 35 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  string reject_reason = 36 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核拒绝理由"}];
+  string credential = 37 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "原始身份声明存证DIDCredential"}];
+  RealNameClaim claim = 38 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+}
+
+message UserInfoReq {
+  uint32 user_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+}
+
+message UserInfoResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功其他失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "提示语"}];
+  UserInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户信息"}];
+}
+
+message UserBaseInfoReq {
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+  string user_address = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户user_address,当存在id时优先查询id"}];
+  string app_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用标识"}]; // 应用标识
+  string mobile = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户mobile,与其它参数互斥"}]; // 用户mobile(与appNo配合使用),与其它参数互斥
+  string email = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户email,与其它参数互斥"}]; // 用户email(与appNo配合使用),与其它参数互斥
+}
+
+message UserBaseInfoResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功其他失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "提示语"}];
+  UserBaseInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户信息"}];
+}
+
+message UserBaseInfoListReq {
+  repeated uint32 uid = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id信息"}];
+  repeated string addr = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户地址信息,当存在id时优先查询id"}];
+}
+
+message UserBaseInfoListResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功其他失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "提示语"}];
+  repeated UserBaseInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户信息列表"}];
+}
+
+message UserBaseInfo {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 account_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户类型：1-个人;2-企业;3-个体工商户"}];
+  uint32 user_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+  string app_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用标识"}];
+  string mobile = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string real_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实名称(企业用户为公司名称，个人用户为真实姓名"}];
+  string short_name = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称(企业用户适用)"}];
+  uint32 certify_apply_time = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证申请时间"}];
+  uint32 certify_audit_time = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核时间"}];
+  uint32 certify_audit_status = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  string certify_reject_reason = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核拒绝理由"}];
+  uint32 creator_apply_time = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证申请时间"}];
+  uint32 creator_audit_time = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证审核时间"}];
+  uint32 creator_audit_status = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"}];
+  string creator_reject_reason = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态拒绝理由"}];
+  uint32 merchant_status = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户签约状态：0-待签约；1-已签约；2-签约失败"}];
+  string user_address = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户在链上的账号地址"}];
+  string user_private_key = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户私钥"}];
+  uint32 account_status = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号有效状态：1-有效;2-锁定"}];
+  uint32 user_status = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户有效状态：1-有效;2-锁定"}];
+  uint32 create_time = 28 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+}
+
+message UserResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0成功其他失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "提示语"}];
+}
+
+message CreatorApplyReq {
+  string apply_material = 1 [(validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作者申请材料(json 字符串)"}];
+}
+
+message CreatorApplyResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32  status = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人申请状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"}];
+  }
+  Data data = 3;
+}
+
+message CreatorListReq {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 account_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户类型：1-个人;2-企业;3-个体工商户"}];
+  string mobile = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  uint32 audit_status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：1-审核通过；2-审核未通过；3-审核中"}];
+  uint32 apply_time_start = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证申请时间 秒时间戳(1664603400)"}];
+  uint32 apply_time_end = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证申请时间 秒时间戳(1664603400)"}];
+  uint32 audit_time_start = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证审核时间 秒时间戳(1664603400)"}];
+  uint32 audit_time_end = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证审核时间 秒时间戳(1664603400)"}];
+  uint32 page = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+}
+
+message CreatorListResp {
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated CreatorUserInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message CreatorUserInfo {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 account_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户类型：1-个人;2-企业;3-个体工商户"}];
+  string mobile = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string real_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实名称(企业用户为公司名称，个人用户为真实姓名"}];
+  string short_name = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称(企业用户适用)"}];
+  uint32 apply_time = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证申请时间"}];
+  uint32 audit_time = 10  [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人认证审核时间"}];
+  uint32 audit_status = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：1-审核通过；2-审核未通过；3-审核中"}];
+  string reject_reason = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核不通过原因"}];
+  string apply_material = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人申请材料"}];
+}
+
+message CreatorAuditReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "user/account id"}] ;
+  uint32 status = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gte:1,lte: 2}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-审核通过;2-审核未通过"}] ;
+  string reject_reason = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核不通过原因"}];
+}
+
+message UserAdminListReq {
+  string mobile = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string address = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户address"}];
+  string app_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  uint32 create_time_start = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间 秒时间戳(1664603400)"}];
+  uint32 create_time_end = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间 秒时间戳(1664603400)"}];
+  string status = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户状态：空全部 1-有效；2-禁用"}];
+  uint32 page = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+}
+
+message UserAdminListResp {
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated UserAdminInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserAdminInfo {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 user_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户id"}];
+  string app_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  string mobile = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string address = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户address"}];
+  uint32 status = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1正常2禁用"}];
+  uint32 create_time = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间"}];
+}
+
+message UserAccountAdminListReq {
+  string mobile = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string certify_audit_status = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：空全部 0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  string creator_audit_status = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：空全部 0-未申请；1-审核通过；2-审核未通过；3-审核中"}];
+  string merchant_status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户签约状态：空全部 0-待签约；1-已签约；2-签约失败"}];
+  string account_type = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号类型：空全部 1-个人;2-企业;3-个体工商户"}];
+  string app_no = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  uint32 create_time_start = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间 秒时间戳(1664603400)"}];
+  uint32 create_time_end = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间 秒时间戳(1664603400)"}];
+  string status = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号状态：空全部 1-有效；2-禁用"}];
+  uint32 page = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+  string developer_audit_status_list = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证状态集合, 0-待认证；1-已认证；2-认证未通过；3-认证中, 格式:0,1,2"}]; // 开发者认证状态集合, 0-待认证；1-已认证；2-认证未通过；3-认证中, 格式:0,1,2
+}
+
+message UserAccountAdminListResp {
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated UserAccountAdminInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserAccountAdminInfo {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 account_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户类型：1-个人;2-企业;3-个体工商户"}];
+  string app_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}];
+  string mobile = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  uint32 certify_audit_status = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  uint32 creator_audit_status = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"}];
+  uint32 merchant_status = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户签约状态：0-待签约；1-已签约；2-签约失败"}];
+  uint32 developer_audit_status = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证状态,0-待认证；1-已认证；2-认证未通过；3-认证中"}]; // 开发者认证状态, 0-待认证；1-已认证；2-认证未通过；3-认证中
+  string developer_reject_reason = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证审核不通过原因"}]; // 开发者认证审核不通过原因
+  uint32 developer_audit_time = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证审核时间"}]; // 开发者认证审核时间
+  uint32 capital_balance = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "充值资金余额(分)"}];
+  uint32 present_balance = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送资金余额(分)"}];
+  uint32 frozen_paid_amount = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结充值的金额(分)"}];
+  uint32 frozen_present_amount = 32 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结赠送的金额(分)"}];
+  uint32 credential_chain_price = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证上链价格（单位：分/次）"}];
+  uint32 collection_casting_price = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品铸造上链价格（单位：分/次）"}];
+  uint32 collection_online_price = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上上架价格（单位：分/次）"}];
+  uint32 collection_offline_price = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上下架价格（单位：分/次）"}];
+  uint32 collection_transfer_price = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品转让上链价格（单位：分/次）"}];
+  uint32 api_call_price = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "其它API调用价格（单位：分/次）"}];
+  uint32 status = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1正常2禁用"}];
+  uint32 create_time = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间"}];
+  UserCertificationInfo cert_info = 1001 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "认证信息"}]; // 认证信息
+}
+
+// ----------
+
+message UserIndexStatisticsReq {}
+
+message UserIndexStatisticsResp{
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 composition_num = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品数量"}];
+    uint32 copyright_num = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "登记版权数量"}];
+    uint32 collection_num = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造藏品数量"}];
+    uint32 hold_collection_num = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "持有藏品数"}];
+    uint32 capital_balance = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金余额(分)"}];
+    uint32 present_balance = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送资金余额(分)"}];
+    uint32 frozen_paid_amount = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结充值的金额(分)"}];
+    uint32 frozen_present_amount = 32 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结赠送的金额(分)"}];
+    uint32 charge_num = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "充值金额"}];
+    uint32 present_charge_num = 27 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(赠送)充值金额"}];
+    uint32 expend_num = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支出金额"}];
+    uint32 present_expend_num = 28 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(赠送)支出金额"}];
+    uint32 deal_amount = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "成交金额(分)"}];
+    uint32 deal_num = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "成交数"}];
+    uint32 refund_amount = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款金额(分)"}];
+    uint32 refund_num = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款数量"}];
+  }
+  Data data = 3;
+}
+
+message UserCapitalReq {}
+
+message UserCapitalResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 capital_balance = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金余额(分)"}]; // 资金余额(分)
+    uint32 present_balance = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送资金余额(分)"}]; // 赠送资金余额(分)
+    uint32 frozen_paid_amount = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结充值的金额(分)"}]; // 冻结充值的金额(分)
+    uint32 frozen_present_amount = 32 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结赠送的金额(分)"}]; // 冻结赠送的金额(分)
+  }
+  Data data = 3;
+}
+
+message UserCapitalListReq {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}]; // (搜索)(可选项)账号ID
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易流水号"}]; // 交易流水号
+  uint32 transaction_type = 3 [(validate.rules).uint32 = {in:[0, 1, 2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型, 0-全部;1-充值;2-消费"}]; // 交易类型, 0-全部;1-充值;2-消费
+  uint32 status = 4 [(validate.rules).uint32 = {in:[0, 1, 2, 3]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单状态,0所用状态;1交易成功;2交易中;3交易失败"}]; // 订单状态,0所用状态;1交易成功;2交易中;3交易失败
+  uint32 page = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数,默认1"}]; // 页数,默认1
+  uint32 limit = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数,默认20"}]; // 条数,默认20
+  uint32 transaction_mode = 7 [(validate.rules).uint32 = {in:[0, 1, 2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型, 0-全部;1-线上;2-线下"}];
+}
+
+message UserCapitalListResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserCapitalInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserCapitalInfo {
+  uint32 transaction_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：1-充值；2-消费"}];
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易流水号"}];
+  uint32 status = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-交易成功；2-交易中；3-交易失败"}];
+  uint32 create_time = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 paid_amount = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付金额(分)"}];
+  uint32 present_amount = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送金额(分)"}];
+  uint32 transaction_mode = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：1-线上；2-线下"}];
+}
+
+message UserCapitalAllListReq {
+  string mobile = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  string trade_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易流水号"}];
+  uint32 transaction_type = 4 [(validate.rules).uint32 = {in:[0, 1, 2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：0 全部;1-充值；2-消费"}];
+  uint32 status = 5 [(validate.rules).uint32 = {in:[0, 1, 2, 3]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单状态:0所用状态1交易成功2交易中3交易失败"}];
+  uint32 page = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+  uint32 transaction_mode = 8 [(validate.rules).uint32 = {in:[0, 1, 2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：0 全部;1-线上；2-线下"}];
+}
+
+message UserCapitalAllListResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserCapitalAllInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserCapitalAllInfo {
+  uint32 transaction_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：1-充值；2-消费"}];
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易流水号"}];
+  string mobile = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号"}];
+  string email = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];
+  uint32 paid_amount = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付金额(分)"}];
+  uint32 present_amount = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送金额(分)"}];
+  uint32 status = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-交易成功；2-交易中；3-交易失败"}];
+  uint32 create_time = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 transaction_mode = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易方式：1-线上；2-线下"}];
+}
+
+// UserFrozenCapitalItem 资金冻结信息
+message UserFrozenCapitalItem {
+  uint32 frozen_capital_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结资金类型, 0存证上链价格; 1藏品铸造上链价格; 2藏品链上上架价格; 3藏品链上下架价格; 4藏品转让上链价格; 5其它API调用价格"}]; // 冻结资金类型, 0存证上链价格; 1藏品铸造上链价格; 2藏品链上上架价格; 3藏品链上下架价格; 4藏品转让上链价格; 5其它API调用价格
+  string called_api = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易API名称"}]; // 交易API名称
+  uint32 called_num = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API调用次数,默认值1", default: "1"}]; // API调用次数,默认值1
+}
+
+// UserFrozenCapitalReq 资金冻结-请求参数
+message UserFrozenCapitalReq {
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "调用者账户ID"}]; // 调用者账户ID
+  repeated UserFrozenCapitalItem items = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金冻结信息条目"}]; // 资金冻结信息条目
+  bool checking = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "检测是否可冻结(仅检测,不发生真正冻结行为)"}]; // 检测是否可冻结(仅检测,不发生真正冻结行为)
+  string app_no = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号(从此应用编号绑定的管理员账户冻结资金)"}]; // 应用编号(从此应用编号绑定的管理员账户冻结资金)
+}
+
+// UserFrozenCapitalResultItem 资金冻结结果信息
+message UserFrozenCapitalResultItem {
+  uint32 transaction_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}]; // 交易id
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+  uint32 frozen_capital_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结资金类型, 0存证上链价格; 1藏品铸造上链价格; 2藏品链上上架价格; 3藏品链上下架价格; 4藏品转让上链价格; 5其它API调用价格"}]; // 冻结资金类型, 0存证上链价格; 1藏品铸造上链价格; 2藏品链上上架价格; 3藏品链上下架价格; 4藏品转让上链价格; 5其它API调用价格
+  string called_api = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易api"}]; // 交易api
+  uint32 called_num = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API调用次数", default: "1"}]; // API调用次数
+}
+
+message UserFrozenCapitalResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    repeated UserFrozenCapitalResultItem items = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金冻结结果信息条目"}]; // 资金冻结结果信息条目
+  }
+  Data data = 3; // 结果data
+}
+
+// UserChainItem 上链信息
+message UserChainItem {
+  uint32 frozen_capital_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结资金类型, 0存证上链价格; 1藏品铸造上链价格; 2藏品链上上架价格; 3藏品链上下架价格; 4藏品转让上链价格; 5其它API调用价格"}]; // 冻结资金类型, 0存证上链价格; 1藏品铸造上链价格; 2藏品链上上架价格; 3藏品链上下架价格; 4藏品转让上链价格; 5其它API调用价格
+  uint32 called_num = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "API调用次数,默认值1", default: "1"}]; // API调用次数,默认值1
+}
+
+// UserChainCost 查询上链预算费用-请求参数
+message UserChainCostReq {
+  string app_no = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号(从此应用编号绑定的管理员账户冻结资金)"}]; // 应用编号(从此应用编号绑定的管理员账户冻结资金)
+  repeated UserChainItem items = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链信息条目"}]; // 上链信息条目
+}
+
+// UserChainCost 查询上链预算费用-参数响应
+message UserChainCostResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 cost = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链预算费用"}]; // 上链预算费用
+    bool can = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否可以上链, true表明费用充足, false表示费用不足"}]; // 是否可以上链, true表明费用充足, false表示费用不足
+  }
+  Data data = 3; // 结果data
+}
+
+message UserChargeReq {
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}]; // 账号ID
+  uint32 amount = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "到账金额,单位:分"}]; // 到账金额,单位:分
+}
+
+message UserChargeResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32  transaction_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}];
+    string  trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}];
+  }
+  Data data = 3;
+}
+
+message UserChargeChangeReq {
+  string trade_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号,没有订单号的时候生成订单,有订单号修改订单状态"}]; // 订单号,没有订单号的时候生成订单,有订单号修改订单状态
+  uint32 status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易状态, 1交易成功; 3:交易失败"}]; // 交易状态, 1交易成功; 3:交易失败
+  uint32 present_amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送金额,单位:分"}]; // 赠送金额,单位:分
+}
+
+message UserChargeStatusReq {
+  uint32 transaction_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易记录表id, 有id,id优先查询"}]; // 交易记录表id, 有id,id优先查询
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号，没有订单号的时候生成订单，有订单号修改订单状态"}]; // 订单号,没有订单号的时候生成订单,有订单号修改订单状态
+}
+
+message UserChargeStatusResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32  status = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易状态, 1-交易成功;2-交易中;3-交易失败"}]; // 交易状态, 1-交易成功;2-交易中;3-交易失败
+  }
+  Data data = 3;
+}
+
+message UserUnFrozenCapitalReq {
+  uint32 transaction_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}];
+  uint32 status = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易状态 1成功3失败"}];
+}
+
+message UserAccountChangePriceReq {
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号id"}];
+  uint32 credential_chain_price = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证上链价格（单位：分/次）"}];
+  uint32 collection_casting_price = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品铸造上链价格（单位：分/次）"}];
+  uint32 collection_online_price = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上上架价格（单位：分/次）"}];
+  uint32 collection_offline_price = 5 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上下架价格（单位：分/次）"}];
+  uint32 collection_transfer_price = 6 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品转让上链价格（单位：分/次）"}];
+  uint32 api_call_price = 7 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "其它API调用价格（单位：分/次）"}];
+}
+
+message UserAccountInfoReq {
+  string mobile = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户手机号,与用户Email互斥"}]; // 用户手机号,与用户Email互斥
+  string email = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户Email,与用户手机号互斥"}]; // 用户Email,与用户手机号互斥
+}
+
+message UserAccountInfo {
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账户ID"}]; // 账户ID
+  uint32 account_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号类型：1-个人;2-企业;3-个体工商户"}]; // 账号类型：1-个人;2-企业;3-个体工商户
+  string app_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册该账号的应用编号"}]; // 注册该账号的应用编号
+  string mobile = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号码"}]; // 手机号码
+  string email = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(登录账号)邮件地址"}]; // (登录账号)邮件地址
+  string pwd_question = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "密保问题"}]; // 密保问题
+  string pwd_answer = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "密保答案"}]; // 密保答案
+  uint32 certify_audit_status = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}]; // 实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中
+  uint32 creator_audit_status = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中"}]; // 创作人审核状态：0-未申请；1-审核通过；2-审核未通过；3-审核中
+  uint32 merchant_status = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户签约状态：0-待签约；1-已签约；2-签约失败"}]; // 商户签约状态：0-待签约；1-已签约；2-签约失败
+  uint32 capital_balance = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金余额"}]; // 资金余额
+  uint32 present_balance = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "充值赠送金额"}]; // 充值赠送金额
+  uint32 frozen_paid_amount = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结充值的金额，单位：分"}]; // 冻结充值的金额，单位：分
+  uint32 frozen_present_amount = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "冻结赠送的金额，单位：分"}]; // 冻结赠送的金额，单位：分
+  uint32 credential_chain_price = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证上链价格（单位：分/次）"}]; // 存证上链价格（单位：分/次）
+  uint32 collection_casting_price = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品铸造上链价格（单位：分/次）"}]; // 藏品铸造上链价格（单位：分/次）
+  uint32 collection_online_price = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上上架价格（单位：分/次）"}]; // 藏品链上上架价格（单位：分/次）
+  uint32 collection_offline_price = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上下架价格（单位：分/次）"}]; // 藏品链上下架价格（单位：分/次）
+  uint32 collection_transfer_price = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品转让上链价格（单位：分/次）"}]; // 藏品转让上链价格（单位：分/次）
+  uint32 api_call_price = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "其它API调用价格（单位：分/次）"}]; // 其它API调用价格（单位：分/次）
+  uint32 deleted_at = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账户删除时间"}]; // 账户删除时间
+  uint32 status = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "有效状态：0-删除；1-有效；2-禁用"}]; // 有效状态：0-删除；1-有效；2-禁用
+  uint32 modify_time = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "修改时间"}]; // 修改时间
+  uint32 create_time = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "注册时间"}]; // 注册时间
+}
+
+message UserAccountInfoResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  UserAccountInfo data = 3; // 账户信息
+}
+
+message UserAdminDeveloperAuditReq {
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账户ID"}]; // 账户ID
+  uint32 status = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {in:[1, 2]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核状态,1审核通过;2审核驳回"}]; // 审核状态,11审核通过;2审核驳回
+  string reason = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开发者认证审核不通过原因"}]; // 开发者认证审核不通过原因,审核驳回时必填
+}
+
+// --------------------------------------------------
+// v2.methods
+// --------------------------------------------------
+
+message ChangePwdNewReq {
+  uint32 account_id = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt:0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账户ID"}]; // 账户ID
+  string old_password = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "旧密码6-16位"}]; // 旧密码6-16位
+  string password = 3 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 6, max_len: 16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "新密码6-16位"}]; // 新密码6-16位
+}
+
+message RealNameNewReq {
+  uint32 account_id = 30 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt:0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账户ID"}]; // 账户ID
+  uint32 account_type = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 0,lt: 3}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-个人;2-企业;3-个体工商户"}];
+  string real_name = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 2}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实名称(企业用户为公司名称，个人用户为真实姓名)"}];
+  string short_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业简称(企业用户适用)"}];
+  string id_no = 4 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件号码(非个人用户为法人身份证件，个人用户为个人证件)"}];
+  string id_phone = 5 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号(身份证号实名的手机号)"}];
+  uint32 id_phone_code = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码"}];
+  string id_pic_front = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件照片正面(非个人用户为法人证件，个人用户为个人证件)"}];
+  string id_pic_back = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证件照片背面(非个人用户为法人证件，个人用户为个人证件)"}];
+  string id_pic_hand = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "非个人用户为手持营业执照，个人用户为手持身份证照片"}];
+  string license_no = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构营业执照号码"}];
+  string license_pic = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构营业执照照片"}];
+  string legal_person_name = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "机构法人姓名"}];
+  string contact_name = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人姓名"}];
+  string contact_phone = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系电话"}];
+  string contact_address = 15 [ (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系地址"}];
+  string logo = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "公司LOGO或个人头像图片地址"}];
+  RealNameClaim claim = 17 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+  bool developer_flag = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否申请成为开发者"}]; // 是否申请成为开发者
+}
+
+message RealNameNewResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 credential_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证id"}];
+    string credential = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户身份存证"}];
+    uint32 certify_audit_status = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实名认证审核状态：0-待认证；1-审核通过；2-审核未通过；3-审核中"}];
+  }
+  Data data = 3;
+}
+
+message UserInvoiceListReq {
+  uint32 page = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+  uint64 start_date = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开始日期"}]; // 开始日期
+  uint64 end_date = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结束日期"}]; // 结束日期
+}
+
+message UserInvoiceListResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserInvoiceInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserInvoiceInfo {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}];
+  string date = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "日期"}];
+  uint32 amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票金额"}];
+  uint32 progress = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0-未开票；1-开票中；2-开票完成"}];
+  uint32 invoice_info_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发标信息表id"}];
+}
+
+message UserInvoicedListReq {
+  uint64 start_date = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开始日期"}]; // 开始日期
+  uint64 end_date = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结束日期"}]; // 结束日期
+  uint32 page = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+}
+
+message UserInvoicedListResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserInvoicedInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserInvoicedInfo {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}];
+  uint32 apply_invoice_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "apply_invoice_id"}];
+  uint32 amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票金额"}];
+  string invoice_number = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票流水号"}];
+  uint32 apply_date = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请开票日期"}]; // 创建时间
+  uint32 actual_date = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "实际开票日期"}];
+  uint32 inclusive_month = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "包含月份"}];
+}
+
+message UserInvoicedInclusiveMonthReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表id"}];
+  uint32 page = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+}
+
+message UserInvoicedInclusiveMonthResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    repeated UserInvoiceInclusiveMonthInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserInvoiceInclusiveMonthInfo {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}];
+  string date = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "日期月份"}];
+  uint32 amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票金额"}];
+}
+
+message UserInvoiceGetInfoByIdReq {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "已完成开发票表id"}];
+  uint32 type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票类型1个人2企业3个体工商户"}];
+
+}
+
+message UserInvoiceGetInfoByIdResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  UserAdminInvoiceGetInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票信息"}];
+}
+
+message UserInvoiceConsumptiveDetailReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表id"}]; // 账户ID
+  uint32 page = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+}
+
+message UserInvoiceConsumptiveDetailResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserCapitalAllDetail data = 2;
+  }
+  Data data = 3;
+}
+
+message UserCapitalAllDetail {
+  uint32 transaction_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：1-充值；2-消费"}];
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易流水号"}];
+  uint32 paid_amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付金额(分)"}];
+  uint32 present_amount = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送金额(分)"}];
+  uint32 status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-交易成功；2-交易中；3-交易失败"}];
+  uint32 create_time = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+}
+
+message ConsumptiveDetailInfo {
+  uint32 deal_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型"}];
+  string serial_number = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票时的订单流水号"}];
+  uint32 consume_amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "真实支付金额"}];
+  uint32 give_gas = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送能量值"}];
+  uint32 status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0-未开票；1-开票中；2-开票完成"}];
+  uint32 create_time = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}]; // 创建时间
+}
+
+message UserInvoiceApplyReq {
+  repeated uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表id"}];
+  //uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表id"}];
+  uint32 type = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票类型"}];
+  uint32 amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票金额"}];
+  string personal_name = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票为个人时的姓名"}];
+  string company_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业名称"}];
+  string business_license_number = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业营业执照号"}];
+  string registered_address = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业注册地址"}];
+  string telephone = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业电话"}];
+  string bank_account = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开户行"}];
+  string credit_card_numbers = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "银行卡号"}];
+  string name = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人姓名"}];
+  string mobile = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人联系电话"}];
+  string area = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人地区"}];
+  string address = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人地址"}];
+  string account = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号手机号或邮箱"}];
+}
+
+message UserInvoiceApplyResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+}
+
+message UserAdminInvoiceSetInfoReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表唯一id"}];
+  string invoice_number = 2 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票号"}];
+  string tracking_number = 3 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "物流号"}];
+}
+
+message UserAdminInvoiceSetInfoResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+}
+
+message UserAdminInvoiceListReq {
+  string account = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号"}];
+  uint32 start_date = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开始日期"}]; // 开始日期
+  uint32 end_date = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结束日期"}]; // 结束日期
+  uint32 progress = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票进度"}];
+  uint32 applyDate = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请开发票的日期"}];
+  uint32 page = 6 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 7 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+}
+
+message UserAdminInvoiceListResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserAdminInvoiceInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserAdminInvoiceInfo {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}];
+  string account = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "DAOP账号"}];
+  uint32 amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票金额"}];
+  uint32 apply_date = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请日期"}];
+  uint32 progress = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0-未开票；1-开票中；2-开票完成"}];
+}
+
+message UserAdminInvoiceGetInfoReq {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "申请开票列表id"}];
+}
+
+message UserAdminInvoiceGetInfoResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  UserAdminInvoiceGetInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票信息"}];
+}
+
+message UserAdminInvoiceGetInfo {
+  uint32 amount = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票金额"}];
+  uint32 progress = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0-未开票；1-开票中；2-开票完成"}];
+  uint32 type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-企业；2-个人"}];
+  string personal_name = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票为个人时的姓名"}];
+  string company_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业名称"}];
+  string business_license_number = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业营业执照号"}];
+  string registered_address = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业注册地址"}];
+  string telephone = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "企业电话"}];
+  string bank_account = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开户行"}];
+  string credit_card_numbers = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "银行卡号"}];
+  string name = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人姓名"}];
+  string mobile = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人联系电话"}];
+  string area = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人地区"}];
+  string address = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "收件人详细地址"}];
+  string account = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号手机号或邮箱"}];
+  string invoice_number = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票单号"}];
+  string tracking_number = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "发票物流单号"}];
+}
+
+message UserAdminInvoiceGetMonthsInfoReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表id"}];
+  uint32 page = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+}
+
+message UserAdminInvoiceGetMonthsInfoResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserAdminInvoiceGetMonthsInfo data = 2;
+  }
+  Data data = 3;
+}
+
+message UserAdminInvoiceGetMonthsInfo {
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "id"}];
+  string date = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "日期月份"}];
+  uint32 amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "开票金额"}];
+}
+
+message UserAdminGetConsumptiveDetailReq {
+  uint32 id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可开发票表id"}]; // ID
+  uint32 page = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "page"}];
+  uint32 limit = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "limit"}];
+}
+
+message UserAdminGetConsumptiveDetailResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 count = 1;
+    repeated UserAdminGetConsumptiveDetail data = 2;
+  }
+  Data data = 3;
+}
+
+message UserAdminGetConsumptiveDetail {
+  uint32 transaction_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易类型：1-充值；2-消费"}];
+  string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易流水号"}];
+  uint32 paid_amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付金额(分)"}];
+  uint32 present_amount = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送金额(分)"}];
+  uint32 status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-交易成功；2-交易中；3-交易失败"}];
+  uint32 create_time = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+}
+
+message UserAdminPresentByAccountReq {
+  string account = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号"}];
+  uint32 amount = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送能量值"}];
+  string  remark= 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}]; // ID
+}
+
+message UserAdminPresentByAccountResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+}
+

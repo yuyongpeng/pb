@@ -1,0 +1,300 @@
+syntax = "proto3";
+
+package daop.pb.dassetpb;
+option go_package = "pb/dassetpb;dassetpb";
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "google/api/field_behavior.proto";
+
+message CollectionClaimCreateReq{
+  uint32 authorization_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权id"}];
+  string authorization_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权码"}];
+  string collection_name = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称"}];
+  string declare_time = 5 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "声明时间(2022-09-01 10:00:00)"}];
+}
+message CollectionClaimCreateResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    string token_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品tokenId"}];
+    //string claim_sign_address = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上持有人用户userAddress"}];
+    string did_credential = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约持有人身份存证"}];
+    string copyright_credential = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明存证身份存证(多个版权声明英文分号分割';')"}];
+    string authorization_credential = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权存证"}];
+    string collection_hash = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"}];
+    string from = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造人userAddress"}];
+
+  }
+  Data data = 3;
+}
+message CollectionTokenReq{
+  string token_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "tokenId"}];
+}
+message CollectionTokenResp{
+  string description = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品描述"}];
+  string external_url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: ""}];
+  string image = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品图片"}];
+  string name = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品名称"}];
+  string num = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: ""}];
+  string tx_id = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}];
+  uint32 tx_time = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易时间"}];
+}
+message CollectionCreateReq{
+  uint32 authorization_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权id(授权id或者授权码必须提交一个)"}];
+  string authorization_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权码授权id或者授权码必须提交一个)"}];
+  uint32 price = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gte = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "价格(分)"}];
+  string token_url = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "访问藏品内容对应的url"}];
+  uint32 available_times = 6  [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权益可兑现总次数"}];
+  CollectionClaim claim = 7 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证声明数据"}];
+  //string proof = 8 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据的签名"}]; 注释原因：系统自己生成签名
+  string notify_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "异步通知应用版权登记结果的链接"}];
+  string notify_opts = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}];
+
+}
+message CollectionClaim{
+  string collection_name = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称"}];
+  //string claim_sign_address = 2 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上持有人用户userAddress"}];  注释原因：系统自己生成签名
+  string did_credential = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约持有人身份存证"}];
+  string copyright_credential = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明存证身份存证(多个版权声明英文分号分割';')"}];
+  string authorization_credential = 5 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权存证"}];
+  string collection_hash = 6 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"}];
+  string token_id = 7 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "tokenId"}];
+  string from = 9 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造人userAddress"}];
+  string declare_time = 10 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "声明时间(2022-09-01 10:00:00)"}];
+  string extension = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "扩展信息(应用可自行定义扩展属性)"}];
+
+}
+message CollectionCreateResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+    string collection_credential = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证"}];
+  }
+  Data data = 3;
+}
+message CollectionBatchCreateReq{
+  uint32 authorization_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权id(授权id或者授权码必须提交一个)"}];
+  string authorization_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权码授权id或者授权码必须提交一个)"}];
+  repeated CollectionCreateInfo data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品列表"}];
+  string notify_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "异步通知应用版权登记结果的链接"}];
+  string notify_opts = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}];
+
+
+}
+message CollectionCreateInfo {
+  uint32 price = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gte = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "价格(分)"}];
+  string token_url = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "访问藏品内容对应的url"}];
+  uint32 available_times = 6  [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权益可兑现总次数"}];
+  CollectionClaim claim = 7 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证声明数据"}];
+}
+message CollectionBatchCreateResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 collection_bid = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品批量id"}];
+    repeated uint32 collection_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+
+  }
+  Data data = 3;
+}
+message CollectionLightCreateReq{
+  repeated CollectionLight data = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品列表"}];
+  string notify_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "异步通知应用版权登记结果的链接"}];
+  string notify_opts = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}];
+}
+message CollectionLight{
+  string collection_name = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称"}];
+  uint32 price = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gte = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "价格(分)"}];
+  string token_url = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "访问藏品内容对应的url"}];
+  uint32 available_times = 5  [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权益可兑现总次数"}];
+}
+message CollectionLightCreateResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 collection_bid = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品批量id"}];
+    repeated uint32 collection_ids = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+  }
+  Data data = 3;
+}
+
+
+message CollectionListReq{
+  string collection_hash = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品hash"}];
+  string authorization_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权码"}];
+  string casting_address = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品铸造人用户address"}];
+  string owner_address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品所有权人用户address"}];
+  string credential = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证"}];
+  uint32 collection_type = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "0持有1铸造"}];
+  uint32 create_time_start = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+}
+message CollectionListResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated CollectionInfo data = 2;
+  }
+  Data data = 3;
+}
+message CollectionInfo{
+  uint32 collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+  string collection_name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品名称"}];
+  string collection_hash = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品hash"}];
+  string authorization_code = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权码"}];
+  string token_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "tokenId"}];
+  string credential = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证"}];
+  uint32 casting_uid = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造人uid"}];
+  string casting_uid_name = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造人姓名"}];
+  string casting_address = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造人address"}];
+
+  uint32 owner_uid = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权人uid"}];
+  string owner_uid_name = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权人姓名"}];
+  string owner_address = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权人address"}];
+
+  string holder_address = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "持有人address"}];
+  uint32 available_times = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权益次数"}];
+  uint32 checked_times = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "权益已兑现次数"}];
+  uint32 sell_status = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "销售状态：1-上架；2-下架"}];
+  string app_no = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "铸造应用"}];
+  uint32 price = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "价格(分)"}];
+  uint32 chain_status = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链状态：0-待上链；1-已上链；2-上链中；3-上链失败"}];
+  string chain_txid = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链产生的链上交易地址"}];
+  uint32 chain_block_number = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链产生交易在链上的区块号"}];
+  uint32 chain_time = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链时间"}];
+  string check_in_app_no = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后兑现应用"}];
+  string used_scene = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "当前应用此藏品的场景"}];
+  uint32 create_time = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+  uint32 modify_time = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}];
+
+}
+message CollectionTransactionReq{
+  uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+  CollectionTransactionClaim claim = 7 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证声明数据"}];
+  //string proof = 8 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据的签名"}]; 注释原因：系统自己生成签名
+  string notify_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "异步通知应用版权登记结果的链接"}];
+  string notify_opts = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}];
+}
+message CollectionTransactionClaim{
+  string collection_name = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称"}];
+  //string claim_sign_address = 2 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上持有人用户userAddress"}]; 注释原因：系统自己生成签名
+  string did_credential = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约持有人身份存证"}];
+  string copyright_credential = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明存证身份存证(多个版权声明英文分号分割';')"}];
+  string authorization_credential = 5 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权存证"}];
+  string collection_credential = 6 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证"}];
+  string previous_transaction_credential = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证"}];
+  string collection_hash = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"}];
+  string token_id = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品tokenId"}];
+  string from = 10 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权人userAddress"}];
+  string to = 11 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "受让人userAddress"}];
+  string declare_time = 12 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "声明时间(2022-09-01 10:00:00)"}];
+  string extension = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "扩展信息(应用可自行定义扩展属性)"}];
+}
+message CollectionTransactionResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 transaction_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}];
+    string transaction_credential = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易存证"}];
+
+  }
+  Data data = 3;
+}
+message CollectionLightTransactionReq{
+  repeated CollectionLightTransaction data = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品列表"}];
+  string notify_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "异步通知应用版权登记结果的链接"}];
+  string notify_opts = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}];
+}
+message CollectionLightTransaction{
+  string token_id = 9 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品tokenId"}];
+  string from = 10 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权人userAddress"}];
+  string to = 11 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "受让人userAddress"}];
+
+}
+message CollectionLightTransactionResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 transaction_bid = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "批量交易id"}];
+    repeated uint32 transaction_ids = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}];
+
+  }
+  Data data = 3;
+}
+message CollectionTransactionClaimReq{
+  uint32 collection_id = 1 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+}
+message CollectionTransactionClaimResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+//    string claim_sign_address = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上持有人用户userAddress"}];
+    string did_credential = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约持有人身份存证"}];
+    string copyright_credential = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明存证身份存证(多个版权声明英文分号分割';')"}];
+    string authorization_credential = 5 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权存证"}];
+    string collection_credential = 6 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证"}];
+    string previous_transaction_credential = 7 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品存证"}];
+    string collection_hash = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品名称、持有人人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"}];
+    string token_id = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品tokenId"}];
+    string from = 10 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权人userAddress"}];
+  }
+  Data data = 3;
+}
+
+message CollectionCheckInReq{
+  uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+  string checkin_scene = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换场景"}];
+  string notify_url = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "异步通知应用版权登记结果的链接"}];
+  string notify_opts = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}];
+}
+message CollectionCheckInResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}];
+  }
+  Data data = 3;
+}
+
+message CollectionCheckInListReq{
+  uint32 collection_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+  string checkin_scene = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换场景"}];
+  uint32 checkin_time_start = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换时间 (时间戳秒)最小"}];
+  uint32 checkin_time_end = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换时间 (时间戳秒)最大 "}];
+  uint32 create_time_start = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+
+}
+
+message CollectionCheckInListResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated CollectionCheckInInfo data = 2;
+  }
+  Data data = 3;
+}
+message CollectionCheckInInfo{
+  uint32 id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换id"}];
+  uint32 collection_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}];
+  string token_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "token_id"}];
+  string checkin_scene = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换场景"}];
+  uint32 checkin_time = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换时间"}];
+  string app_no = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换应用"}];
+  uint32 user_uid = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换人uid"}];
+  string user_uid_name = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换姓名"}];
+  string user_address = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "兑换address"}];
+  uint32 create_time = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+
+}

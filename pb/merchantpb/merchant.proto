@@ -1,0 +1,123 @@
+syntax = "proto3";
+
+package daop.pb.merchantpb;
+option go_package = "pb/merchantpb;merchantpb";
+
+import "google/api/annotations.proto";
+//import "google/api/httpbody.proto";
+import "google/api/visibility.proto";
+import "google/api/field_behavior.proto";
+//import "google/protobuf/struct.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+service MerchantService {
+  // Method Method方法
+  rpc Method(MethodIn) returns (MethodOut) {
+    option (google.api.http) = {get: "/merchant/method"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "method"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+
+  // Recharge 商户充值
+  rpc Recharge(RechargeIn) returns (RechargeOut) {
+    option (google.api.http) = {post: "/merchant/recharge" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "商户充值"};
+  }
+
+  // RechargeQuery 商户充值查询
+  rpc RechargeQuery(RechargeQueryIn) returns (RechargeQueryOut) {
+    option (google.api.http) = {get: "/merchant/rechargeQuery"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "商户充值查询"};
+  }
+
+  // AppNotify 商户充值支付回调
+  rpc RechargeNotify(RechargeNotifyIn) returns (RechargeNotifyOut) {
+    option (google.api.http) = {post: "/merchant/rechargeNotify" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "商户充值支付回调"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+}
+
+// MethodIn Method-请求参数
+message MethodIn {
+  option (google.api.message_visibility).restriction = "INTERNAL";
+
+  uint32 value = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "value desc"}]; // value desc
+}
+
+// MethodOut Method-响应参数
+message MethodOut {
+  option (google.api.message_visibility).restriction = "INTERNAL";
+
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string value = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "value desc", default: "2"}]; // value desc
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "data数据"}]; // data数据
+}
+
+// RechargeIn 商户充值-请求参数
+message RechargeIn {
+  string subject = 5 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单标题"}];         // (必选参数)订单标题
+  uint32 total_amount = 6 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32 = {gt: 0}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单总金额, 单位:分"}];    // (必选参数)订单总金额, 单位:分
+  string return_url = 7 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {uri: true}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(前端)返回地址"}];      // (必选参数)(前端)返回地址
+  string extra = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回传参数"}]; // (可选参数)回传参数}
+}
+
+// RechargeOut 商户充值-响应参数
+message RechargeOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string pay_channel = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+    string pay_scene = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付场景"}]; // 支付场景
+    string merchant_no = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 商户编号
+    string trade_no = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    string out_trade_no = 5 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    string pc_url = 6 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "PC端支付地址"}]; // PC端支付地址
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// RechargeQueryIn 商户充值查询-请求消息
+message RechargeQueryIn {
+  string out_trade_no = 1 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {min_len: 1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+}
+
+// RechargeQueryOut 商户充值查询-响应消息
+message RechargeQueryOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string out_trade_no = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    uint32 status = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易状态,1成功3失败"}]; // 交易状态,1成功3失败
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// RechargeNotifyIn 商户充值支付回调-请求消息
+message RechargeNotifyIn {
+  option (google.api.message_visibility).restriction = "INTERNAL";
+
+  string notify_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知类型"}]; // 通知类型
+  string id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知ID"}]; // 通知ID
+  string pay_channel = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+  string merchant_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 商户编号
+  string result = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "业务操作结果"}]; // 业务操作结果
+  string msg = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知消息"}]; // 通知消息
+  uint32 notified_at = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知时间"}]; // 通知时间
+  string out_trade_no = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+  uint32 amount = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易金额"}]; // 交易金额
+  uint32 paid_at = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付时间"}]; // 支付时间
+  string extra = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "透传参数"}]; // 透传参数
+}
+
+// RechargeNotifyOut 商户充值支付回调-响应消息
+message RechargeNotifyOut {
+  option (google.api.message_visibility).restriction = "INTERNAL";
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+}

@@ -1,0 +1,138 @@
+syntax = "proto3";
+
+package daop.pb.basepb.v1;
+option go_package = "pb/basepb;basepb";
+
+import "google/protobuf/struct.proto";
+import "google/api/annotations.proto";
+import "google/api/visibility.proto";
+import "google/api/field_behavior.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+
+// BaseService base service
+service BaseService {
+  // SendSms 发送短信验证码
+  //   - scope: open-api
+  //   - security: authorized
+  rpc SendSms(SmsSendReq) returns (SendCodeResp) {
+    option (google.api.http) = {post: "/base/send/sms" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "发送短信验证码"};
+  }
+
+  // ValidSms 验证短信验证码
+  //   - scope: open-api
+  //   - security: authorized
+  rpc ValidSms(SmsValidReq) returns (BaseResp) {
+    option (google.api.http) = {post: "/base/valid/sms" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "验证短信验证码"};
+  }
+
+  // SendEmail 发送邮箱验证码
+  //   - scope: open-api
+  //   - security: authorized
+  rpc SendEmail(EmailSendReq) returns (SendCodeResp) {
+    option (google.api.http) = {post: "/base/send/email" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "发送邮箱验证码"};
+  }
+
+  // SendNormalEmail 发送邮件
+  //   - scope: open-api
+  //   - security: authorized
+  rpc SendNormalEmail(SendNormalEmailReq) returns (SendCodeResp) {
+    option (google.api.http) = {post: "/base/send/normalemail"body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "发送邮件"};
+  }
+
+  // ValidEmail 验证邮箱验证码
+  //   - scope: open-api
+  //   - security: authorized
+  rpc ValidEmail(EmailValidReq) returns (BaseResp) {
+    option (google.api.http) = {post: "/base/valid/email" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "验证邮箱验证码"};
+  }
+
+  // UploadFile 文件上传
+  //   - scope: open-api
+  //   - security: authorized
+  rpc UploadFile(UploadFileReq) returns (BaseResp) {
+    option (google.api.http) = { post: "/upload/file" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "文件上传"};
+  }
+
+  // OperationLog 记录运营平台日志
+  //   - scope: open-api
+  //   - security: authorized
+  rpc OperationLog(OperationLogReq) returns (BaseResp) {
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "记录运营平台日志"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+}
+
+message SmsSendReq {
+  string mobile = 1 [(validate.rules).string = {max_len:11}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号码"}]; // 手机号码
+  uint32 type = 2 [(validate.rules).uint32 = {in: [0,1,2,3,4,5]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名"}]; // 验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名
+  uint32 source_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "短信签名,0:DAOP,1:哈稀"}]; // 短信签名,0:DAOP,1:哈稀
+}
+message SmsValidReq {
+  string mobile = 1 [(validate.rules).string = {max_len:11}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号码"}]; // 手机号码
+  uint32 type = 2 [(validate.rules).uint32 = {in: [0,1,2,3,4,5]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名"}]; // 验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码;5-实名
+  uint32 code = 3 [(validate.rules).uint32 = {gt: 1000,lt: 9999},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数验证码"}]; // 四位数验证码
+}
+message SendNormalEmailReq {
+  string email = 1 [(validate.rules).string.email = true, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];// 邮箱
+  string subject = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "主题"}]; // 主题
+  string text = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "内容"}]; // 内容
+}
+message EmailSendReq {
+  string email = 1 [(validate.rules).string.email = true, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];// 邮箱
+  uint32 type = 2 [(validate.rules).uint32 = {in: [0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码"}]; // 验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码
+  uint32 source_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "短信签名,0:DAOP,1:哈稀"}]; // 短信签名,0:DAOP,1:哈稀
+}
+message EmailValidReq {
+  string email = 1 [(validate.rules).string.email = true, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "邮箱"}];//邮箱
+  uint32 type = 2 [(validate.rules).uint32 = {in: [0,1,2,3,4]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "验证码类型:0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码"}]; // 验证码类型,0-通用;1-登陆/注册;2-绑定手机号;3-重置密码;4-忘记密码
+  uint32 code = 3 [(validate.rules).uint32 = {gt: 1000,lt: 9999},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数验证码"}]; // 四位验证码
+}
+message SendCodeResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位数验证码"}]; // 四位数验证码
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+message UploadFileReq {
+  uint32 file_type =1 [(validate.rules).uint32 = {gt: 0,lt: 2},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "文件类型, 1图片"}]; // 1图片
+  bytes file = 2 [(validate.rules).bytes.min_len = 1,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "文件数据"}]; // 文件数据
+}
+
+message UploadFileResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string path = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "文件路径"}]; // 文件路径
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+message OperationLogReq {
+  string app_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用编号"}]; // 应用编号
+  uint32 account_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}]; // 账号ID
+  uint32 user_id = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}]; // 用户ID
+  string operation_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作功能名称"}]; // 操作功能名称
+  string request_api = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "请求的URI"}]; // 请求的URI
+  bytes request_params = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "请求参数"}]; // 请求参数
+  uint32 response_status = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应状态：1-操作成功；2-操作失败"}]; // 响应状态：1-操作成功；2-操作失败
+  bytes response_content = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应内容"}]; // 响应内容
+  string failed_reason = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作失败时的失败原因"}]; // 操作失败时的失败原因
+  uint32 operation_type = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "操作类型：1-new;2-update;3-delete;"}]; // 操作类型：1-new;2-update;3-delete;
+}
+
+message BaseResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  google.protobuf.Value data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}

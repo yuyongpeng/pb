@@ -1,0 +1,1404 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/dscreenpb/dscreen.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "DScreenService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/dscreen/applyenter": {
+      "post": {
+        "summary": "入驻申请",
+        "operationId": "DScreenService_ApplyEnter",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ApplyEnterResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApplyEnterReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/batchnotify": {
+      "post": {
+        "summary": "批量上链回调",
+        "operationId": "DScreenService_BatchNotify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchNotifyReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/delAppVersion": {
+      "post": {
+        "summary": "删除app版本信息",
+        "operationId": "DScreenService_DelAppVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DelAppVersionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DelAppVersionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/display": {
+      "post": {
+        "summary": "投屏",
+        "operationId": "DScreenService_Display",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DisplayResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DisplayReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/getAppVersion": {
+      "post": {
+        "summary": "获取app版本信息列表",
+        "operationId": "DScreenService_getAppVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetAppVersionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetAppVersionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/getDeviceVersion": {
+      "post": {
+        "summary": "获取设备版本信息列表",
+        "operationId": "DScreenService_getDeviceVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetDeviceVersionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDeviceVersionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/getnftbyowner": {
+      "post": {
+        "summary": "导入钱包时从mvp-ser获取NFT列表",
+        "operationId": "DScreenService_GetNFTByOwner",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetNFTByOwnerResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetNFTByOwnerReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/getnftbyphone": {
+      "post": {
+        "summary": "根据链账户获取NFT列表",
+        "operationId": "DScreenService_GetNFTByPhone",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetNFTByPhoneResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetNFTByPhoneReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/getscreencastbydeviceid": {
+      "post": {
+        "summary": "设备获取投屏NFT",
+        "operationId": "DScreenService_GetScreencastByDeviceId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetScreenCastByDeviceIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetScreenCastByDeviceIdReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/import": {
+      "post": {
+        "summary": "导出私钥",
+        "operationId": "DScreenService_Import",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImportKeyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImportKeyReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/platforms": {
+      "post": {
+        "summary": "获取平台列表",
+        "operationId": "DScreenService_Platforms",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PlatformsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlatformsReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/querydisplaylog": {
+      "post": {
+        "summary": "查询所有NFT的投屏日志",
+        "operationId": "DScreenService_QueryDisplayLog",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryDisplayLogResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryDisplayLogReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/queryprogress": {
+      "post": {
+        "summary": "查询NFT的投屏进度",
+        "operationId": "DScreenService_QueryProgress",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/QueryProgressResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/QueryProgressReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/setAppVersion": {
+      "post": {
+        "summary": "填加/更新app版本信息",
+        "operationId": "DScreenService_SetAppVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SetAppVersionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetAppVersionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    },
+    "/dscreen/setDeviceVersion": {
+      "post": {
+        "summary": "填加/更新设备版本信息",
+        "operationId": "DScreenService_SetDeviceVersion",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SetDeviceVersionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetDeviceVersionReq"
+            }
+          }
+        ],
+        "tags": [
+          "DScreenService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AppVersionInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID"
+        },
+        "url": {
+          "type": "string",
+          "description": "pak地址"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本code"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "updateTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "更新时间"
+        }
+      }
+    },
+    "ApplyEnterReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "申请类型"
+        },
+        "proposer": {
+          "type": "string",
+          "description": "申请人"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "applyReason": {
+          "type": "string",
+          "description": "申请理由"
+        }
+      }
+    },
+    "ApplyEnterResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        }
+      }
+    },
+    "BassResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功其他失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息"
+        }
+      }
+    },
+    "BatchNotifyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "请求id"
+        },
+        "tx": {
+          "$ref": "#/definitions/ChainNotifyTx"
+        },
+        "receipt": {
+          "$ref": "#/definitions/ReceiptInfo"
+        },
+        "error": {
+          "$ref": "#/definitions/ErrorInfo"
+        }
+      }
+    },
+    "ChainNotifyTx": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "address": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        },
+        "opts": {
+          "type": "string"
+        }
+      }
+    },
+    "DelAppVersionReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "删除版本信息"
+        }
+      }
+    },
+    "DelAppVersionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        }
+      }
+    },
+    "DeviceVersionInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID"
+        },
+        "versionCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本code"
+        },
+        "versionName": {
+          "type": "string",
+          "description": "版本名称"
+        },
+        "url": {
+          "type": "string",
+          "description": "apk地址"
+        },
+        "description": {
+          "type": "string",
+          "description": "描述"
+        },
+        "systemSigned": {
+          "type": "integer",
+          "format": "int64",
+          "description": "系统签名"
+        },
+        "env": {
+          "type": "string",
+          "description": "运行环境"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        },
+        "updateTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        },
+        "deleted": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        }
+      }
+    },
+    "DisplayLogInfo": {
+      "type": "object",
+      "properties": {
+        "imageUrl": {
+          "type": "string",
+          "description": "NFT url"
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "NFT url"
+        },
+        "beginTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "投屏开始时间"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64",
+          "description": "投屏时长"
+        },
+        "deviceId": {
+          "type": "string",
+          "description": "投屏的设备"
+        }
+      }
+    },
+    "DisplayReq": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "链id"
+        },
+        "token": {
+          "type": "string",
+          "description": "token"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "token id"
+        },
+        "address": {
+          "type": "string",
+          "description": "钱包地址"
+        },
+        "deviceId": {
+          "type": "string",
+          "description": "设备id"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "nft url"
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "media url"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64",
+          "description": "投屏时长"
+        },
+        "uri": {
+          "type": "string",
+          "description": "json uri"
+        }
+      }
+    },
+    "DisplayResInfo": {
+      "type": "object",
+      "properties": {
+        "displayID": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发布投屏的ID"
+        }
+      }
+    },
+    "DisplayResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        },
+        "data": {
+          "$ref": "#/definitions/DisplayResInfo"
+        }
+      }
+    },
+    "ErrorInfo": {
+      "type": "object",
+      "properties": {
+        "errno": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "GetAppVersionReq": {
+      "type": "object"
+    },
+    "GetAppVersionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/AppVersionInfo"
+          },
+          "description": "最新的版本信息"
+        }
+      }
+    },
+    "GetDeviceVersionReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "id"
+        },
+        "env": {
+          "type": "string",
+          "description": "运行环境"
+        }
+      }
+    },
+    "GetDeviceVersionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        },
+        "data": {
+          "$ref": "#/definitions/DeviceVersionInfo",
+          "description": "最新的版本信息"
+        }
+      }
+    },
+    "GetNFTByOwnerReq": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "导入的钱包地址"
+        }
+      }
+    },
+    "GetNFTByOwnerResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/MvpNFTInfo"
+          },
+          "description": "从MVPServer获取到的NFT信息"
+        }
+      }
+    },
+    "GetNFTByPhoneReq": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "platformId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "平台id"
+        },
+        "curPage": {
+          "type": "integer",
+          "format": "int64",
+          "description": "分页参数"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64",
+          "description": "下一页key"
+        }
+      }
+    },
+    "GetNFTByPhoneResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/GetNFTByPhoneResp.Data"
+        }
+      }
+    },
+    "GetNFTByPhoneResp.Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": "NFT的数量"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlatFormNFTInfo"
+          },
+          "description": "从平台获取到的NFT信息"
+        }
+      }
+    },
+    "GetScreenCastByDeviceIdReq": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string",
+          "description": "设备id"
+        }
+      }
+    },
+    "GetScreenCastByDeviceIdResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/NFTInfo"
+          },
+          "description": "投屏的NFT信息"
+        }
+      }
+    },
+    "ImportKeyReq": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "phone": {
+          "type": "string",
+          "description": "手机号"
+        },
+        "address": {
+          "type": "string",
+          "description": "钱包地址"
+        }
+      }
+    },
+    "ImportKeyResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息"
+        }
+      }
+    },
+    "MvpNFTInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "NFT ID"
+        },
+        "token": {
+          "type": "string",
+          "description": "合约地址"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "tokenId"
+        },
+        "count": {
+          "type": "string",
+          "description": "数量"
+        },
+        "uri": {
+          "type": "string",
+          "description": "链外数据uri"
+        },
+        "media": {
+          "type": "string",
+          "description": "视频地址"
+        },
+        "mediaOrigin": {
+          "type": "string",
+          "description": "视频元地址"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64",
+          "description": "类型"
+        },
+        "image": {
+          "type": "string",
+          "description": "NFT地址"
+        },
+        "imageOrigin": {
+          "type": "string",
+          "description": "NFT元地址"
+        },
+        "owner": {
+          "type": "string",
+          "description": "钱包地址"
+        }
+      }
+    },
+    "NFTInfo": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "chainId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "链ID"
+        },
+        "token": {
+          "type": "string",
+          "description": "token"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "token ID"
+        },
+        "address": {
+          "type": "string",
+          "description": "链账户"
+        },
+        "deviceId": {
+          "type": "string",
+          "description": "投屏的设备"
+        },
+        "beginTime": {
+          "type": "string",
+          "format": "uint64",
+          "description": "image NFT url"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "uint64",
+          "description": "image NFT url"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "image NFT url"
+        },
+        "mediaUrl": {
+          "type": "string",
+          "description": "media NFT url"
+        }
+      }
+    },
+    "PlatFormNFTInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "NFT ID"
+        },
+        "token": {
+          "type": "string",
+          "description": "合约地址"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "tokenId"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "description": "数量"
+        },
+        "uri": {
+          "type": "string",
+          "description": "链外数据uri"
+        },
+        "media": {
+          "type": "string",
+          "description": "视频地址"
+        },
+        "mediaOrigin": {
+          "type": "string",
+          "description": "视频元地址"
+        },
+        "type": {
+          "type": "string",
+          "description": "类型"
+        },
+        "image": {
+          "type": "string",
+          "description": "NFT地址"
+        },
+        "imageOrigin": {
+          "type": "string",
+          "description": "NFT元地址"
+        },
+        "owner": {
+          "type": "string",
+          "description": "钱包地址"
+        },
+        "beginTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始时间"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "结束时间"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int64",
+          "description": "投屏时长"
+        },
+        "resType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "资源类型0不支持类型1无扩展名2[png,jpg,webp]3[gif]4[mp4]"
+        },
+        "ext": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "支持扩展名的类型"
+        }
+      }
+    },
+    "PlatformInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "平台id"
+        },
+        "chainId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "链id"
+        },
+        "platformName": {
+          "type": "string",
+          "description": "平台名称"
+        },
+        "chainName": {
+          "type": "string",
+          "description": "链名称"
+        }
+      }
+    },
+    "PlatformsReq": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        }
+      }
+    },
+    "PlatformsResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/PlatformsResp.Data"
+        }
+      }
+    },
+    "PlatformsResp.Data": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/PlatformInfo"
+          },
+          "description": "平台信息"
+        }
+      }
+    },
+    "QueryDisplayLogReq": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "用户id"
+        },
+        "dateTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始投屏的时间秒时间戳(1664603400)"
+        },
+        "deviceId": {
+          "type": "string",
+          "description": "设备ID"
+        }
+      }
+    },
+    "QueryDisplayLogResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/DisplayLogInfo"
+          },
+          "description": "投屏日志信息"
+        }
+      }
+    },
+    "QueryProgressReq": {
+      "type": "object",
+      "properties": {
+        "displayID": {
+          "type": "integer",
+          "format": "int64",
+          "description": "发布投屏的ID"
+        }
+      }
+    },
+    "QueryProgressResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        },
+        "progress": {
+          "type": "string",
+          "description": "投屏进度"
+        },
+        "txStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链后回调结果状态"
+        }
+      }
+    },
+    "ReceiptInfo": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "title": "区块号"
+        },
+        "transactionHash": {
+          "type": "string",
+          "title": "交易id"
+        }
+      }
+    },
+    "SetAppVersionReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID"
+        },
+        "url": {
+          "type": "string",
+          "description": "apk地址"
+        },
+        "version": {
+          "type": "string",
+          "description": "版本号"
+        },
+        "versionCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本code"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        }
+      }
+    },
+    "SetAppVersionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        }
+      }
+    },
+    "SetDeviceVersionReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID"
+        },
+        "versionCode": {
+          "type": "integer",
+          "format": "int64",
+          "description": "版本code"
+        },
+        "versionName": {
+          "type": "string",
+          "description": "版本名称"
+        },
+        "url": {
+          "type": "string",
+          "description": "apk地址"
+        },
+        "description": {
+          "type": "string",
+          "description": "版本描述"
+        },
+        "systemSigned": {
+          "type": "integer",
+          "format": "int64",
+          "description": "系统签名"
+        },
+        "env": {
+          "type": "string",
+          "description": "运行环境"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        },
+        "updateTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        },
+        "deleted": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0有效1无效"
+        }
+      }
+    },
+    "SetDeviceVersionResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功1或者其他表示失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误消息"
+        }
+      }
+    }
+  }
+}

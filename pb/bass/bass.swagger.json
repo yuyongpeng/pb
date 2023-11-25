@@ -1,0 +1,1645 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pb/bass/bass.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "BassService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/bass/batchmint": {
+      "post": {
+        "summary": "批量mint",
+        "operationId": "BassService_BatchMint",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchPostMintReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/batchnotify": {
+      "post": {
+        "summary": "批量上链回调",
+        "operationId": "BassService_BatchNotify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchNotifyReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/batchtransfer": {
+      "post": {
+        "summary": "批量transfer",
+        "operationId": "BassService_BatchTransfer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchPostTransferReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/batchuse": {
+      "post": {
+        "summary": "批量use",
+        "operationId": "BassService_BatchUse",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BatchPostUseReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/chain/again": {
+      "post": {
+        "summary": "重新上链",
+        "operationId": "BassService_ChainAgain",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChainAgainReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/chain/list": {
+      "post": {
+        "summary": "上链信息表",
+        "operationId": "BassService_ChainList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ChainListResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChainListReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/chainnotify": {
+      "post": {
+        "summary": "上链回调",
+        "operationId": "BassService_ChainNotify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChainNotifyReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/collection/credential": {
+      "post": {
+        "summary": "藏品 存证",
+        "operationId": "BassService_CollectionCredential",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionCredentialReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/collection/transfercredential": {
+      "post": {
+        "summary": "藏品交易存证",
+        "operationId": "BassService_CollectionTransferCredential",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionTransferCredentialReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/collectionnotify": {
+      "post": {
+        "summary": "藏品上链变动通知",
+        "operationId": "BassService_CollectionNotify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CollectionNotifyReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/copyright/authorization": {
+      "post": {
+        "summary": "版权授权 存证",
+        "operationId": "BassService_CopyrightAuthorization",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightAuthorizationReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/copyright/register": {
+      "post": {
+        "summary": "版权登记 存证",
+        "operationId": "BassService_CopyrightRegister",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopyrightClaimReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/lite/combination": {
+      "post": {
+        "summary": "合成接口",
+        "operationId": "BassService_Combination",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CombinationReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/lite/lock": {
+      "post": {
+        "summary": "锁定藏品",
+        "operationId": "BassService_Lock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LockReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/lite/unlock": {
+      "post": {
+        "summary": "解锁藏品",
+        "operationId": "BassService_Unlock",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnlockReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/new/txid": {
+      "post": {
+        "summary": "获取新交易id",
+        "operationId": "BassService_GetNewTxId",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/NewTxIdResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTxIdReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    },
+    "/bass/proofofdIddeclare": {
+      "post": {
+        "summary": "个人/公司 存证",
+        "operationId": "BassService_ProofOfDIDDeclare",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/BassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProofOfDIDDeclareReq"
+            }
+          }
+        ],
+        "tags": [
+          "BassService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BassResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64",
+          "description": "0成功其他失败"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息"
+        }
+      }
+    },
+    "BatchNotifyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "请求id"
+        },
+        "tx": {
+          "$ref": "#/definitions/ChainNotifyTx"
+        },
+        "receipt": {
+          "$ref": "#/definitions/ReceiptInfo"
+        },
+        "error": {
+          "$ref": "#/definitions/ErrorInfo"
+        }
+      }
+    },
+    "BatchPostInfo": {
+      "type": "object",
+      "properties": {
+        "sourceIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": "来源id 格式[1,2]"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "1:collection表,2:collection_transaction表,3:collection_checkin表,4:collection_batch表,5:collection_transaction_batch表"
+        },
+        "address": {
+          "type": "string",
+          "description": "合约地址"
+        },
+        "chain": {
+          "type": "integer",
+          "format": "int64",
+          "description": "端口 bsn:5555 hashIi:6666"
+        }
+      }
+    },
+    "BatchPostMintReq": {
+      "type": "object",
+      "properties": {
+        "batchPost": {
+          "$ref": "#/definitions/BatchPostInfo",
+          "description": "mint提交基本信息"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TxMintBatchArgs"
+          },
+          "description": "mint提交参数  最多100个"
+        }
+      },
+      "required": [
+        "batchPost",
+        "args"
+      ]
+    },
+    "BatchPostTransferReq": {
+      "type": "object",
+      "properties": {
+        "batchPost": {
+          "$ref": "#/definitions/BatchPostInfo",
+          "description": "transfer提交基本信息"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TxTransferBatchArgs"
+          },
+          "description": "transfer提交参数 最多100个"
+        }
+      },
+      "required": [
+        "batchPost",
+        "args"
+      ]
+    },
+    "BatchPostUseReq": {
+      "type": "object",
+      "properties": {
+        "batchPost": {
+          "$ref": "#/definitions/BatchPostInfo",
+          "description": "use提交基本信息"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "use提交参数 最多100个"
+        }
+      },
+      "required": [
+        "batchPost",
+        "args"
+      ]
+    },
+    "ChainAgainReq": {
+      "type": "object",
+      "properties": {
+        "chainIds": {
+          "type": "string",
+          "description": "上链表id"
+        }
+      }
+    },
+    "ChainInfo": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链表id"
+        },
+        "sourceIds": {
+          "type": "string",
+          "description": "上链表数据来源id 多个逗号分割"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链数据来源：0:da_credential表id;1:collection表id;2:collection_transaction表id,3:collection_checkin表,4:collection_batch表"
+        },
+        "address": {
+          "type": "string",
+          "description": "资产持有地址"
+        },
+        "tokenIds": {
+          "type": "string",
+          "description": "tokenId 多个逗号分割"
+        },
+        "txId": {
+          "type": "string",
+          "description": "上链交易ID"
+        },
+        "txIdTmp": {
+          "type": "string",
+          "description": "上链交易临时ID"
+        },
+        "blockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链产生交易在链上的区块号"
+        },
+        "chainStatus": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链状态：0-待上链；1-已上链；2-上链中；3-上链失败"
+        },
+        "txKafka": {
+          "type": "string",
+          "description": "从kafka 接收到的上链数据"
+        },
+        "txPostreq": {
+          "type": "string",
+          "description": "调用bass系统接口传递的数据"
+        },
+        "txPostres": {
+          "type": "string",
+          "description": "调用bass系统接口上链响应数据"
+        },
+        "txNotifyReq": {
+          "type": "string",
+          "description": "调用bass系统接口的异步通知数据"
+        },
+        "chainFailMsg": {
+          "type": "string",
+          "description": "上链错误信息"
+        },
+        "retryNum": {
+          "type": "integer",
+          "format": "int64",
+          "description": "尝试上链次数"
+        },
+        "chainStartTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "开始上链时间"
+        },
+        "chainEndTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间"
+        },
+        "chainPort": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链端口"
+        },
+        "reqTopic": {
+          "type": "string",
+          "description": "kafaka 上链请求topic"
+        },
+        "resTopic": {
+          "type": "string",
+          "description": "kafaka 上链通知topic"
+        },
+        "createTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "modifyTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "最后修改时间"
+        }
+      }
+    },
+    "ChainListReq": {
+      "type": "object",
+      "properties": {
+        "chainStatus": {
+          "type": "string",
+          "description": "上链状态：空全部；0-待上链；1-已上链；2-上链中；3-上链失败；"
+        },
+        "chainTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间 (时间戳秒)最小"
+        },
+        "chainTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链时间 (时间戳秒)最大 "
+        },
+        "createTimeStart": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最小"
+        },
+        "createTimeEnd": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间 (时间戳秒)最大 "
+        },
+        "page": {
+          "type": "integer",
+          "format": "int64",
+          "description": "页数 默认1"
+        },
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "条数 默认20"
+        }
+      }
+    },
+    "ChainListResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "$ref": "#/definitions/Data"
+        }
+      }
+    },
+    "ChainNotifyReq": {
+      "type": "object",
+      "properties": {
+        "chainId": {
+          "type": "integer",
+          "format": "int64",
+          "title": "上链表id"
+        },
+        "operatorAddress": {
+          "type": "string",
+          "title": "操作员账号"
+        },
+        "contractAddress": {
+          "type": "string",
+          "title": "链上合约地址"
+        },
+        "txId": {
+          "type": "string",
+          "title": "交易id"
+        },
+        "blockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "title": "上链生成的交易所在区块号"
+        },
+        "chainStatus": {
+          "type": "integer",
+          "format": "int64",
+          "title": "上链状态：1-成功；3-失败"
+        },
+        "chainMsg": {
+          "type": "string",
+          "title": "上链失败原因"
+        },
+        "opt": {
+          "type": "string",
+          "title": "透传参数"
+        }
+      }
+    },
+    "ChainNotifyTx": {
+      "type": "object",
+      "properties": {
+        "chain": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "address": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "args": {
+          "type": "string"
+        },
+        "account": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string"
+        },
+        "opts": {
+          "type": "string"
+        }
+      }
+    },
+    "CollectionCredentialClaim": {
+      "type": "object",
+      "properties": {
+        "collectionName": {
+          "type": "string",
+          "description": "数字藏品名称"
+        },
+        "claimSignAddress": {
+          "type": "string",
+          "description": "藏品链上持有人用户userAddress"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "数字藏品名称、持有人人用户ID和时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId"
+        },
+        "from": {
+          "type": "string",
+          "description": "铸造人userAddress"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "collectionName",
+        "claimSignAddress",
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCredential",
+        "from",
+        "declareTime"
+      ]
+    },
+    "CollectionCredentialData": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "description": "声明地址"
+        },
+        "id": {
+          "type": "string",
+          "description": "声明uuid"
+        },
+        "issuer": {
+          "type": "string",
+          "description": "签名address"
+        },
+        "proof": {
+          "type": "string",
+          "description": "权益声明签名"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionCredentialClaim",
+          "description": "权益声明"
+        }
+      },
+      "required": [
+        "context",
+        "id",
+        "issuer",
+        "proof",
+        "claim"
+      ]
+    },
+    "CollectionCredentialReq": {
+      "type": "object",
+      "properties": {
+        "submitProof": {
+          "$ref": "#/definitions/SubmitProofInfo",
+          "description": "基础信息"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionCredentialData",
+          "description": "权益"
+        }
+      },
+      "required": [
+        "submitProof",
+        "data"
+      ]
+    },
+    "CollectionNotifyReq": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "来源id"
+        },
+        "sourceType": {
+          "type": "integer",
+          "format": "int64",
+          "description": "上链数据来源：0:(da_credential)身份存证id;1:collection表id;2:collection_transaction表id,3:collection_checkin,4:声明存证,5:授权存证,6:藏品存证,7:藏品交易存证,8:collection_batch,9:combaintion,10:lock,11:unlock,12: collection_transaction_batch",
+          "title": "上链数据来源：0:(da_credential)身份存证id;1:collection表id;2:collection_transaction表id,3:collection_checkin,4:声明存证,5:授权存证,6:藏品存证,7:藏品交易存证,8:collection_batch,9:combaintion,10:lock,11:unlock,12: collection_transaction_batch"
+        },
+        "appNo": {
+          "type": "string",
+          "description": "appid"
+        },
+        "notifyUrl": {
+          "type": "string",
+          "description": "回调地址"
+        },
+        "notifyOpts": {
+          "type": "string",
+          "description": "可选参数,传递什么,回调的时候带回去什么"
+        }
+      }
+    },
+    "CollectionTransferCredentialClaim": {
+      "type": "object",
+      "properties": {
+        "collectionName": {
+          "type": "string",
+          "description": "数字藏品名称"
+        },
+        "claimSignAddress": {
+          "type": "string",
+          "description": "藏品链上持有人用户userAddress"
+        },
+        "didCredential": {
+          "type": "string",
+          "description": "合约持有人身份存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权声明存证身份存证(多个版权声明英文分号分割';')"
+        },
+        "authorizationCredential": {
+          "type": "string",
+          "description": "授权存证"
+        },
+        "collectionCredential": {
+          "type": "string",
+          "description": "藏品存证"
+        },
+        "previousTransactionCredential": {
+          "type": "string",
+          "description": "藏品上次交易存证"
+        },
+        "collectionHash": {
+          "type": "string",
+          "description": "数字藏品名称、持有人人用户ID和时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId"
+        },
+        "from": {
+          "type": "string",
+          "description": "所有权人userAddress"
+        },
+        "to": {
+          "type": "string",
+          "description": "受让人userAddress"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间(2022-09-01 10:00:00)"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "collectionName",
+        "claimSignAddress",
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCredential",
+        "collectionCredential",
+        "from",
+        "to",
+        "declareTime"
+      ]
+    },
+    "CollectionTransferCredentialData": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "description": "声明地址"
+        },
+        "id": {
+          "type": "string",
+          "description": "声明uuid"
+        },
+        "issuer": {
+          "type": "string",
+          "description": "签名address"
+        },
+        "proof": {
+          "type": "string",
+          "description": "权益声明签名"
+        },
+        "claim": {
+          "$ref": "#/definitions/CollectionTransferCredentialClaim",
+          "description": "权益声明"
+        }
+      },
+      "required": [
+        "context",
+        "id",
+        "issuer",
+        "proof"
+      ]
+    },
+    "CollectionTransferCredentialReq": {
+      "type": "object",
+      "properties": {
+        "submitProof": {
+          "$ref": "#/definitions/SubmitProofInfo",
+          "description": "基础信息"
+        },
+        "data": {
+          "$ref": "#/definitions/CollectionTransferCredentialData",
+          "description": "权益"
+        }
+      }
+    },
+    "CombinationReq": {
+      "type": "object",
+      "properties": {
+        "batchPost": {
+          "$ref": "#/definitions/BatchPostInfo",
+          "description": "combination提交基本信息"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/TxCombinationBatchArgs"
+          },
+          "description": "transfer提交参数 最多100个"
+        }
+      },
+      "required": [
+        "batchPost",
+        "args"
+      ]
+    },
+    "CopyrightAuthorizationClaim": {
+      "type": "object",
+      "properties": {
+        "didCredential": {
+          "type": "string",
+          "description": "身份存证"
+        },
+        "copyrightCredential": {
+          "type": "string",
+          "description": "版权存证"
+        },
+        "authorizationCategory": {
+          "type": "string",
+          "description": "授权类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别可铸造藏品总量"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didCredential",
+        "copyrightCredential",
+        "authorizationCategory",
+        "declareTime"
+      ]
+    },
+    "CopyrightAuthorizationData": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "description": "声明地址"
+        },
+        "id": {
+          "type": "string",
+          "description": "声明uuid"
+        },
+        "issuer": {
+          "type": "string",
+          "description": "签名address"
+        },
+        "proof": {
+          "type": "string",
+          "description": "权益声明签名"
+        },
+        "claim": {
+          "$ref": "#/definitions/CopyrightAuthorizationClaim",
+          "description": "权益声明"
+        }
+      },
+      "required": [
+        "context",
+        "id",
+        "issuer",
+        "proof",
+        "claim"
+      ]
+    },
+    "CopyrightAuthorizationReq": {
+      "type": "object",
+      "properties": {
+        "submitProof": {
+          "$ref": "#/definitions/SubmitProofInfo",
+          "description": "基础信息"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightAuthorizationData",
+          "description": "权益"
+        }
+      },
+      "required": [
+        "submitProof",
+        "data"
+      ]
+    },
+    "CopyrightClaim": {
+      "type": "object",
+      "properties": {
+        "didCredential": {
+          "type": "string",
+          "description": "身份存证"
+        },
+        "hash": {
+          "type": "string",
+          "description": "用作品标题、版权登记人用户ID和声明时间按顺序拼成一个字符串所做的Keccak256哈希"
+        },
+        "claimTitle": {
+          "type": "string",
+          "description": "版权声明标题"
+        },
+        "attachUrl": {
+          "type": "string",
+          "description": "作品地址"
+        },
+        "creator": {
+          "type": "string",
+          "description": "版权作品创作人名称"
+        },
+        "creativeTime": {
+          "type": "string",
+          "description": "版权作品创作时间"
+        },
+        "isOriginal": {
+          "type": "integer",
+          "format": "int64",
+          "description": "是否原创：0-否；1-是"
+        },
+        "copyrightCategory": {
+          "type": "string",
+          "description": "类别"
+        },
+        "authorizedNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "声明版权在该类别可铸造藏品总量"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didCredential",
+        "claimTitle",
+        "declareTime"
+      ]
+    },
+    "CopyrightClaimData": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "description": "声明地址"
+        },
+        "id": {
+          "type": "string",
+          "description": "声明uuid"
+        },
+        "issuer": {
+          "type": "string",
+          "description": "签名address"
+        },
+        "proof": {
+          "type": "string",
+          "description": "权益声明签名"
+        },
+        "claim": {
+          "$ref": "#/definitions/CopyrightClaim",
+          "description": "权益声明"
+        }
+      },
+      "required": [
+        "context",
+        "id",
+        "issuer",
+        "proof",
+        "claim"
+      ]
+    },
+    "CopyrightClaimReq": {
+      "type": "object",
+      "properties": {
+        "submitProof": {
+          "$ref": "#/definitions/SubmitProofInfo",
+          "description": "基础信息"
+        },
+        "data": {
+          "$ref": "#/definitions/CopyrightClaimData",
+          "description": "权益"
+        }
+      },
+      "required": [
+        "submitProof",
+        "data"
+      ]
+    },
+    "Data": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ChainInfo"
+          }
+        }
+      }
+    },
+    "ErrorInfo": {
+      "type": "object",
+      "properties": {
+        "errno": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "LockReq": {
+      "type": "object",
+      "properties": {
+        "batchPost": {
+          "$ref": "#/definitions/BatchPostInfo",
+          "description": "lock提交基本信息"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "tokenID, 目前仅支持一个tokenID"
+        }
+      },
+      "required": [
+        "batchPost",
+        "args"
+      ]
+    },
+    "NewTxIdInfo": {
+      "type": "object",
+      "properties": {
+        "operatorAddress": {
+          "type": "string",
+          "title": "操作员账号"
+        },
+        "contractAddress": {
+          "type": "string",
+          "title": "链上合约地址"
+        },
+        "txId": {
+          "type": "string",
+          "title": "交易id"
+        },
+        "blockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "title": "上链生成的交易所在区块号"
+        }
+      }
+    },
+    "NewTxIdReq": {
+      "type": "object",
+      "properties": {
+        "txId": {
+          "type": "string",
+          "description": "交易id"
+        }
+      }
+    },
+    "NewTxIdResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "Data": {
+          "$ref": "#/definitions/NewTxIdInfo"
+        }
+      }
+    },
+    "ProofOfDIDDeclareClaim": {
+      "type": "object",
+      "properties": {
+        "didType": {
+          "type": "string",
+          "description": "身份类型"
+        },
+        "name": {
+          "type": "string",
+          "description": "机构名称"
+        },
+        "profile": {
+          "type": "string",
+          "description": "机构简介"
+        },
+        "declareTime": {
+          "type": "string",
+          "description": "声明时间"
+        },
+        "address": {
+          "type": "string",
+          "description": "机构地址"
+        },
+        "extension": {
+          "type": "string",
+          "description": "扩展信息(应用可自行定义扩展属性)"
+        }
+      },
+      "required": [
+        "didType",
+        "name",
+        "declareTime"
+      ]
+    },
+    "ProofOfDIDDeclareData": {
+      "type": "object",
+      "properties": {
+        "context": {
+          "type": "string",
+          "description": "声明地址"
+        },
+        "id": {
+          "type": "string",
+          "description": "声明uuid"
+        },
+        "issuer": {
+          "type": "string",
+          "description": "签名address"
+        },
+        "proof": {
+          "type": "string",
+          "description": "权益声明签名"
+        },
+        "claim": {
+          "$ref": "#/definitions/ProofOfDIDDeclareClaim",
+          "description": "权益声明"
+        }
+      },
+      "required": [
+        "context",
+        "id",
+        "issuer",
+        "proof",
+        "claim"
+      ]
+    },
+    "ProofOfDIDDeclareReq": {
+      "type": "object",
+      "properties": {
+        "submitProof": {
+          "$ref": "#/definitions/SubmitProofInfo",
+          "description": "基础信息"
+        },
+        "data": {
+          "$ref": "#/definitions/ProofOfDIDDeclareData",
+          "description": "权益"
+        }
+      },
+      "required": [
+        "submitProof",
+        "data"
+      ]
+    },
+    "ReceiptInfo": {
+      "type": "object",
+      "properties": {
+        "blockNumber": {
+          "type": "integer",
+          "format": "int64",
+          "title": "区块号"
+        },
+        "transactionHash": {
+          "type": "string",
+          "title": "交易id"
+        }
+      }
+    },
+    "SubmitProofInfo": {
+      "type": "object",
+      "properties": {
+        "appNo": {
+          "type": "string",
+          "description": "应用编号"
+        },
+        "proofContractAddress": {
+          "type": "string",
+          "description": "proof合约地址"
+        },
+        "credentialId": {
+          "type": "integer",
+          "format": "int64",
+          "description": "存证id"
+        },
+        "manageContractAddress": {
+          "type": "string",
+          "description": "合约地址"
+        },
+        "ownerAddress": {
+          "type": "string",
+          "description": "存证用户userAddress地址"
+        },
+        "chain": {
+          "type": "integer",
+          "format": "int64",
+          "description": "端口 bsn:5555 hashIi:6666"
+        }
+      },
+      "required": [
+        "appNo",
+        "proofContractAddress",
+        "credentialId",
+        "manageContractAddress",
+        "ownerAddress",
+        "chain"
+      ]
+    },
+    "TxCombinationBatchArgs": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "所有权人地址",
+          "title": "所有权人地址"
+        },
+        "to": {
+          "type": "string",
+          "description": "受让人地址",
+          "title": "受让人地址"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId 16进制哈希值",
+          "title": "藏品tokenId 16进制哈希值"
+        },
+        "checkStatus": {
+          "type": "boolean",
+          "description": "是否checkin",
+          "title": "是否checkin"
+        },
+        "uri": {
+          "type": "string",
+          "description": "先传空",
+          "title": "先传空"
+        },
+        "idType": {
+          "type": "boolean",
+          "description": "先传true",
+          "title": "先传true"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "tokenId",
+        "uri",
+        "idType"
+      ]
+    },
+    "TxMintBatchArgs": {
+      "type": "object",
+      "properties": {
+        "owner": {
+          "type": "string",
+          "description": "持有人"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId 16进制哈希值"
+        },
+        "uri": {
+          "type": "string",
+          "description": "先传空"
+        },
+        "idType": {
+          "type": "boolean",
+          "description": "先传true"
+        }
+      },
+      "required": [
+        "owner",
+        "tokenId",
+        "uri",
+        "idType"
+      ]
+    },
+    "TxTransferBatchArgs": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "持有人"
+        },
+        "to": {
+          "type": "string",
+          "description": "接受人"
+        },
+        "tokenId": {
+          "type": "string",
+          "description": "藏品tokenId 16进制哈希值"
+        },
+        "data": {
+          "type": "string",
+          "description": "默认传0x"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "tokenId",
+        "data"
+      ]
+    },
+    "UnlockReq": {
+      "type": "object",
+      "properties": {
+        "batchPost": {
+          "$ref": "#/definitions/BatchPostInfo",
+          "description": "unlock提交基本信息"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "tokenID, 目前仅支持一个tokenID"
+        }
+      },
+      "required": [
+        "batchPost",
+        "args"
+      ]
+    }
+  }
+}

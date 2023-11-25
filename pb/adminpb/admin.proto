@@ -1,0 +1,388 @@
+syntax = "proto3";
+
+package daop.pb.adminpb;
+option go_package = "pb/adminpb;adminpb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/empty.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "pb/adminpb/rbac.proto";
+import "pb/adminpb/auth.proto";
+
+// 空参数请求
+message EmptyReq {
+  google.protobuf.Empty r = 1;
+}
+
+// 更新数据状态请求
+message UpStatusReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["id", "status"]
+    }
+  };
+  uint32 id = 1 [(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "记录ID"}];
+  uint32 status = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "状态：0-删除;1-有效..."}];
+}
+
+// 返回的基础结构类型
+message BaseResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  google.protobuf.Value data = 3;
+}
+
+message GetAccountAddressListReq{
+  string account_address = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号address"}];
+
+}
+message  GetAccountAddressListResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    repeated string list = 1;
+  }
+  Data data = 3;
+}
+
+message GetAccountAddressGasListReq{
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      required: ["account"]
+    }
+  };
+  string account_address = 1 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号address"}];
+  uint32 time_start = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "统计日期(时间戳秒) 最小"}];
+  uint32 time_end = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "统计日期 (时间戳秒)最大 "}];
+}
+message  GetAccountAddressGasListResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    string gas_balance = 2;
+    repeated GetAccountAddressGasInfo list = 3;
+  }
+  Data data = 3;
+}
+message GetAccountAddressGasInfo{
+  string account_address = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号address"}];
+  string statistic_day = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "统计日期日期"}];
+  string gas_balance = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号gas余额"}];
+}
+message AdminPresentByAccountReq {
+  string account = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号"}];
+  uint32 amount = 2 [(validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "赠送能量值"}];
+  string  remark= 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}]; // ID
+}
+
+message AdminPresentByAccountResp {
+  uint32 code = 1 [ (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+}
+
+// Admin管理后台服务接口定义
+service AdminService {
+  rpc Login(LoginReq) returns (LoginResp) {
+    option (google.api.http) = {
+      post: "/admin/auth/login"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "登录"
+    };
+  }
+  rpc UpdatePassword(UpdatePasswordReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/auth/updatePassword"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "修改密码"
+    };
+  }
+  rpc ResetPassword(ResetPasswordReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/auth/resetPassword"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "重置密码"
+    };
+  }
+
+  // 添加/更新权限
+  rpc HandlePrivilege(HandlePrivilegeReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/handlePrivilege"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "添加/更新权限"
+    };
+  }
+
+  // 删除权限
+  rpc DeletePrivilege(UpStatusReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/deletePrivilege"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "删除权限"
+    };
+  }
+
+  // 取所有权限
+  rpc GetAllPrivileges(EmptyReq) returns (GetPrivilegeListResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAllPrivileges"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "取所有权限"
+    };
+  }
+
+  // 通过Uri取出权限
+  rpc GetPrivilegeByUri(GetPrivilegeByUriReq) returns (GetPrivilegeResp);
+
+  // 通过角色ID取出该角色拥有的所有权限
+  rpc GetPrivilegesOfRole(GetPrivilegesOfRoleReq) returns (GetPrivilegesOfRoleResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/getPrivilegesOfRole"
+//      post: "/--*&denied--access--from--http--getPrivilegesOfRole"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过角色ID取出该角色拥有的所有权限"
+    };
+  }
+
+  // 取所有角色的权限
+  rpc GetPrivilegesOfAllRoles(EmptyReq) returns (GetPrivilegesOfAllRolesResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getPrivilegesOfAllRoles"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "取所有角色的权限"
+    };
+  }
+
+  // 授权权限给角色
+  rpc AuthorisePrivilegesToRole(AuthorisePrivilegesToRoleReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/authorisePrivilegesToRole"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "存储角色的权限"
+    };
+  }
+
+  // 添加/更新角色分组
+  rpc HandleRoleGroup(HandleRoleGroupReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/handleRoleGroup"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "添加/更新角色分组"
+    };
+  }
+
+  // 删除角色分组
+  rpc DeleteRoleGroup(UpStatusReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/deleteRoleGroup"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "删除角色分组"
+    };
+  }
+
+  // 获取所有角色分组
+  rpc GetAllRoleGroup(EmptyReq) returns (GetRoleGroupListResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAllRoleGroup"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "获取所有角色分组"
+    };
+  }
+
+  // 添加/更新角色
+  rpc HandleRole(HandleRoleReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/handleRole"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "添加/更新角色"
+    };
+  }
+
+  // 删除角色
+  rpc DeleteRole(UpStatusReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/deleteRole"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "删除角色"
+    };
+  }
+
+  // 通过ID取角色
+  rpc GetRoleById(GetRoleByIdReq) returns (GetRoleResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getRoleById"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过ID取角色"
+    };
+  }
+
+  // 取出所有角色
+  rpc GetAllRoles(EmptyReq) returns (GetRoleListResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAllRoles"
+//      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "取出所有角色"
+    };
+  }
+
+
+  // 创建账号
+  rpc HandleAccount(HandleAccountReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/handleAccount"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建账号"
+    };
+  }
+
+  // 删除账号
+  rpc DeleteAccount(UpStatusReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/deleteAccount"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "删除账号"
+    };
+  }
+
+  // 锁定/解锁账号
+  rpc LockUnlockAccount(UpStatusReq) returns (BaseResp) {
+    option (google.api.http) = {
+      post: "/admin/rbac/lockUnlockAccount"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "锁定/解锁账号"
+    };
+  }
+
+  // 取所有账号信息
+  rpc GetAllAccounts(EmptyReq) returns (GetAccountListResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAllAccounts"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "取所有账号信息"
+    };
+  }
+
+  // 取给定角色ID对应角色下的所有账号信息
+  rpc GetAccountsByRoleId(GetAccountsByRoleReq) returns (GetAccountListResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAccountsByRoleId"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "取给定角色ID对应角色下的所有账号信息"
+    };
+  }
+
+  // 通过账号ID取账号信息
+  rpc GetAccountById(GetAccountByIdReq) returns (GetAccountResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAccountById"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过账号ID取账号信息"
+    };
+  }
+
+  // 通过账号名称登录名取账号信息
+  rpc GetAccountByName(GetAccountByNameReq) returns (GetAccountResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAccountByName"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过账号名称登录名取账号信息"
+    };
+  }
+
+  // 通过Email取账号信息
+  rpc GetAccountByEmail(GetAccountByEmailReq) returns (GetAccountResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAccountByEmail"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过Email取账号信息"
+    };
+  }
+
+  // 通过手机号码登录名取账号信息
+  rpc GetAccountByMobile(GetAccountByMobileReq) returns (GetAccountResp) {
+    option (google.api.http) = {
+      get: "/admin/rbac/getAccountByMobile"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过手机号码登录名取账号信息"
+    };
+  }
+
+  // 检查某个角色是否有访问某个权限的请求(不对外提供API接口，只响应RPC请求)
+  rpc CheckAccess(CheckAccessReq) returns (BaseResp);
+
+  // 获取账号地址列表
+  rpc GetAccountAddressList(GetAccountAddressListReq) returns (GetAccountAddressListResp) {
+    option (google.api.http) = {
+      get: "/admin/bass/getAccountAddressList"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "获取账号地址列表"
+    };
+  }
+  // 获取账号地址gas 费用列表
+  rpc GetAccountAddressGasList(GetAccountAddressGasListReq) returns (GetAccountAddressGasListResp) {
+    option (google.api.http) = {
+      get: "/admin/bass/getAccountAddressGasList"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "获取账号gas 费用列表"
+    };
+  }
+
+  // AdminPresentByAccount (运营后台)指定账户增加能量值
+  rpc AdminPresentByAccount(AdminPresentByAccountReq) returns (AdminPresentByAccountResp) {
+    option (google.api.http) = {
+      post: "/admin/invoice/presentByAccount"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "运营后台admin给指定账户增加能量值"
+    };
+  }
+}

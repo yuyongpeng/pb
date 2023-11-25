@@ -1,0 +1,222 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "merchantpb/merchant.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "MerchantService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/merchant/recharge": {
+      "post": {
+        "summary": "商户充值",
+        "operationId": "MerchantService_Recharge",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RechargeOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RechargeIn"
+            }
+          }
+        ],
+        "tags": [
+          "MerchantService"
+        ]
+      }
+    },
+    "/merchant/rechargeQuery": {
+      "get": {
+        "summary": "商户充值查询",
+        "operationId": "MerchantService_RechargeQuery",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RechargeQueryOut"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "outTradeNo",
+            "description": "商户订单号\n\n商户订单号",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "MerchantService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "RechargeIn": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "订单标题",
+          "title": "(必选参数)订单标题"
+        },
+        "totalAmount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "订单总金额, 单位:分",
+          "title": "(必选参数)订单总金额, 单位:分"
+        },
+        "returnUrl": {
+          "type": "string",
+          "description": "(前端)返回地址",
+          "title": "(必选参数)(前端)返回地址"
+        },
+        "extra": {
+          "type": "string",
+          "description": "回传参数",
+          "title": "(可选参数)回传参数}"
+        }
+      },
+      "title": "RechargeIn 商户充值-请求参数",
+      "required": [
+        "subject",
+        "totalAmount",
+        "returnUrl"
+      ]
+    },
+    "RechargeOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/RechargeOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "RechargeOut 商户充值-响应参数",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "RechargeOut.Data": {
+      "type": "object",
+      "properties": {
+        "payChannel": {
+          "type": "string",
+          "description": "支付通道",
+          "title": "支付通道"
+        },
+        "payScene": {
+          "type": "string",
+          "description": "支付场景",
+          "title": "支付场景"
+        },
+        "merchantNo": {
+          "type": "string",
+          "description": "商户编号",
+          "title": "商户编号"
+        },
+        "tradeNo": {
+          "type": "string",
+          "description": "订单号",
+          "title": "订单号"
+        },
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "pcUrl": {
+          "type": "string",
+          "description": "PC端支付地址",
+          "title": "PC端支付地址"
+        }
+      },
+      "required": [
+        "payChannel",
+        "payScene",
+        "merchantNo",
+        "tradeNo",
+        "outTradeNo",
+        "pcUrl"
+      ]
+    },
+    "RechargeQueryOut": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "无符型整数",
+          "description": "错误代码,0表示业务成功,否则表示错误",
+          "title": "错误代码,0表示业务成功,否则表示错误"
+        },
+        "msg": {
+          "type": "string",
+          "description": "错误信息",
+          "title": "错误信息"
+        },
+        "data": {
+          "$ref": "#/definitions/RechargeQueryOut.Data",
+          "description": "响应数据",
+          "title": "响应数据"
+        }
+      },
+      "title": "RechargeQueryOut 商户充值查询-响应消息",
+      "required": [
+        "code",
+        "msg"
+      ]
+    },
+    "RechargeQueryOut.Data": {
+      "type": "object",
+      "properties": {
+        "outTradeNo": {
+          "type": "string",
+          "description": "商户订单号",
+          "title": "商户订单号"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64",
+          "description": "交易状态,1成功3失败",
+          "title": "交易状态,1成功3失败"
+        }
+      },
+      "required": [
+        "outTradeNo",
+        "status"
+      ]
+    }
+  }
+}

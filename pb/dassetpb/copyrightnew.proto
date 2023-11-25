@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+package daop.pb.dassetpb;
+option go_package = "pb/dassetpb;dassetpb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "google/api/field_behavior.proto";
+import "pb/dassetpb/copyright.proto";
+message CopyrightRegisterReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}];
+
+  uint32 copyright_type = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"}];
+  string copyright_title = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品名称"}];
+  string creator = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权作品创作人名称"}];
+  string attach_url = 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权作品访问链接，多个链接用分号分隔"}];
+  uint32 creative_time = 5 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权作品创作时间(秒时间戳1661961600)"}];
+  uint32 is_original = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否原创：0-否；1-是"}];
+  string remarks = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+}
+
+message CopyrightClaimAuthorizationReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}];
+
+  uint32 copyright_type = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"}];
+  string copyright_title = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品名称"}];
+  string creator = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权作品创作人名称"}];
+  string attach_url = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权作品访问链接，多个链接用逗号(,)分隔"}];
+  uint32 creative_time = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权作品创作时间(秒时间戳1661961600)"}];
+  uint32 is_original = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否原创：0-否；1-是"}];
+  string remarks = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权登记备注"}];
+  string notify_url = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调地址"}];
+  string notify_opts = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可选参数,传递什么,回调的时候带回去什么"}];
+  CopyrightClaimRegister copyright_claim = 10 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "声明数据"}];
+  CopyrightContractRegister copyright_contract = 11 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约数据"}];
+  CopyrightContractAuthorizationRegister copyright_contract_authorization = 12 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权数据"}];
+}
+message CopyrightRegisterListReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}];
+
+  string copyright_title = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品的标题"}];
+  string copyright_hash = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权登记Hash值"}];
+  uint32 copyright_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"}];
+  string is_original = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否原创：0-否；1-是"}];
+  uint32 create_time_start = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+
+}
+message CopyrightClaimAddReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权用户ID"}];
+
+  uint32 copyright_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权id"}];
+  CopyrightClaim claim = 3 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+  string remarks = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+}
+message CopyrightClaimListReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权用户ID"}];
+
+  string claim_title = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明名称"}];
+  string copyright_hash = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权登记Hash值"}];
+  string credential = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "'声明的存证uuid"}];
+  string register_address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权登记人address"}];
+  string contract_ids = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约ids  多个逗号分割"}];
+
+  string audit_status = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核状态：空全部；0-待审核；1-通过；2-不通过"}];
+  uint32 audit_time_start = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核时间 (时间戳秒)最小"}];
+  uint32 audit_time_end = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核时间 (时间戳秒)最大 "}];
+  uint32 create_time_start = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+
+}
+message  AuthorizationClaimListReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约持有人ID"}];
+  uint32 authorization_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权id"}];
+  string copyright_title = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品的标题"}];
+  string copyright_hash = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权登记Hash值"}];
+  uint32 copyright_type = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "作品类型: 1-图片；2-视频；3-头像；4-3D；5-社交产品；"}];
+  string is_original = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否原创：0-否；1-是"}];
+  uint32 create_time_start = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+
+}
+message CopyrightAuthorizationListReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人ID"}];
+  string credential = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权存证"}];
+  string authorization_ids = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权id 多个逗号分割"}];
+  string contract_ids = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约id 多个逗号分割"}];
+  string authorizer_user_address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权人user_address"}];
+  string authorized_user_address = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "被授权人user_address"}];
+  string authorization_code = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权码"}];
+  uint32 authorization_type = 7 [(validate.rules).uint32 = {gte:0 ,lte: 2},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "类型0我授权的1授权给我的2全部"}];
+  uint32 create_time_start = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+
+}
+message ContractCreateReqNew{
+  uint32 user_id = 5 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建合约用户ID"}];
+  string copyright_claim_ids = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "多个声明id 逗号分割"}];
+  uint32 authorized_number = 2 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约在授权应用的类别可铸造藏品总量,取多个声明 可铸造藏品总量 最小值"}];
+  string copyright_category = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约类别"}];
+  string content= 4 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约说明"}];
+}
+
+message ContractAuthorizationReqNew{
+  uint32 contract_id = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32.gt = 0,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约id"}];
+  string authorized_address = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "被授权人用户address"}];
+  string authorization_content = 3 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权说明"}];
+  ContractAuthorizationClaim claim = 4 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+  string remarks = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "备注"}];
+  uint32 user_id = 6 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建合约用户ID"}];
+  string notify_url = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调地址"}];
+  string notify_opts = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "可选参数,传递什么,回调的时候带回去什么"}];
+
+}
+
+message ContractListReqNew{
+  uint32 user_id = 14 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}];
+  string contract_ids = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "合约id 多个逗号分割"}];
+  uint32 create_time_start = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+
+}

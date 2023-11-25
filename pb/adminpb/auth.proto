@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package daop.pb.adminpb;
+option go_package = "pb/adminpb;adminpb";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
+import "validate/validate.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "pb/adminpb/rbac.proto";
+
+message LoginReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "登录-请求参数"
+      description: "登录-请求参数"
+      required: ["account_name", "type"]
+    }
+    example: "{}"
+  };
+  string account_name = 1 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号名:手机号或者邮箱"}];
+  string password = 2 [(validate.rules).string = {min_len:6,max_len:16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账户密码6-12位"}];
+//  uint32 type = 3 [(validate.rules).uint32  = {in:[2,1]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "登录方式：1-手机号验证码;2-账号密码登陆"}];
+  uint32 code = 4 [(validate.rules).uint32.gt = 0 ,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "四位验证吗1000-9999"}];
+}
+message LoginResp {
+  uint32 code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误码：0-成功；其它都为失败"}];
+  string msg = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误描述"}];
+  message Data {
+    uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}];
+    string account_name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号名称"}];
+    string token = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Token"}];
+    uint32 expire_in = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "Token过期时间"}];
+    bool pwd_expired = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "密码是否过期,true表示密码已过期;false表示密码未过期"}]; // 密码是否过期,true表示密码已过期;false表示密码未过期
+    repeated RoleAndPrivilege privileges = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分配给账号对应角色的权限"}];
+  }
+  Data data = 3 ;
+}
+
+message UpdatePasswordReq {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "修改密码-请求参数"
+      description: "修改密码-请求参数"
+      required: ["old_password","new_password"]
+    }
+    example: "{\"account_id\":123,\"account_name\":\"vingo\",\"old_password\":\"123456\",\"new_password\":\"111111\"}"
+  };
+//  string account_name = 2 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号名:手机号或者邮箱"}];
+  string old_password =3  [(validate.rules).string = {min_len:6, max_len:16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "旧密码"}];
+  string new_password = 4  [(validate.rules).string = {min_len:6, max_len:16}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "新密码"}];
+}
+
+message ResetPasswordReq  {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "重置密码-请求参数"
+      description: "重置密码-请求参数"
+      required: ["account_id"]
+    }
+    example: "{}"
+  };
+  uint32 account_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号ID"}];
+//  string account_name = 2 [(validate.rules).string = {min_len:1}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账号名:手机号或者邮箱"}];
+}
+

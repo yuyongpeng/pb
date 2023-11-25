@@ -1,0 +1,647 @@
+syntax = "proto3";
+
+package daop.pb.dassetpb;
+option go_package = "pb/dassetpb;dassetpb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+import "pb/dassetpb/collection.proto";
+import "pb/dassetpb/collectionnew.proto";
+import "pb/dassetpb/copyright.proto";
+import "pb/dassetpb/copyrightnew.proto";
+import "pb/dassetpb/lite.proto";
+
+// 空参数请求
+message EmptyReq {
+  google.protobuf.Empty r = 1;
+}
+message ClaimProofReq{
+  string claim = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "claim json 字符串"}];
+  uint32 credential_type = 2  [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "类型：1-身份存证；2-版权存证；3-授权存证；4-藏品存证；5-藏品Transfer存证..."}];
+}
+message ClaimProofResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    string proof = 1;
+  }
+  Data data = 3;
+}
+message CopyrightClaimCheckReq{
+  uint32 copyright_claim_id = 1 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明id"}];
+  uint32 audit_status = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).uint32 = {in:[1,2]},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "1-通过；2-不通过"}];
+  string reject_reason = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "拒绝理由"}];
+}
+message DidCredentialReq{
+   DidCredentialClaim claim = 8 [(google.api.field_behavior) = REQUIRED,(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据"}];
+//  string claim_sign_address = 9 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "签名地址"}]; 注释原因：系统自己生成签名
+//  string proof = 10 [(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明数据的签名"}];注释原因：系统自己生成签名
+}
+message DidCredentialClaim{
+  string did_type = 1 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 2},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "个人账号:individuality;企业用户:enterprise;个体工商户:individualBusiness"}];
+  string name = 2 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 2},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "名称"}];
+  string profile = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "简称"}];
+  string address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "地址"}];
+  string declare_time = 5 [(google.api.field_behavior) = REQUIRED,(validate.rules).string = {min_len: 1},(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "声明时间"}];
+  string extension = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "扩展信息(应用可自行定义扩展属性)"}];
+}
+message DidCredentialResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 credential_id = 1;
+    string credential =2 ;
+  }
+  Data data = 3;
+}
+message CredentialInfoReq{
+  uint32 credential_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证id"}];
+}
+message CredentialInfoResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  CredentialInfo data = 3;
+}
+message CredentialListReq{
+  string credential_ids = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证ids 多个逗号分隔"}];
+  uint32 credential_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证类型：0全部1-身份存证；2-版权存证；3-授权存证；4-藏品存证；5-藏品Transfer存证..."}];
+  string credential = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证标识（uuid）"}];
+  string holder_address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上持有地址"}];
+  string did_credential = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份声明数据的存证"}];
+  string copyright_credential = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明数据的存证"}];
+  string authorization_credential = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权授权声明数据的存证"}];
+  string collection_credential = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品存证"}];
+  string hash = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明的 hash 串"}];
+  string chain_txid = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链产生的链上交易地址"}];
+  string chain_block_number = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链产生交易在链上的区块号"}];
+  uint32 chain_time_start = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链时间(时间戳秒) 最小"}];
+  uint32 chain_time_end = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链时间 (时间戳秒)最大 "}];
+  string chain_status = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链状态：空表示全部；0-待上链；1-已上链；2-上链中；3-上链失败 "}];
+  uint32 create_time_start = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最小"}];
+  uint32 create_time_end = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间 (时间戳秒)最大 "}];
+  uint32 page = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页数 默认1"}];
+  uint32 limit = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "条数 默认20"}];
+}
+message CredentialListResp{
+  uint32 code = 1 ;
+  string msg = 2;
+  message Data {
+    uint32 count = 1;
+    repeated CredentialInfo data = 2;
+  }
+  Data data = 3;
+}
+message CredentialInfo{
+  uint32 credential_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证id"}];
+  string credential = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证标识（uuid）"}];
+  uint32 credential_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证类型：1-身份存证；2-版权存证；3-授权存证；4-藏品存证；5-藏品Transfer存证..."}];
+  uint32 creator_uid = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建存证的用户的ID"}];
+  string creator_uid_name = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建存证的用户的ID 姓名"}];
+  string holder_address = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品链上持有地址"}];
+  string did_credential = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份声明数据的存证"}];
+  string copyright_credential = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权声明数据的存证"}];
+  string authorization_credential = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "版权授权声明数据的存证"}];
+  string collection_credential = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "数字藏品存证"}];
+  string hash = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "存证声明的 hash 串"}];
+  string chain_txid = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链产生的链上交易地址"}];
+  uint32 chain_block_number = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链产生交易在链上的区块号"}];
+  uint32 chain_status = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链状态：0-待上链；1-已上链；2-上链中；3-上链失败"}];
+  string chain_failed_reason = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链失败原因"}];
+  uint32 chain_time = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链时间"}];
+  uint32 create_time = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}];
+
+}
+
+// 返回的基础结构类型
+message BaseResp {
+  uint32 code = 1;
+  string msg = 2;
+}
+
+service DAssetService {
+  rpc CollectionClaimCreate(CollectionClaimCreateReq) returns (CollectionClaimCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/claimcreate"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建藏品claim"
+    };
+  }
+  rpc CollectionCreate(CollectionCreateReq) returns (CollectionCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/create"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建藏品"
+    };
+  }
+  rpc CollectionCreateNew(CollectionCreateReqNew) returns (CollectionCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/collectionCreate"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)创建藏品"
+    };
+  }
+  rpc CollectionToken(CollectionTokenReq) returns (CollectionTokenResp) {
+    option (google.api.http) = {
+      get: "/dasset/collection/token"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "通过token获取藏品信息"
+    };
+  }
+  rpc CollectionBatchCreate(CollectionBatchCreateReq) returns (CollectionBatchCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/batch/create"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "批量创建藏品(授权)"
+    };
+  }
+  rpc CollectionLightCreate(CollectionLightCreateReq) returns (CollectionLightCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/light/create"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "批量创建藏品(无授权)"
+    };
+  }
+  rpc CollectionLightCreateNew(CollectionLightCreateReqNew) returns (CollectionLightCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/lightCreate"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)批量创建藏品(无授权)"
+    };
+  }
+  rpc CollectionList(CollectionListReq) returns (CollectionListResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/list"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "我的藏品列表"
+    };
+  }
+  rpc CollectionListNew(CollectionListReqNew) returns (CollectionListResp) {
+    option (google.api.http) = {
+      post: "/dasset/collectionList"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)我的藏品列表"
+    };
+  }
+  rpc CollectionTransactionClaim(CollectionTransactionClaimReq) returns (CollectionTransactionClaimResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/transactionclaim"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建藏品交易claim"
+    };
+  }
+  rpc CollectionTransaction(CollectionTransactionReq) returns (CollectionTransactionResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/transaction"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "藏品交易"
+    };
+  }
+  rpc CollectionTransactionNew(CollectionTransactionReqNew) returns (CollectionTransactionResp) {
+    option (google.api.http) = {
+      post: "/dasset/collectionTransaction"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)藏品交易"
+    };
+  }
+  rpc CollectionLightTransaction(CollectionLightTransactionReq) returns (CollectionLightTransactionResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/light/transaction"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "批量藏品交易"
+    };
+  }
+  rpc CollectionLightTransactionNew(CollectionLightTransactionReqNew) returns (CollectionLightTransactionResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/lightTransaction"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)批量藏品交易"
+    };
+  }
+  rpc CollectionCheckIn(CollectionCheckInReq) returns (CollectionCheckInResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/checkin"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "藏品权益兑现"
+    };
+  }
+  rpc CollectionCheckInList(CollectionCheckInListReq) returns (CollectionCheckInListResp) {
+    option (google.api.http) = {
+      post: "/dasset/collection/checkinlist"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "藏品权益兑现列表"
+    };
+  }
+  rpc ContractAuthorization(ContractAuthorizationReq) returns (ContractAuthorizationResp) {
+    option (google.api.http) = {
+      post: "/dasset/contract/authorization"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "合约授权"
+    };
+  }
+  rpc ContractAuthorizationNew(ContractAuthorizationReqNew) returns (ContractAuthorizationResp) {
+    option (google.api.http) = {
+      post: "/dasset/contractAuthorization"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)合约授权"
+    };
+  }
+  rpc ContractCreate(ContractCreateReq) returns (ContractCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/contract/create"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建合约"
+    };
+  }
+  rpc ContractCreateNew(ContractCreateReqNew) returns (ContractCreateResp) {
+    option (google.api.http) = {
+      post: "/dasset/contractCreate"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)创建合约"
+    };
+  }
+  rpc ContractList(ContractListReq) returns (ContractListResp) {
+    option (google.api.http) = {
+      post: "/dasset/contract/list"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "我的版权合约列表"
+    };
+  }
+  rpc ContractListNew(ContractListReqNew) returns (ContractListResp) {
+    option (google.api.http) = {
+      post: "/dasset/contractList"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)我的版权合约列表"
+    };
+  }
+  rpc ClaimProof(ClaimProofReq) returns (ClaimProofResp) {
+    option (google.api.http) = {
+      post: "/dasset/credential/proof"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "获取claim签名"
+    };
+  }
+  rpc DidCredential(DidCredentialReq) returns (DidCredentialResp) {
+    option (google.api.http) = {
+      post: "/dasset/credential/did"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "创建身份信息存证数据（机构或个人）"
+    };
+  }
+  rpc CopyrightRegister(CopyrightRegisterReq) returns (CopyrightRegisterResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/register"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "版权登记"
+    };
+  }
+  rpc CopyrightRegisterNew(CopyrightRegisterReqNew) returns (CopyrightRegisterResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightRegister"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)版权登记"
+    };
+  }
+  rpc CopyrightClaimAuthorization(CopyrightClaimAuthorizationReq) returns (CopyrightClaimAuthorizationResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightclaim/authorization"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "版权/声明/授权"
+    };
+  }
+  rpc CopyrightClaimAuthorizationNew(CopyrightClaimAuthorizationReqNew) returns (CopyrightClaimAuthorizationResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightclaimAuthorization"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)版权/声明/授权"
+    };
+  }
+  //todo待开发
+//  rpc CopyrightMint(CopyrightMintReq) returns (CopyrightMintResp) {
+//    option (google.api.http) = {
+//      post: "/dasset/copyright/mint"
+//      body:"*"
+//    };
+//    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+//      summary: "版权/声明/授权/铸造"
+//    };
+//  }
+  rpc CopyrightClaimAdd(CopyrightClaimAddReq) returns (CopyrightRegisterResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/claimadd"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "添加版权声明"
+    };
+  }
+  rpc CopyrightClaimAddNew(CopyrightClaimAddReqNew) returns (CopyrightRegisterResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightClaimadd"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)添加版权声明"
+    };
+  }
+  rpc CopyrightClaimEdit(CopyrightClaimEditReq) returns (CopyrightRegisterResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/claimedit"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "编辑版权声明"
+    };
+  }
+  rpc CopyrightClaimCheck(CopyrightClaimCheckReq) returns (DidCredentialResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/claimcheck"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "版权声明审核"
+    };
+  }
+  rpc CredentialInfo(CredentialInfoReq) returns (CredentialInfoResp) {
+    option (google.api.http) = {
+      post: "/dasset/credential/info"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "存证详情"
+    };
+  }
+  rpc CredentialList(CredentialListReq) returns (CredentialListResp) {
+    option (google.api.http) = {
+      post: "/dasset/credential/list"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "存证列表"
+    };
+  }
+  rpc CopyrightRegisterList(CopyrightRegisterListReq) returns (CopyrightRegisterListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/registerlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "我的版权列表"
+    };
+  }
+  rpc CopyrightRegisterListNew(CopyrightRegisterListReqNew) returns (CopyrightRegisterListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightRegisterlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)我的版权列表"
+    };
+  }
+  rpc CopyrightAuthorizationList(CopyrightAuthorizationListReq) returns (CopyrightAuthorizationListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/authorizationlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "我的授权合约列表"
+    };
+  }
+  rpc CopyrightAuthorizationListNew(CopyrightAuthorizationListReqNew) returns (CopyrightAuthorizationListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightAuthorizationlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)我的授权合约列表"
+    };
+  }
+  rpc AuthorizationClaimList( AuthorizationClaimListReq) returns (CopyrightRegisterListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/authorizationclaimlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "我的合约版权列表"
+    };
+  }
+  rpc AuthorizationClaimListNew(AuthorizationClaimListReqNew) returns (CopyrightRegisterListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightAuthorizationclaimlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)我的合约版权列表"
+    };
+  }
+
+  rpc CopyrightClaimList(CopyrightClaimListReq) returns (CopyrightClaimListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/claimlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "我声明的版权列表"
+    };
+  }
+  rpc CopyrightClaimListNew(CopyrightClaimListReqNew) returns (CopyrightClaimListResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyrightClaimlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(应用)我声明的版权列表"
+    };
+  }
+  rpc CollectionAllList(CollectionListReq) returns (CollectionListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/collection/list"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin藏品列表"
+    };
+  }
+  rpc CopyrightRegisterAllList(CopyrightRegisterListReq) returns (CopyrightRegisterListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/copyright/registerlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin版权列表"
+    };
+  }
+  rpc ContractAllList(ContractListReq) returns (ContractListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/contract/list"
+      body:"*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin版权合约列表"
+    };
+  }
+  rpc CopyrightAuthorizationAllList(CopyrightAuthorizationListReq) returns (CopyrightAuthorizationListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/copyright/authorizationlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin授权合约列表"
+    };
+  }
+  rpc AuthorizationClaimAllList( AuthorizationClaimListReq) returns (CopyrightRegisterListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/copyright/authorizationclaimlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin合约版权列表"
+    };
+  }
+
+  rpc CopyrightClaimAllList(CopyrightClaimListReq) returns (CopyrightClaimListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/copyright/claimlist"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin声明的版权列表"
+    };
+  }
+  rpc CredentialAllList(CredentialListReq) returns (CredentialListResp) {
+    option (google.api.http) = {
+      post: "/dasset/admin/credential/list"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "admin存证列表"
+    };
+  }
+  rpc CopyrightStatistics(CopyrightStatisticsReq) returns (CopyrightStatisticsResp) {
+    option (google.api.http) = {
+      post: "/dasset/copyright/statistics"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "统计查询"
+    };
+  }
+
+  rpc Combination(CombinationReq) returns (CombinationResp) {
+    option (google.api.http) = {
+      post: "/dasset/lite/combination"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "一键三发接口(铸造/交易/CheckIn)"
+    };
+  }
+  rpc CombinationNew(CombinationReqNew) returns (CombinationResp) {
+    option (google.api.http) = {
+      post: "/dasset/combination"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(新)一键三发接口(铸造/交易/CheckIn)"
+    };
+  }
+  rpc Lock(LockReq) returns (LockResp) {
+    option (google.api.http) = {
+      post: "/dasset/lite/lock"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "锁定藏品"
+    };
+  }
+  rpc LockNew(LockReqNew) returns (LockResp) {
+    option (google.api.http) = {
+      post: "/dasset/lock"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(新)锁定藏品"
+    };
+  }
+  rpc Unlock(UnlockReq) returns (UnlockResp) {
+    option (google.api.http) = {
+      post: "/dasset/lite/unlock"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "解锁藏品"
+    };
+  }
+  rpc UnlockNew(UnlockReqNew) returns (UnlockResp) {
+    option (google.api.http) = {
+      post: "/dasset/unlock"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      summary: "(新)解锁藏品"
+    };
+  }
+
+
+}

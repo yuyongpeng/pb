@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package daop.api;
+option go_package = "pb/api;api";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/visibility.proto";
+import "google/protobuf/empty.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "DAOP API";
+    version: "1.0";
+    description: "";
+    contact: {
+      name: "DAOP Project";
+      url: "https://daop-open.stars-mine.com";
+      email: "contact@stars-mine.com";
+    };
+  };
+  schemes: HTTPS;
+  consumes: "application/json";
+  produces: "application/json";
+  host: "daop-api.stars-mine.com";
+  base_path: "/";
+};
+

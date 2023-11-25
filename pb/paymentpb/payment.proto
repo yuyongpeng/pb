@@ -1,0 +1,581 @@
+syntax = "proto3";
+
+package daop.pb.paymentpb;
+option go_package = "pb/paymentpb;paymentpb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/api/httpbody.proto";
+import "google/api/visibility.proto";
+import "google/protobuf/struct.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+// PaymentService 支付服务
+service PaymentService {
+  // MerchantDetail 获取支付商户详情
+  rpc MerchantDetail(MerchantDetailIn) returns (MerchantDetailOut) {
+    option (google.api.http) = {get: "/payment/merchantDetail"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "获取支付商户详情"};
+  }
+
+  // MerchantList 支付商户列表
+  rpc MerchantList(MerchantListIn) returns (MerchantListOut) {
+    option (google.api.http) = {get: "/payment/merchantList"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "支付商户列表"};
+  }
+
+  // MerchantApply 商户进件
+  rpc MerchantApply(MerchantApplyIn) returns (MerchantApplyOut) {
+    option (google.api.http) = {post: "/payment/merchantApply" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "商户进件"};
+  }
+
+  // MerchantApplyQuery 商户进件查询
+  rpc MerchantApplyQuery(MerchantApplyQueryIn) returns (MerchantApplyQueryOut) {
+    option (google.api.http) = {get: "/payment/merchantApplyQuery"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "商户进件查询"};
+  }
+
+  // Notify 支付通道通知
+  rpc Notify(NotifyIn) returns (google.api.HttpBody) {
+    option (google.api.http) = {
+      post: "/payment/notify/{pay_channel=alipay_zft}/{notify_type=merchant_reg}" body: "alipay_merchant_apply_notify_msg"
+      additional_bindings: [
+        {post: "/payment/notify/{pay_channel=alipay_zft}/{notify_type=pay}" body: "alipay_pay_notify_msg"},
+        {post: "/payment/notify/{pay_channel=alipay_merchant}/{notify_type=pay}" body: "alipay_pay_notify_msg"},
+        {post: "/payment/notify/{pay_channel=wxpay_sft}/{notify_type=pay}" body: "wxpay_pay_notify_msg"},
+        {post: "/payment/notify/{pay_channel=wxpay_merchant}/{notify_type=pay}" body: "wxpay_pay_notify_msg"}
+      ]
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "支付通道通知"};
+    option (google.api.method_visibility).restriction = "INTERNAL";
+  }
+
+  // Pay 支付
+  rpc Pay(PayIn) returns (PayOut) {
+    option (google.api.http) = {post: "/payment/pay" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "支付"};
+  }
+
+  // PayQuery 支付查询
+  rpc PayQuery(PayQueryIn) returns (PayQueryOut) {
+    option (google.api.http) = {get: "/payment/payQuery"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "支付查询"};
+  }
+
+  // Refund 退款
+  rpc Refund(RefundIn) returns (RefundOut) {
+    option (google.api.http) = {post: "/payment/refund" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "退款"};
+  }
+
+  // RefundQuery 退款查询
+  rpc RefundQuery(RefundQueryIn) returns (RefundQueryOut) {
+    option (google.api.http) = {get: "/payment/refundQuery"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "退款查询"};
+  }
+
+  // AmtSettle 资金结算
+  rpc AmtSettle(AmtSettleIn) returns (AmtSettleOut) {
+    option (google.api.http) = {post: "/payment/amtSettle" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = { summary: "资金结算"};
+  }
+
+  // OrderSettle 订单结算
+  rpc OrderSettle(OrderSettleIn) returns (OrderSettleOut) {
+    option (google.api.http) = {post: "/payment/orderSettle" body: "*"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "订单结算"};
+  }
+
+  // OrderSettleQuery 订单结算查询
+  rpc OrderSettleQuery(OrderSettleQueryIn) returns (OrderSettleQueryOut) {
+    option (google.api.http) = {get: "/payment/orderSettleQuery"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "订单结算查询"};
+  }
+
+  // BillQuery 查询账单下载地址
+  rpc BillQuery(BillQueryIn) returns (BillQueryOut) {
+    option (google.api.http) = {get: "/payment/billQuery"};
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {summary: "查询账单下载地址"};
+  }
+}
+
+// --------------------
+
+// MerchantDetail 商户详情
+message MerchantDetail {
+  uint32 merchant_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户ID"}]; // 商户ID
+  // 2
+  uint32 user_id = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID"}]; // 用户ID
+  string pay_channel = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付平台标识, alipay_zft支付宝-直付通;alipay_merchant支付宝-商户直连;wxpay_sft微信支付-收付通;wxpay_merchant微信支付-商户直连"}]; // 支付平台标识, alipay_zft支付宝-直付通;alipay_merchant支付宝-商户直连;wxpay_sft微信支付-收付通;wxpay_merchant微信支付-商户直连
+  string merchant_no = 5 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 支付商户编号
+  string pay_merchant_no = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(支付通道)商户号,支付通道商户编号"}]; // (支付通道)商户号,支付通道商户编号
+  string merchant_name = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户名称"}]; // 商户名称
+  uint32 merchant_type = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户类型,1收单商户;2分账商户"}]; // 商户类型,1收单商户;2分账商户
+  string pay_apply_no = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(支付通道)商户进件申请单号(最近一次)"}]; // (支付通道)商户进件申请单号(最近一次)
+  // 10
+  // 11
+  // 12
+  // 14
+  string settle_data = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结算信息"}]; // 结算信息
+  uint32 fee_rate = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户费率, 单位万分之一"}]; // 商户费率, 单位万分之一
+  uint32 apply_at = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户认证申请时间"}]; // 商户认证申请时间
+  uint32 certify_at = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(支付通道)商户认证通知时间"}]; // (支付通道)商户认证通知时间
+  string certify_msg = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(支付通道)商户认证通知描述"}]; // (支付通道)商户认证通知描述
+  uint32 apply_status = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户进件状态,0待进件;1进件中;2进件成功;3进件失败"}]; // 商户进件状态,0待进件;1进件中;2进件成功;3进件失败
+  uint32 audit_status = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "审核状态, 0待审核;1审核通过;2审核拒绝"}]; // 审核状态, 0待审核;1审核通过;2审核拒绝
+  uint32 modified_at = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "最后修改时间"}]; // 最后修改时间
+  uint32 created_at = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "创建时间"}]; // 创建时间
+}
+
+// MerchantDetailIn 获取商户详情-请求消息
+message MerchantDetailIn {
+  uint32 merchant_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户ID,与商户编号互斥"}]; // 商户ID,与商户编号互斥
+  string merchant_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号,与商户ID互斥"}]; // 商户编号,与商户ID互斥
+}
+
+// MerchantDetailIn 获取商户详情-响应消息
+message MerchantDetailOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  MerchantDetail data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户详情"}]; // 商户详情
+}
+
+// MerchantDetailIn 获取商户列表-请求消息
+message MerchantListIn {
+  uint32 user_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID" format: "uint32"}]; // 用户ID
+  uint32 page = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "页码,默认值1" format: "uint32"}]; // 页码
+  uint32 page_size = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "每页显示数" format: "uint32"}]; // 每页显示数
+}
+
+// MerchantDetailIn 获取商户列表-响应消息
+message MerchantListOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 total = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结果总数"}]; // 结果总数
+    uint32 page_total = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "总页数"}]; // 总页数
+    repeated MerchantDetail list = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户列表"}]; // 商户列表
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// MerchantApplyIn 商户进件-请求消息
+message MerchantApplyIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, 枚举字段, 枚举: alipay_zft" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道
+  uint32 user_id = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户ID" format: "uint32"}]; // 用户ID
+  string merchant_no = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 商户编号
+  string notify_url = 5 [(google.api.field_visibility).restriction = "INTERNAL", (google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户进件通知地址"}]; // 商户进件通知地址
+
+  message MerchantApplyDataForAlipayZFT {
+    string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "进件的二级商户名称。一般情况下要与证件的名称相同。个体工商户类型可以放宽到法人名称"}]; // 进件的二级商户名称。一般情况下要与证件的名称相同。个体工商户类型可以放宽到法人名称
+    string alias_name = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户别名。支付宝账单中的商户名称会展示此处设置的别名,如果涉及支付宝APP内的支付,支付结果页也会展示该别名.如果涉及当面付场景,请填写线下店铺名称"}]; // 商户别名。支付宝账单中的商户名称会展示此处设置的别名,如果涉及支付宝APP内的支付,支付结果页也会展示该别名.如果涉及当面付场景,请填写线下店铺名称
+    string merchant_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户类型: 01: 企业; cert_type填写201(营业执照);cert_no填写营业执照号; 02:事业单位:cert_type填写218(事业单位法人证书);cert_no填写事业单位法人证书编号; 03:民办非企业组织:cert_type填写204(民办非企业登记证书);cert_no填写民办非企业登记证书编号; 04:社会团体:cert_type填写206(社会团体法人登记证书);cert_no填写社会团体法人登记证书编号; 05:党政及国家机关:cert_type填写219(党政机关批准设立文件/行政执法主体资格证);cert_no填写党政机关批准设立文件/行政执法主体资格证编号; 06:个人商户:cert_type填写100(个人身份证);cert_no填写个人身份证号码; 07:个体工商户:cert_type填写201(营业执照);cert_no填写营业执照编号;"}]; // 商户类型: 01: 企业; cert_type填写201(营业执照);cert_no填写营业执照号; 02:事业单位:cert_type填写218(事业单位法人证书);cert_no填写事业单位法人证书编号; 03:民办非企业组织:cert_type填写204(民办非企业登记证书);cert_no填写民办非企业登记证书编号; 04:社会团体:cert_type填写206(社会团体法人登记证书);cert_no填写社会团体法人登记证书编号; 05:党政及国家机关:cert_type填写219(党政机关批准设立文件/行政执法主体资格证);cert_no填写党政机关批准设立文件/行政执法主体资格证编号; 06:个人商户:cert_type填写100(个人身份证);cert_no填写个人身份证号码; 07:个体工商户:cert_type填写201(营业执照);cert_no填写营业执照编号;
+    string mcc = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户类别码mcc,参见https://gw.alipayobjects.com/os/bmw-prod/b28421ce-0ddf-422f-9e9c-c2c3c7f30c73.xlsx 特殊行业要按照MCC说明中的资质一栏上传辅助资质,辅助资质要在qualifications中上传,会有人工审核。"}]; // 商户类别码mcc,参见https://gw.alipayobjects.com/os/bmw-prod/b28421ce-0ddf-422f-9e9c-c2c3c7f30c73.xlsx 特殊行业要按照MCC说明中的资质一栏上传辅助资质,辅助资质要在qualifications中上传,会有人工审核。
+    string external_id = 5 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号,由机构定义,需要保证在机构下唯一。与smid二选一必填"}]; // 商户编号,由机构定义,需要保证在机构下唯一。与smid二选一必填
+
+    message DefaultSettleRule {
+      string default_settle_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "默认结算类型,可选值有bankCard/alipayAccount。bankCard表示结算到银行卡;alipayAccount表示结算到支付宝账号"}]; // 默认结算类型,可选值有bankCard/alipayAccount。bankCard表示结算到银行卡;alipayAccount表示结算到支付宝账号
+      string default_settle_target = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "默认结算目标。当默认结算类型为bankCard时填写银行卡卡号,其值需在进件填写的结算银行卡范围内;当默认结算类型为alipayAccount时填写支付宝账号登录号,其值需在进件填写的结算支付宝账号范围内。"}]; // 默认结算目标。当默认结算类型为bankCard时填写银行卡卡号,其值需在进件填写的结算银行卡范围内;当默认结算类型为alipayAccount时填写支付宝账号登录号,其值需在进件填写的结算支付宝账号范围内。
+    }
+    DefaultSettleRule default_settle_rule = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "默认结算规则。当调用收单接口,结算条款中设置默认结算规则时,交易资金将结算至此处设置的默认结算目标账户中。其详细描述及收单接口传参示例参考功能包文档"}]; // 默认结算规则。当调用收单接口,结算条款中设置默认结算规则时,交易资金将结算至此处设置的默认结算目标账户中。其详细描述及收单接口传参示例参考功能包文档
+
+    string alipay_logon_id = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结算支付宝账号,结算账号使用支付宝账号时必填.本字段要求与商户名称name同名,且是实名认证支付宝账户(个体工商户可以与name或cert_name相同)"}]; // 结算支付宝账号,结算账号使用支付宝账号时必填.本字段要求与商户名称name同名,且是实名认证支付宝账户(个体工商户可以与name或cert_name相同)
+    string binding_alipay_logon_id = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "签约支付宝账户,用于协议确认,及后续二级商户增值产品服务签约时使用。本字段要求与商户名称name同名(个体工商户可以与name或cert_name相同),且是实名认证支付宝账户"}]; // 签约支付宝账户,用于协议确认,及后续二级商户增值产品服务签约时使用。本字段要求与商户名称name同名(个体工商户可以与name或cert_name相同),且是实名认证支付宝账户
+
+    message ContactInfo {
+      string name = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "联系人名字"}]; // 联系人名字
+      string phone = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "电话"}]; // 电话
+      string mobile = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "手机号。必填与否参见外层对象描述,无特别说明认为是非必填"}]; // 手机号。必填与否参见外层对象描述,无特别说明认为是非必填
+      string email = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "电子邮箱"}]; // 电子邮箱
+      string id_card_no = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "身份证号"}]; // 身份证号
+    }
+    ContactInfo contact_infos = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户联系人信息。在本业务中,ContactInfo对象中联系人姓名、手机号必填,其他选填"}]; // 商户联系人信息。在本业务中,ContactInfo对象中联系人姓名、手机号必填,其他选填
+
+    message SiteInfo {
+      string site_type = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "网站:01 APP:02 服务窗:03 公众号:04 其他:05 支付宝小程序:06"}]; // 网站:01 APP:02 服务窗:03 公众号:04 其他:05 支付宝小程序:06
+      string site_url = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "站点地址"}]; // 站点地址
+      string site_name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "站点名称"}]; // 站点名称
+      string account = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "测试账号"}]; // 测试账号
+      string password = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "测试密码"}]; // 测试密码
+    }
+    repeated SiteInfo sites = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户站点信息,包括网站、app、小程序。商户使用服务包含电脑支付或wap支付时,必须填充一个类型为01(网站)的SiteInfo对象,site_type/site_url/site_name必填;当包含app支付时,必须至少填充类型为02(APP)或06(支付宝小程序)中一种类型的SiteInfo对象,site_type/site_name必填"}]; // 商户站点信息,包括网站、app、小程序。商户使用服务包含电脑支付或wap支付时,必须填充一个类型为01(网站)的SiteInfo对象,site_type/site_url/site_name必填;当包含app支付时,必须至少填充类型为02(APP)或06(支付宝小程序)中一种类型的SiteInfo对象,site_type/site_name必填
+
+    repeated string service = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户使用服务,可选值有:当面付、app支付、wap支付、电脑支付、线上资金预授权、新当面资金授权、商户代扣、小程序支付。其值会影响其他字段必填性,详见其他字段描述"}]; // 商户使用服务,可选值有:当面付、app支付、wap支付、电脑支付、线上资金预授权、新当面资金授权、商户代扣、小程序支付。其值会影响其他字段必填性,详见其他字段描述
+
+    message AddressInfo {
+      string province_code = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "省份编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。"}]; // 省份编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。
+      string city_code = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "城市编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。"}]; // 城市编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。
+      string district_code = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "区县编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。"}]; // 区县编码。请按照https://gw.alipayobjects.com/os/basement_prod/253c4dcb-b8a4-4a1e-8be2-79e191a9b6db.xlsx 表格中内容填写。
+      string address = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "地址。商户详细经营地址或人员所在地点"}];
+    }
+    AddressInfo business_address = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "经营地址。当使用当面付服务时,本字段要求必填。地址对象中省、市、区、地址必填,其余选填"}]; // 经营地址。当使用当面付服务时,本字段要求必填。地址对象中省、市、区、地址必填,其余选填
+  }
+  MerchantApplyDataForAlipayZFT alipay_apply_data = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道商户申请数据, 支付渠道为`支付宝-直付通`必选"}]; // (支付宝直付通)支付通道商户申请数据, 支付渠道为`支付宝-直付通`必选
+
+  // 微信支付-收付通: 商户进件信息
+  message MerchantApplyDataForWxpaySFT {
+    string value = 1;
+  }
+  MerchantApplyDataForWxpaySFT wxpay_reg_data = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(微信支付收付通)支付通道商户申请数据"}]; // (微信支付收付通)支付通道商户申请数据
+
+  bool skip_user_checking = 50 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(内部参数)是否略过用户数据检测"}];
+}
+
+// MerchantApplyQueryIn 商户进件-请求消息
+message MerchantApplyOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string reg_apply_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户进件申请单号"}]; // 商户进件单号
+    string merchant_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 商户编号
+    bool result = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "业务操作结果"}]; // 业务操作结果
+    string error = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "业务操作错误"}]; // 业务操作结果
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// MerchantApplyQueryIn 商户进件查询-请求消息
+message MerchantApplyQueryIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {in:["alipay_zft", "alipay_merchant"]}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, 枚举字段, 枚举: alipay_zft" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道
+  string reg_apply_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户进件申请单号, 与`商户编号`互斥"}]; // 商户进件申请单号, 与`商户编号`互斥
+  string merchant_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号, 与`商户进件申请单号`互斥"}]; // 商户编号, 与`商户进件申请单号`互斥
+}
+
+// MerchantApplyQueryOut 商户进件查询-响应消息
+message MerchantApplyQueryOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string reg_apply_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户进件申请单号"}]; // 商户进件申请单号
+    string merchant_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 商户编号
+    uint32 apply_status = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户进件状态,0待进件;1进件中;2进件成功;3进件失败" enum:["0","1","2","3"] format:"uint32"}]; // 商户进件状态, 0待进件;1进件中;2进件成功;3进件失败
+    google.protobuf.Value pay_resp = 99 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// NotifyIn 支付通知-请求消息
+message NotifyIn {
+  option (google.api.message_visibility).restriction = "INTERNAL";
+
+  string pay_channel = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+  string notify_type = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知类型"}]; // 通知类型
+
+  message AlipayMerchantApplyNotifyMsg {
+    string app_id = 1;
+    string charset = 2;
+    string sign_type = 3;
+    string sign = 4;
+    string version = 5;
+    string biz_content = 6;
+    string notify_id = 7;
+    string utc_timestamp = 8;
+    string msg_method = 9;
+    string msg_type = 10;
+    string msg_uid = 11;
+    string msg_app_id = 12;
+    string encrypt_type = 13;
+    string notify_type = 14;
+    string notify_time = 15;
+    string auth_app_id = 16;
+  }
+  AlipayMerchantApplyNotifyMsg alipay_merchant_apply_notify_msg = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付宝-直付通: 商户进件通知消息"}]; // 支付宝-直付通: 商户进件通知消息
+
+  message AlipayPayNotifyMsg {
+    string app_id = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付宝分配给开发者的应用ID。"}]; // 支付宝分配给开发者的应用ID。
+    string charset = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编码格式,如 utf-8、gbk、gb2312 等。号"}]; // 编码格式,如 utf-8、gbk、gb2312 等。
+    string sign_type = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商家生成签名字符串所使用的签名算法类型,目前支持 RSA2 和 RSA,推荐使用 RSA2。"}]; // 商家生成签名字符串所使用的签名算法类型,目前支持 RSA2 和 RSA,推荐使用 RSA2。
+    string sign = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "签名"}]; // 签名
+    string version = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "调用的接口版本,固定为:1.0。"}]; // 调用的接口版本,固定为:1.0。
+    string notify_time = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知的发送时间。格式为 yyyy-MM-dd HH:mm:ss。"}]; // 通知的发送时间。格式为 yyyy-MM-dd HH:mm:ss。
+    string notify_type = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知的类型"}]; // 通知的类型
+    string notify_id = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "通知校验ID。"}]; // 通知校验ID。
+    string trade_no = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付宝交易凭证号。"}]; // 支付宝交易凭证号。
+    string out_trade_no = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "原支付请求的商户订单号。"}]; // 原支付请求的商户订单号。
+    string out_biz_no = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户业务ID,主要是退款通知中返回退款申请的流水号。"}]; // 商户业务ID,主要是退款通知中返回退款申请的流水号。
+    string buyer_id = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "买家支付宝账号对应的支付宝唯一用户号。以 2088 开头的纯 16 位数字。"}]; // 买家支付宝账号对应的支付宝唯一用户号。以 2088 开头的纯 16 位数字。
+    string buyer_logon_id = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "买家支付宝账号。"}]; // 买家支付宝账号。
+    string seller_id = 14 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "卖家支付宝用户号。"}]; // 卖家支付宝用户号。
+    string seller_email = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "卖家支付宝账号。"}]; // 卖家支付宝账号。
+    string trade_status = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易目前所处的状态。"}]; // 交易目前所处的状态。
+    string total_amount = 17 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "本次交易支付的订单金额,单位为人民币(元)。"}]; // 本次交易支付的订单金额,单位为人民币(元)。
+    string receipt_amount = 18 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商家在收益中实际收到的款项,单位人民币(元)。"}]; // 商家在收益中实际收到的款项,单位人民币(元)。
+    string invoice_amount = 19 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户在交易中支付的可开发票的金额。"}]; // 用户在交易中支付的可开发票的金额。
+    string buyer_pay_amount = 20 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "用户在交易中支付的金额。"}]; // 用户在交易中支付的金额。
+    string point_amount = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "使用集分宝支付的金额。"}]; // 使用集分宝支付的金额。
+    string refund_fee = 22 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款通知中,返回总退款金额,单位为人民币(元),支持两位小数。"}]; // 退款通知中,返回总退款金额,单位为人民币(元),支持两位小数。
+    string subject = 23 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商品的标题/交易标题/订单标题/订单关键字等,是请求时对应的参数,原样通知回来。"}]; // 商品的标题/交易标题/订单标题/订单关键字等,是请求时对应的参数,原样通知回来。
+    string body = 24 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单的备注、描述、明细等。对应请求时的 body 参数,原样通知回来。"}]; // 订单的备注、描述、明细等。对应请求时的 body 参数,原样通知回来。
+    string gmt_create = 25 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "该笔交易创建的时间。格式为 yyyy-MM-dd HH:mm:ss。"}]; // 该笔交易创建的时间。格式为 yyyy-MM-dd HH:mm:ss。
+    string gmt_payment = 26 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "该笔交易的买家付款时间。格式为 yyyy-MM-dd HH:mm:ss。"}]; // 该笔交易的买家付款时间。格式为 yyyy-MM-dd HH:mm:ss。
+    string gmt_refund = 27 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "该笔交易的退款时间。格式 yyyy-MM-dd HH:mm:ss.S。"}]; // 该笔交易的退款时间。格式 yyyy-MM-dd HH:mm:ss.S。
+    string gmt_close = 28 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "该笔交易结束时间。格式为 yyyy-MM-dd HH:mm:ss。"}]; // 该笔交易结束时间。格式为 yyyy-MM-dd HH:mm:ss。
+    string fund_bill_list = 29 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付成功的各个渠道金额信息"}]; // 支付成功的各个渠道金额信息
+    string passback_params = 30 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "公共回传参数,如果请求时传递了该参数,则返回给商家时会在异步通知时将该参数原样返回。本参数必须进行 UrlEncode 之后才可以发送给支付宝。"}]; // 公共回传参数,如果请求时传递了该参数,则返回给商家时会在异步通知时将该参数原样返回。本参数必须进行 UrlEncode 之后才可以发送给支付宝。
+    string voucher_detail_list = 31 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "本交易支付时所有优惠券信息"}]; // 本交易支付时所有优惠券信息
+    string auth_app_id = 32 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户号"}]; // 开发者的 app_id，在服务商调用的场景下为授权方的 app_id。
+  }
+  AlipayPayNotifyMsg alipay_pay_notify_msg = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付宝-直付通/商户直连: 支付通知消息"}]; // 支付宝-直付通/商户直连: 支付通知消息
+
+  message WxpayMerchantApplyNotifyMsg {
+    string value = 1;
+  }
+  WxpayMerchantApplyNotifyMsg wxpay_merchant_apply_notify_msg = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "微信支付-收付通: 商户进件通知消息"}]; // 微信支付-收付通: 商户进件通知消息
+
+  message WxpayPayNotifyMsg {
+    string value = 1;
+  }
+  WxpayPayNotifyMsg wxpay_pay_notify_msg = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "微信支付-收付通: 支付通知消息"}]; // 微信支付-收付通: 支付通知消息
+}
+
+// PayIn 支付-请求消息
+message PayIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道
+  string pay_scene = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付场景, H5:手机H5支付;APP:APP支付;PC:电脑支付" enum: ["H5", "APP", "PC"]}]; // 支付场景
+  string merchant_no = 5 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户号"}]; // 商户号
+  string out_trade_no = 6 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+  uint32 total_amount = 7 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单总金额,单位元, eg: 0.01; 1.23" format: "decimal"}]; // 订单总金额,单位分, eg: 1; 123
+  string subject = 8 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单标题"}]; // 订单标题
+  string body = 9 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单附加信息"}]; // 订单附加信息
+  string notify_url = 10 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "应用回调通知地址" format: "url"}]; // 应用回调通知地址
+  uint32 profit_sharing = 11 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否分账订单, 0非分账订单;1分账订单" default: "0" enum: ["0", "1"] format: "uint32"}]; // 是否分账订单, 0非分账订单; 1分账订单
+  string quit_url = 12 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退出支付返回地址, 支付通道支付宝/[支付场景H5｜支付场景PC]必选"}]; // (支付宝/H5必选) 退出支付返回地址
+  string return_url = 13 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付完成返回地址, 支付通道支付宝/[支付场景H5｜支付场景PC]必选"}]; // (支付宝/H5必选) 支付完成返回地址
+  string extra = 14 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回传参数"}]; // 回传参数
+  string time_expire = 15 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单绝对超时时间,格式:5080-12-13 15:36:19"}]; // 订单绝对超时时间,格式: 5080-12-13 15:36:19
+}
+
+// 微信支付-JSAPI支付-微信支付调起参数
+message WxpayParamsJSAPI {
+  string app_id = 1; // 商户申请的公众号对应的appid
+  string timestamp = 2; // 时间戳
+  string nonce_str = 3; // 随机字符串，不长于32位
+  string package = 4; // JSAPI下单接口返回的prepay_id参数值
+  string sign_type = 5; // 签名类型
+  string pay_sign = 6; // 签名
+}
+
+// 微信支付-APP支付-微信支付调起参数
+message WxpayParamsAPP {
+  string prepay_id = 1; // 微信返回的支付交易会话ID
+  string partner_id = 2; // 商户号mchid对应的值
+  string timestamp = 3; // 时间戳
+  string nonce_str = 4; // 随机字符串，不长于32位
+  string package = 5; // JSAPI下单接口返回的prepay_id参数值
+  string sign = 6; // 签名
+}
+
+// PayOut 支付-响应消息
+message PayOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string merchant_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户编号"}]; // 商户编号
+    string pay_channel = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+    string pay_scene = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付场景"}]; // 支付场景
+    string out_trade_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    string trade_no = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    oneof payload {
+      string h5_url = 10 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道/支付场景=(alipay_zft|alipay_merchant|wxpay_merchant|wxpay_sft)/H5:H5支付地址"}]; // 支付通道/支付场景=(alipay_zft|alipay_merchant|wxpay_merchant|wxpay_sft)/H5:H5支付地址
+      string sdk = 11 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道/支付场景=alipay_zft/APP:调起SDK字符串"}]; // 支付通道/支付场景=alipay_zft/APP:调起SDK字符串
+      string pc_url = 12 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道/支付场景=alipay_zft/PC:电脑支付地址"}]; // 支付通道/支付场景=alipay_zft/PC:电脑支付地址
+      WxpayParamsJSAPI wxpay_params_jsapi = 13 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "微信支付:JSAPI支付:微信支付调起参数"}]; // 微信支付:JSAPI支付:微信支付调起参数
+      WxpayParamsAPP wxpay_params_app = 15 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "微信支付:APP支付:微信支付调起参数"}]; // 微信支付:APP支付:微信支付调起参数
+      string wxpay_code_url = 16 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "微信支付:PC支付:此URL用于生成支付二维码,然后提供给用户扫码支付."}]; // 微信支付:PC支付:此URL用于生成支付二维码，然后提供给用户扫码支付。
+    }
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// 支付查询-请求消息
+message PayQueryIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+  string merchant_no = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户号"}]; // 商户号
+  string out_trade_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+  string trade_no = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+}
+
+// 支付查询-响应消息
+message PayQueryOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string trade_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    string out_trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    string pay_channel = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+    string pay_scene = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付场景"}]; // 支付场景
+    uint32 total_amount = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单总金额, 单位:分"}]; // 订单总金额, 单位:分
+    string subject = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单标题"}]; // 订单标题
+    string body = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单附加信息"}]; // 订单附加信息
+    string extra = 8 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "自定义参数"}]; // 自定义参数
+    uint32 pay_status = 9 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付状态"}]; // 支付状态
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// RefundIn 退款-请求消息
+message RefundIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道
+  string merchant_no = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户号"}]; // 商户号
+  string out_trade_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+  uint32 refund_amount = 5 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款金额,单位分, eg: 1; 123" format: "decimal"}]; // 退款金额,单位分, eg: 1; 123
+  string refund_reason = 6 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款原因"}]; // 退款原因
+  string notify_url = 7 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款结果通知地址"}]; // 退款结果通知地址
+}
+
+// RefundOut 退款-响应消息
+message RefundOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    bool result = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "业务操作结果,true业务操作成功,false业务员操作失败"}]; // 业务操作结果,true业务操作成功,false业务员操作失败
+    string request_no = 2 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款请求号(业务操作成功时)"}]; // 退款请求号(业务操作成功时)
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// RefundQueryIn 退款查询-请求消息
+message RefundQueryIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连
+  string request_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款请求号(业务操作成功时)"}]; // 退款请求号(业务操作成功时)
+}
+
+// RefundQueryOut 退款查询-响应消息
+message RefundQueryOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string trade_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    string out_trade_no = 2 [(google.api.field_behavior) = OPTIONAL, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    uint32 refund_amount = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款金额,单位分, eg: 1; 123" format: "decimal"}]; // 退款金额,单位分, eg: 1; 123
+    string refund_reason = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款原因"}]; // 退款原因
+    uint32 refund_status = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "退款状态, 0未退款;1部分退款中;2部分退款成功;3部分退款失败;4全额退款中;5全额退款成功;6全额退款失败"}]; // 退款状态, 0未退款;1部分退款中;2部分退款成功;3部分退款失败;4全额退款中;5全额退款成功;6全额退款失败
+    google.protobuf.Value pay_resp = 99 [
+      (google.api.field_visibility).restriction = "INTERNAL",
+      (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}
+    ]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// AmtSettleIn 资金结算-请求消息
+message AmtSettleIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连
+  string out_trade_no = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+  uint32 amount = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "结算金额, 指定的结算金额"}]; // (optional) 结算金额, 指定的结算金额
+  message ExtraParams {
+    bool amt_freeze = 1; // 是否进行资金冻结
+  }
+  ExtraParams extra_params = 6; // (optional) 拓展参数
+}
+
+// AmtSettleOut 资金结算-响应消息
+message AmtSettleOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string pay_channel = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+    string trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    string out_trade_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    string request_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "确认结算请求流水号"}]; // 确认结算请求流水号
+    uint32 settle_amount = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "本次实际结算金额"}]; // 本次实际结算金额
+    bool result = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金结算操作结果, true操作成功;false操作失败"}]; // 资金结算操作结果, true操作成功;false操作失败
+    int32 signal = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "资金结算标记, -1资金结算失败;0资金结算之前已操作成功;1本次资金结算操作执行成功"}]; // 资金结算标记, -1资金结算失败;0资金结算之前已操作成功;1本次资金结算操作执行成功
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// TransferInfo 分账方信息
+message TransferInfo {
+  string merchant_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户号"}]; // 商户号
+  string account = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分账方账号"}]; // 分账方账号
+  string name = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分账方名称"}]; // 分账方名称
+  oneof value {
+    double rate = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分账比例,值的范围(0.00, 100],精度0.01,仅对分账类型:按比例分账(rate)"}]; // 分账比例,值的范围(0.00, 100],精度0.01,仅对分账类型:按比例分账(rate)
+    double amount = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分账金额,仅对分账类型:按金额分账(amt)"}]; // 分账金额,仅对分账类型:按金额分账(amt)
+  }
+  string desc = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "分账描述"}]; // 分账描述
+}
+
+// OrderSettleIn 订单结算-请求消息
+message OrderSettleIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2;     // 支付通道
+  string out_trade_no = 4;    // 商户订单号
+  message SettlementParams {
+    string type = 1;                // 分账类型, rate按比例分账;amt按金额分账
+    repeated TransferInfo list = 2; // 分账接收方
+  }
+  SettlementParams settlement_params = 5; // 分账参数
+}
+
+// OrderSettleOut 订单结算-响应消息
+message OrderSettleOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string pay_channel = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连" enum: ["alipay_zft", "alipay_merchant"]}]; // 支付通道, alipay_zft:支付宝-直付通, alipay_merchant:支付宝-商户直连
+    string merchant_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户号"}]; // 商户号
+    string trade_no = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    string out_trade_no = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    bool result = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单结算业务操作结果"}]; // 订单结算业务操作结果
+    google.protobuf.Value pay_resp_for_amt = 90;    // 支付通道响应数据
+    google.protobuf.Value pay_resp_for_bind = 91;   // 支付通道响应数据
+    google.protobuf.Value pay_resp_for_settle = 92; // 支付通道响应数据
+    google.protobuf.Value pay_resp_for_unbind = 93; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// OrderSettleQueryIn 订单查询-请求消息
+message OrderSettleQueryIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string out_request_no = 2 [(validate.rules).string = {min_len:1}]; // 订单结算请求号
+}
+
+// OrderSettleQueryOut 订单查询-响应消息
+message OrderSettleQueryOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string trade_no = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单号"}]; // 订单号
+    string out_trade_no = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "商户订单号"}]; // 商户订单号
+    string pay_channel = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+    int32 SettleStatus = 4 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "订单结算状态"}]; // 订单结算状态
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+// BillQueryIn 账单查询-请求消息
+message BillQueryIn {
+  bool opt_channel = 1 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "(技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false", default: "false"}]; // (技术支持专用)是否显示支付通道响应结果, true请求支付通道; false不请求支付通道, 默认值false
+  string pay_channel = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道"}]; // 支付通道
+  string date = 3 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账单日期 0000-00-00"}];// 账单日期 0000-00-00
+}
+
+// BillQueryOut 账单查询-响应消息
+message BillQueryOut {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    string url = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "账单下载地址"}]; // 账单下载地址
+    google.protobuf.Value pay_resp = 99 [(google.api.field_visibility).restriction = "INTERNAL", (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "支付通道响应数据" default: "null"}]; // 支付通道响应数据
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}

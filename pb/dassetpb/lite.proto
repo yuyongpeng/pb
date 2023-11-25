@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package daop.pb.dassetpb;
+option go_package = "pb/dassetpb;dassetpb";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "google/protobuf/struct.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "protoc-gen-openapiv2/options/openapiv2.proto";
+import "validate/validate.proto";
+
+message CombinationInfo {
+  string name = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品名称"}]; // 藏品名称
+  uint32 price = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品价格"}]; // 藏品价格
+  string token_url = 4 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "访问藏品内容对应的url"}]; // 访问藏品内容对应的url
+  uint32 authorization_id = 5 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "授权ID"}]; // 授权ID,可选
+  uint32 to_uid = 6 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "受让人用户ID,可选"}]; // 受让人用户ID,可选. 指定受让人用户ID,则需要将此藏品转让给受让人用户
+  bool check_in = 7 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "是否CheckIn,可选"}]; // 是否CheckIn,可选. CheckIn为true时,则需要将此藏品CheckIn
+}
+
+message CombinationReq {
+  CombinationInfo data = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链数据"}]; // 上链数据  
+  string notify_url = 20 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {uri:true}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调通知地址"}]; // 回调通知地址
+  string notify_opts = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}]; // 上链回调(json)扩展信息
+}
+
+message CombinationReqNew {
+  uint32 user_id = 6 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权用户ID"}]; // 所有权用户ID
+  CombinationInfo data = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链数据"}]; // 上链数据  
+  string notify_url = 20 [(google.api.field_behavior) = REQUIRED, (validate.rules).string = {uri:true}, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调通知地址"}]; // 回调通知地址
+  string notify_opts = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}]; // 上链回调(json)扩展信息
+}
+
+message CombinationResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+    uint32 transaction_id = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "交易id"}]; // 交易ID
+    string token_id = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品tokenID,链上存储的藏品NFT唯一标识"}]; // 藏品tokenID,链上存储的藏品NFT唯一标识
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+message LockReq {
+  uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+  string notify_url = 20 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调通知地址"}]; // 回调通知地址
+  string notify_opts = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}]; // 上链回调(json)扩展信息
+}
+
+message LockReqNew {
+  uint32 user_id = 6 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权用户ID"}]; // 所有权用户ID
+  uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+  string notify_url = 20 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调通知地址"}]; // 回调通知地址
+  string notify_opts = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}]; // 上链回调(json)扩展信息
+}
+
+message LockResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
+
+message UnlockReq {
+  uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+  string notify_url = 20 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调通知地址"}]; // 回调通知地址
+  string notify_opts = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}]; // 上链回调(json)扩展信息
+}
+
+message UnlockReqNew {
+  uint32 user_id = 6 [(google.api.field_behavior) = REQUIRED, (validate.rules).uint32.gt = 0, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "所有权用户ID"}]; // 所有权用户ID
+  uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+  string notify_url = 20 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "回调通知地址"}]; // 回调通知地址
+  string notify_opts = 21 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "上链回调(json)扩展信息"}]; // 上链回调(json)扩展信息
+}
+
+message UnlockResp {
+  uint32 code = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误代码,0表示业务成功,否则表示错误", format: "无符型整数"}]; // 错误代码,0表示业务成功,否则表示错误
+  string msg = 2 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "错误信息"}]; // 错误信息
+  message Data {
+    uint32 collection_id = 1 [(google.api.field_behavior) = REQUIRED, (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "藏品id"}]; // 藏品ID
+  }
+  Data data = 3 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {description: "响应数据"}]; // 响应数据
+}
